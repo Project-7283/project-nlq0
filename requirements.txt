@@ -1,0 +1,10 @@
+langgraph
+langchain
+openai
+streamlit
+mysql-connector-python
+langchain
+pydantic
+python-dotenv
+ollama
+chromadb
