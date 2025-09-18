@@ -1,7 +1,7 @@
 import os
 from typing import Dict, Any, Optional, Tuple
 from src.modules.semantic_graph import SemanticGraph
-from src.services.inference import GeminiService
+from src.services.inference import GeminiService, ModelInferenceService
 
 class NLQIntentAnalyzer:
     """
@@ -10,7 +10,7 @@ class NLQIntentAnalyzer:
     """
 
     def __init__(self, gemini_api_key: Optional[str] = None):
-        self.gemini = GeminiService(api_key=gemini_api_key)
+        self.gemini = GeminiService()
 
     def analyze_intent(self, user_query: str, graph: SemanticGraph) -> Optional[Dict[str, Any]]:
         """
@@ -23,18 +23,24 @@ class NLQIntentAnalyzer:
         """
         # Prepare a schema for Gemini's structured output
         schema = {
-            "start_node": {
-                "type": "string",
-                "description": "The node in the schema graph where the search should start."
+            "type": "object",
+            "properties": {
+                "start_node": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                    "description": "The list of nodes in the schema graph where the search should start. Multiple nodes may be specified."
+                },
+                "end_node": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                    "description": "The list of nodes in the schema graph where the search should end. Multiple nodes may be specified."
+                },
+                "condition": {
+                    "type": "string",
+                    "description": "The condition or relationship to filter edges (can be empty if not specified)."
+                }
             },
-            "end_node": {
-                "type": "string",
-                "description": "The node in the schema graph where the search should end."
-            },
-            "condition": {
-                "type": "string",
-                "description": "The condition or relationship to filter edges (can be empty if not specified)."
-            }
+            "required": ["start_node", "end_node", "condition"]
         }
 
         # Optionally, provide node names/types as context for Gemini
@@ -50,6 +56,11 @@ class NLQIntentAnalyzer:
 
         # Call Gemini for structured output
         result = self.gemini.get_structured_output(content, schema)
+        # result = {
+        #     'start_node': 'users',
+        #     'end_node': 'orders',
+        #     'condition': 'some'
+        # }
 
         # Basic validation
         if (

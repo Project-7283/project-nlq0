@@ -1,0 +1,4216 @@
+{
+  "graph": {
+    "addresses.address_id": {
+      "addresses": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "addresses": {
+      "addresses.address_id": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "addresses.user_id": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "addresses.address_type": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "addresses.full_name": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "addresses.phone": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "addresses.address_line1": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "addresses.address_line2": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "addresses.landmark": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "addresses.city": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "addresses.state": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "addresses.pincode": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "addresses.is_default": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "addresses.created_at": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "users": {
+        "weight": 0.2,
+        "condition": "foreign_key",
+        "properties": {
+          "source_attribute": "addresses.user_id",
+          "destination_attribute": "users.user_id"
+        }
+      },
+      "orders": {
+        "weight": 0.2,
+        "condition": "foreign_key",
+        "properties": {
+          "source_attribute": "orders.shipping_address_id",
+          "destination_attribute": "addresses.address_id"
+        }
+      }
+    },
+    "addresses.user_id": {
+      "addresses": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "addresses.address_type": {
+      "addresses": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "addresses.full_name": {
+      "addresses": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "addresses.phone": {
+      "addresses": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "addresses.address_line1": {
+      "addresses": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "addresses.address_line2": {
+      "addresses": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "addresses.landmark": {
+      "addresses": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "addresses.city": {
+      "addresses": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "addresses.state": {
+      "addresses": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "addresses.pincode": {
+      "addresses": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "addresses.is_default": {
+      "addresses": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "addresses.created_at": {
+      "addresses": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "cart.cart_id": {
+      "cart": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "cart": {
+      "cart.cart_id": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "cart.user_id": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "cart.product_id": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "cart.quantity": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "cart.added_at": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "users": {
+        "weight": 0.2,
+        "condition": "foreign_key",
+        "properties": {
+          "source_attribute": "cart.user_id",
+          "destination_attribute": "users.user_id"
+        }
+      },
+      "products": {
+        "weight": 0.2,
+        "condition": "foreign_key",
+        "properties": {
+          "source_attribute": "cart.product_id",
+          "destination_attribute": "products.product_id"
+        }
+      }
+    },
+    "cart.user_id": {
+      "cart": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "cart.product_id": {
+      "cart": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "cart.quantity": {
+      "cart": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "cart.added_at": {
+      "cart": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "categories.category_id": {
+      "categories": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "categories": {
+      "categories.category_id": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "categories.category_name": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "categories.parent_category_id": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "categories.description": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "categories.image_url": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "categories.is_active": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "categories.created_at": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "categories": {
+        "weight": 0.2,
+        "condition": "foreign_key",
+        "properties": {
+          "source_attribute": "categories.parent_category_id",
+          "destination_attribute": "categories.category_id"
+        }
+      },
+      "products": {
+        "weight": 0.2,
+        "condition": "foreign_key",
+        "properties": {
+          "source_attribute": "products.category_id",
+          "destination_attribute": "categories.category_id"
+        }
+      }
+    },
+    "categories.category_name": {
+      "categories": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "categories.parent_category_id": {
+      "categories": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "categories.description": {
+      "categories": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "categories.image_url": {
+      "categories": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "categories.is_active": {
+      "categories": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "categories.created_at": {
+      "categories": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "coupons.coupon_id": {
+      "coupons": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "coupons": {
+      "coupons.coupon_id": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "coupons.coupon_code": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "coupons.coupon_name": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "coupons.description": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "coupons.discount_type": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "coupons.discount_value": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "coupons.minimum_order_amount": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "coupons.maximum_discount_amount": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "coupons.usage_limit": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "coupons.used_count": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "coupons.valid_from": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "coupons.valid_until": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "coupons.is_active": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "coupons.created_at": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "user_coupons": {
+        "weight": 0.2,
+        "condition": "foreign_key",
+        "properties": {
+          "source_attribute": "user_coupons.coupon_id",
+          "destination_attribute": "coupons.coupon_id"
+        }
+      }
+    },
+    "coupons.coupon_code": {
+      "coupons": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "coupons.coupon_name": {
+      "coupons": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "coupons.description": {
+      "coupons": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "coupons.discount_type": {
+      "coupons": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "coupons.discount_value": {
+      "coupons": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "coupons.minimum_order_amount": {
+      "coupons": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "coupons.maximum_discount_amount": {
+      "coupons": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "coupons.usage_limit": {
+      "coupons": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "coupons.used_count": {
+      "coupons": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "coupons.valid_from": {
+      "coupons": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "coupons.valid_until": {
+      "coupons": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "coupons.is_active": {
+      "coupons": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "coupons.created_at": {
+      "coupons": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "order_items.order_item_id": {
+      "order_items": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "order_items": {
+      "order_items.order_item_id": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "order_items.order_id": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "order_items.product_id": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "order_items.seller_id": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "order_items.quantity": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "order_items.unit_price": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "order_items.total_price": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "order_items.discount_applied": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "order_items.item_status": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "order_items.tracking_number": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "orders": {
+        "weight": 0.2,
+        "condition": "foreign_key",
+        "properties": {
+          "source_attribute": "order_items.order_id",
+          "destination_attribute": "orders.order_id"
+        }
+      },
+      "products": {
+        "weight": 0.2,
+        "condition": "foreign_key",
+        "properties": {
+          "source_attribute": "order_items.product_id",
+          "destination_attribute": "products.product_id"
+        }
+      },
+      "sellers": {
+        "weight": 0.2,
+        "condition": "foreign_key",
+        "properties": {
+          "source_attribute": "order_items.seller_id",
+          "destination_attribute": "sellers.seller_id"
+        }
+      }
+    },
+    "order_items.order_id": {
+      "order_items": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "order_items.product_id": {
+      "order_items": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "order_items.seller_id": {
+      "order_items": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "order_items.quantity": {
+      "order_items": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "order_items.unit_price": {
+      "order_items": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "order_items.total_price": {
+      "order_items": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "order_items.discount_applied": {
+      "order_items": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "order_items.item_status": {
+      "order_items": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "order_items.tracking_number": {
+      "order_items": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "orders.order_id": {
+      "orders": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "orders": {
+      "orders.order_id": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "orders.user_id": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "orders.order_number": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "orders.order_date": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "orders.total_amount": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "orders.discount_amount": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "orders.tax_amount": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "orders.shipping_amount": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "orders.final_amount": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "orders.payment_method": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "orders.payment_status": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "orders.order_status": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "orders.shipping_address_id": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "orders.estimated_delivery_date": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "orders.actual_delivery_date": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "orders.created_at": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "orders.updated_at": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "users": {
+        "weight": 0.2,
+        "condition": "foreign_key",
+        "properties": {
+          "source_attribute": "orders.user_id",
+          "destination_attribute": "users.user_id"
+        }
+      },
+      "addresses": {
+        "weight": 0.2,
+        "condition": "foreign_key",
+        "properties": {
+          "source_attribute": "orders.shipping_address_id",
+          "destination_attribute": "addresses.address_id"
+        }
+      },
+      "order_items": {
+        "weight": 0.2,
+        "condition": "foreign_key",
+        "properties": {
+          "source_attribute": "order_items.order_id",
+          "destination_attribute": "orders.order_id"
+        }
+      },
+      "payments": {
+        "weight": 0.2,
+        "condition": "foreign_key",
+        "properties": {
+          "source_attribute": "payments.order_id",
+          "destination_attribute": "orders.order_id"
+        }
+      },
+      "reviews": {
+        "weight": 0.2,
+        "condition": "foreign_key",
+        "properties": {
+          "source_attribute": "reviews.order_id",
+          "destination_attribute": "orders.order_id"
+        }
+      },
+      "user_coupons": {
+        "weight": 0.2,
+        "condition": "foreign_key",
+        "properties": {
+          "source_attribute": "user_coupons.order_id",
+          "destination_attribute": "orders.order_id"
+        }
+      }
+    },
+    "orders.user_id": {
+      "orders": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "orders.order_number": {
+      "orders": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "orders.order_date": {
+      "orders": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "orders.total_amount": {
+      "orders": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "orders.discount_amount": {
+      "orders": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "orders.tax_amount": {
+      "orders": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "orders.shipping_amount": {
+      "orders": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "orders.final_amount": {
+      "orders": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "orders.payment_method": {
+      "orders": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "orders.payment_status": {
+      "orders": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "orders.order_status": {
+      "orders": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "orders.shipping_address_id": {
+      "orders": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "orders.estimated_delivery_date": {
+      "orders": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "orders.actual_delivery_date": {
+      "orders": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "orders.created_at": {
+      "orders": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "orders.updated_at": {
+      "orders": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "payments.payment_id": {
+      "payments": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "payments": {
+      "payments.payment_id": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "payments.order_id": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "payments.payment_method": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "payments.transaction_id": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "payments.payment_gateway": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "payments.amount": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "payments.currency": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "payments.payment_status": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "payments.payment_date": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "payments.gateway_response": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "orders": {
+        "weight": 0.2,
+        "condition": "foreign_key",
+        "properties": {
+          "source_attribute": "payments.order_id",
+          "destination_attribute": "orders.order_id"
+        }
+      }
+    },
+    "payments.order_id": {
+      "payments": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "payments.payment_method": {
+      "payments": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "payments.transaction_id": {
+      "payments": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "payments.payment_gateway": {
+      "payments": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "payments.amount": {
+      "payments": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "payments.currency": {
+      "payments": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "payments.payment_status": {
+      "payments": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "payments.payment_date": {
+      "payments": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "payments.gateway_response": {
+      "payments": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "product_attributes.attribute_id": {
+      "product_attributes": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "product_attributes": {
+      "product_attributes.attribute_id": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "product_attributes.product_id": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "product_attributes.attribute_name": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "product_attributes.attribute_value": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "products": {
+        "weight": 0.2,
+        "condition": "foreign_key",
+        "properties": {
+          "source_attribute": "product_attributes.product_id",
+          "destination_attribute": "products.product_id"
+        }
+      }
+    },
+    "product_attributes.product_id": {
+      "product_attributes": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "product_attributes.attribute_name": {
+      "product_attributes": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "product_attributes.attribute_value": {
+      "product_attributes": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "product_images.image_id": {
+      "product_images": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "product_images": {
+      "product_images.image_id": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "product_images.product_id": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "product_images.image_url": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "product_images.alt_text": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "product_images.is_primary": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "product_images.display_order": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "products": {
+        "weight": 0.2,
+        "condition": "foreign_key",
+        "properties": {
+          "source_attribute": "product_images.product_id",
+          "destination_attribute": "products.product_id"
+        }
+      }
+    },
+    "product_images.product_id": {
+      "product_images": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "product_images.image_url": {
+      "product_images": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "product_images.alt_text": {
+      "product_images": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "product_images.is_primary": {
+      "product_images": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "product_images.display_order": {
+      "product_images": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "products.product_id": {
+      "products": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "products": {
+      "products.product_id": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "products.product_name": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "products.description": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "products.brand": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "products.model": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "products.category_id": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "products.seller_id": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "products.original_price": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "products.selling_price": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "products.discount_percentage": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "products.stock_quantity": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "products.minimum_order_quantity": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "products.weight": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "products.dimensions": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "products.color": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "products.size": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "products.warranty_period": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "products.return_policy": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "products.is_featured": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "products.is_active": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "products.created_at": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "products.updated_at": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "categories": {
+        "weight": 0.2,
+        "condition": "foreign_key",
+        "properties": {
+          "source_attribute": "products.category_id",
+          "destination_attribute": "categories.category_id"
+        }
+      },
+      "sellers": {
+        "weight": 0.2,
+        "condition": "foreign_key",
+        "properties": {
+          "source_attribute": "products.seller_id",
+          "destination_attribute": "sellers.seller_id"
+        }
+      },
+      "cart": {
+        "weight": 0.2,
+        "condition": "foreign_key",
+        "properties": {
+          "source_attribute": "cart.product_id",
+          "destination_attribute": "products.product_id"
+        }
+      },
+      "order_items": {
+        "weight": 0.2,
+        "condition": "foreign_key",
+        "properties": {
+          "source_attribute": "order_items.product_id",
+          "destination_attribute": "products.product_id"
+        }
+      },
+      "product_attributes": {
+        "weight": 0.2,
+        "condition": "foreign_key",
+        "properties": {
+          "source_attribute": "product_attributes.product_id",
+          "destination_attribute": "products.product_id"
+        }
+      },
+      "product_images": {
+        "weight": 0.2,
+        "condition": "foreign_key",
+        "properties": {
+          "source_attribute": "product_images.product_id",
+          "destination_attribute": "products.product_id"
+        }
+      },
+      "reviews": {
+        "weight": 0.2,
+        "condition": "foreign_key",
+        "properties": {
+          "source_attribute": "reviews.product_id",
+          "destination_attribute": "products.product_id"
+        }
+      },
+      "wishlist": {
+        "weight": 0.2,
+        "condition": "foreign_key",
+        "properties": {
+          "source_attribute": "wishlist.product_id",
+          "destination_attribute": "products.product_id"
+        }
+      }
+    },
+    "products.product_name": {
+      "products": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "products.description": {
+      "products": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "products.brand": {
+      "products": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "products.model": {
+      "products": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "products.category_id": {
+      "products": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "products.seller_id": {
+      "products": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "products.original_price": {
+      "products": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "products.selling_price": {
+      "products": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "products.discount_percentage": {
+      "products": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "products.stock_quantity": {
+      "products": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "products.minimum_order_quantity": {
+      "products": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "products.weight": {
+      "products": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "products.dimensions": {
+      "products": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "products.color": {
+      "products": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "products.size": {
+      "products": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "products.warranty_period": {
+      "products": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "products.return_policy": {
+      "products": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "products.is_featured": {
+      "products": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "products.is_active": {
+      "products": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "products.created_at": {
+      "products": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "products.updated_at": {
+      "products": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "reviews.review_id": {
+      "reviews": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "reviews": {
+      "reviews.review_id": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "reviews.user_id": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "reviews.product_id": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "reviews.order_id": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "reviews.rating": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "reviews.review_title": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "reviews.review_text": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "reviews.is_verified_purchase": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "reviews.helpful_votes": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "reviews.created_at": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "reviews.updated_at": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "reviews.is_active": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "users": {
+        "weight": 0.2,
+        "condition": "foreign_key",
+        "properties": {
+          "source_attribute": "reviews.user_id",
+          "destination_attribute": "users.user_id"
+        }
+      },
+      "products": {
+        "weight": 0.2,
+        "condition": "foreign_key",
+        "properties": {
+          "source_attribute": "reviews.product_id",
+          "destination_attribute": "products.product_id"
+        }
+      },
+      "orders": {
+        "weight": 0.2,
+        "condition": "foreign_key",
+        "properties": {
+          "source_attribute": "reviews.order_id",
+          "destination_attribute": "orders.order_id"
+        }
+      }
+    },
+    "reviews.user_id": {
+      "reviews": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "reviews.product_id": {
+      "reviews": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "reviews.order_id": {
+      "reviews": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "reviews.rating": {
+      "reviews": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "reviews.review_title": {
+      "reviews": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "reviews.review_text": {
+      "reviews": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "reviews.is_verified_purchase": {
+      "reviews": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "reviews.helpful_votes": {
+      "reviews": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "reviews.created_at": {
+      "reviews": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "reviews.updated_at": {
+      "reviews": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "reviews.is_active": {
+      "reviews": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "sellers.seller_id": {
+      "sellers": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "sellers": {
+      "sellers.seller_id": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "sellers.seller_name": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "sellers.company_name": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "sellers.email": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "sellers.phone": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "sellers.gst_number": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "sellers.business_address": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "sellers.city": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "sellers.state": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "sellers.pincode": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "sellers.rating": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "sellers.total_reviews": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "sellers.is_verified": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "sellers.created_at": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "sellers.is_active": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "order_items": {
+        "weight": 0.2,
+        "condition": "foreign_key",
+        "properties": {
+          "source_attribute": "order_items.seller_id",
+          "destination_attribute": "sellers.seller_id"
+        }
+      },
+      "products": {
+        "weight": 0.2,
+        "condition": "foreign_key",
+        "properties": {
+          "source_attribute": "products.seller_id",
+          "destination_attribute": "sellers.seller_id"
+        }
+      }
+    },
+    "sellers.seller_name": {
+      "sellers": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "sellers.company_name": {
+      "sellers": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "sellers.email": {
+      "sellers": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "sellers.phone": {
+      "sellers": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "sellers.gst_number": {
+      "sellers": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "sellers.business_address": {
+      "sellers": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "sellers.city": {
+      "sellers": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "sellers.state": {
+      "sellers": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "sellers.pincode": {
+      "sellers": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "sellers.rating": {
+      "sellers": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "sellers.total_reviews": {
+      "sellers": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "sellers.is_verified": {
+      "sellers": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "sellers.created_at": {
+      "sellers": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "sellers.is_active": {
+      "sellers": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "user_coupons.user_coupon_id": {
+      "user_coupons": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "user_coupons": {
+      "user_coupons.user_coupon_id": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "user_coupons.user_id": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "user_coupons.coupon_id": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "user_coupons.order_id": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "user_coupons.used_at": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "user_coupons.discount_applied": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "users": {
+        "weight": 0.2,
+        "condition": "foreign_key",
+        "properties": {
+          "source_attribute": "user_coupons.user_id",
+          "destination_attribute": "users.user_id"
+        }
+      },
+      "coupons": {
+        "weight": 0.2,
+        "condition": "foreign_key",
+        "properties": {
+          "source_attribute": "user_coupons.coupon_id",
+          "destination_attribute": "coupons.coupon_id"
+        }
+      },
+      "orders": {
+        "weight": 0.2,
+        "condition": "foreign_key",
+        "properties": {
+          "source_attribute": "user_coupons.order_id",
+          "destination_attribute": "orders.order_id"
+        }
+      }
+    },
+    "user_coupons.user_id": {
+      "user_coupons": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "user_coupons.coupon_id": {
+      "user_coupons": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "user_coupons.order_id": {
+      "user_coupons": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "user_coupons.used_at": {
+      "user_coupons": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "user_coupons.discount_applied": {
+      "user_coupons": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "users.user_id": {
+      "users": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "users": {
+      "users.user_id": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "users.first_name": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "users.last_name": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "users.email": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "users.phone": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "users.password_hash": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "users.date_of_birth": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "users.gender": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "users.created_at": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "users.updated_at": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "users.is_active": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "users.email_verified": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "addresses": {
+        "weight": 0.2,
+        "condition": "foreign_key",
+        "properties": {
+          "source_attribute": "addresses.user_id",
+          "destination_attribute": "users.user_id"
+        }
+      },
+      "cart": {
+        "weight": 0.2,
+        "condition": "foreign_key",
+        "properties": {
+          "source_attribute": "cart.user_id",
+          "destination_attribute": "users.user_id"
+        }
+      },
+      "orders": {
+        "weight": 0.2,
+        "condition": "foreign_key",
+        "properties": {
+          "source_attribute": "orders.user_id",
+          "destination_attribute": "users.user_id"
+        }
+      },
+      "reviews": {
+        "weight": 0.2,
+        "condition": "foreign_key",
+        "properties": {
+          "source_attribute": "reviews.user_id",
+          "destination_attribute": "users.user_id"
+        }
+      },
+      "user_coupons": {
+        "weight": 0.2,
+        "condition": "foreign_key",
+        "properties": {
+          "source_attribute": "user_coupons.user_id",
+          "destination_attribute": "users.user_id"
+        }
+      },
+      "wishlist": {
+        "weight": 0.2,
+        "condition": "foreign_key",
+        "properties": {
+          "source_attribute": "wishlist.user_id",
+          "destination_attribute": "users.user_id"
+        }
+      }
+    },
+    "users.first_name": {
+      "users": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "users.last_name": {
+      "users": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "users.email": {
+      "users": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "users.phone": {
+      "users": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "users.password_hash": {
+      "users": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "users.date_of_birth": {
+      "users": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "users.gender": {
+      "users": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "users.created_at": {
+      "users": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "users.updated_at": {
+      "users": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "users.is_active": {
+      "users": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "users.email_verified": {
+      "users": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "wishlist.wishlist_id": {
+      "wishlist": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "wishlist": {
+      "wishlist.wishlist_id": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "wishlist.user_id": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "wishlist.product_id": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "wishlist.added_at": {
+        "weight": 1.0,
+        "condition": "association"
+      },
+      "users": {
+        "weight": 0.2,
+        "condition": "foreign_key",
+        "properties": {
+          "source_attribute": "wishlist.user_id",
+          "destination_attribute": "users.user_id"
+        }
+      },
+      "products": {
+        "weight": 0.2,
+        "condition": "foreign_key",
+        "properties": {
+          "source_attribute": "wishlist.product_id",
+          "destination_attribute": "products.product_id"
+        }
+      }
+    },
+    "wishlist.user_id": {
+      "wishlist": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "wishlist.product_id": {
+      "wishlist": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    },
+    "wishlist.added_at": {
+      "wishlist": {
+        "weight": 1.0,
+        "condition": "association"
+      }
+    }
+  },
+  "node_properties": {
+    "addresses": {
+      "type": "table",
+      "properties": {}
+    },
+    "addresses.address_id": {
+      "type": "attribute",
+      "properties": {
+        "Field": "address_id",
+        "Type": "int",
+        "Collation": null,
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "addresses.user_id": {
+      "type": "attribute",
+      "properties": {
+        "Field": "user_id",
+        "Type": "int",
+        "Collation": null,
+        "Null": "NO",
+        "Key": "MUL",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "addresses.address_type": {
+      "type": "attribute",
+      "properties": {
+        "Field": "address_type",
+        "Type": "enum('Home','Work','Other')",
+        "Collation": "utf8mb4_0900_ai_ci",
+        "Null": "YES",
+        "Key": "",
+        "Default": "Home",
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "addresses.full_name": {
+      "type": "attribute",
+      "properties": {
+        "Field": "full_name",
+        "Type": "varchar(100)",
+        "Collation": "utf8mb4_0900_ai_ci",
+        "Null": "NO",
+        "Key": "",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "addresses.phone": {
+      "type": "attribute",
+      "properties": {
+        "Field": "phone",
+        "Type": "varchar(15)",
+        "Collation": "utf8mb4_0900_ai_ci",
+        "Null": "NO",
+        "Key": "",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "addresses.address_line1": {
+      "type": "attribute",
+      "properties": {
+        "Field": "address_line1",
+        "Type": "varchar(255)",
+        "Collation": "utf8mb4_0900_ai_ci",
+        "Null": "NO",
+        "Key": "",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "addresses.address_line2": {
+      "type": "attribute",
+      "properties": {
+        "Field": "address_line2",
+        "Type": "varchar(255)",
+        "Collation": "utf8mb4_0900_ai_ci",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "addresses.landmark": {
+      "type": "attribute",
+      "properties": {
+        "Field": "landmark",
+        "Type": "varchar(100)",
+        "Collation": "utf8mb4_0900_ai_ci",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "addresses.city": {
+      "type": "attribute",
+      "properties": {
+        "Field": "city",
+        "Type": "varchar(50)",
+        "Collation": "utf8mb4_0900_ai_ci",
+        "Null": "NO",
+        "Key": "",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "addresses.state": {
+      "type": "attribute",
+      "properties": {
+        "Field": "state",
+        "Type": "varchar(50)",
+        "Collation": "utf8mb4_0900_ai_ci",
+        "Null": "NO",
+        "Key": "",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "addresses.pincode": {
+      "type": "attribute",
+      "properties": {
+        "Field": "pincode",
+        "Type": "varchar(10)",
+        "Collation": "utf8mb4_0900_ai_ci",
+        "Null": "NO",
+        "Key": "",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "addresses.is_default": {
+      "type": "attribute",
+      "properties": {
+        "Field": "is_default",
+        "Type": "tinyint(1)",
+        "Collation": null,
+        "Null": "YES",
+        "Key": "",
+        "Default": "0",
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "addresses.created_at": {
+      "type": "attribute",
+      "properties": {
+        "Field": "created_at",
+        "Type": "timestamp",
+        "Collation": null,
+        "Null": "YES",
+        "Key": "",
+        "Default": "CURRENT_TIMESTAMP",
+        "Extra": "DEFAULT_GENERATED",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "cart": {
+      "type": "table",
+      "properties": {}
+    },
+    "cart.cart_id": {
+      "type": "attribute",
+      "properties": {
+        "Field": "cart_id",
+        "Type": "int",
+        "Collation": null,
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "cart.user_id": {
+      "type": "attribute",
+      "properties": {
+        "Field": "user_id",
+        "Type": "int",
+        "Collation": null,
+        "Null": "NO",
+        "Key": "MUL",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "cart.product_id": {
+      "type": "attribute",
+      "properties": {
+        "Field": "product_id",
+        "Type": "int",
+        "Collation": null,
+        "Null": "NO",
+        "Key": "MUL",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "cart.quantity": {
+      "type": "attribute",
+      "properties": {
+        "Field": "quantity",
+        "Type": "int",
+        "Collation": null,
+        "Null": "NO",
+        "Key": "",
+        "Default": "1",
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "cart.added_at": {
+      "type": "attribute",
+      "properties": {
+        "Field": "added_at",
+        "Type": "timestamp",
+        "Collation": null,
+        "Null": "YES",
+        "Key": "",
+        "Default": "CURRENT_TIMESTAMP",
+        "Extra": "DEFAULT_GENERATED",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "categories": {
+      "type": "table",
+      "properties": {}
+    },
+    "categories.category_id": {
+      "type": "attribute",
+      "properties": {
+        "Field": "category_id",
+        "Type": "int",
+        "Collation": null,
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "categories.category_name": {
+      "type": "attribute",
+      "properties": {
+        "Field": "category_name",
+        "Type": "varchar(100)",
+        "Collation": "utf8mb4_0900_ai_ci",
+        "Null": "NO",
+        "Key": "",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "categories.parent_category_id": {
+      "type": "attribute",
+      "properties": {
+        "Field": "parent_category_id",
+        "Type": "int",
+        "Collation": null,
+        "Null": "YES",
+        "Key": "MUL",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "categories.description": {
+      "type": "attribute",
+      "properties": {
+        "Field": "description",
+        "Type": "text",
+        "Collation": "utf8mb4_0900_ai_ci",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "categories.image_url": {
+      "type": "attribute",
+      "properties": {
+        "Field": "image_url",
+        "Type": "varchar(255)",
+        "Collation": "utf8mb4_0900_ai_ci",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "categories.is_active": {
+      "type": "attribute",
+      "properties": {
+        "Field": "is_active",
+        "Type": "tinyint(1)",
+        "Collation": null,
+        "Null": "YES",
+        "Key": "",
+        "Default": "1",
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "categories.created_at": {
+      "type": "attribute",
+      "properties": {
+        "Field": "created_at",
+        "Type": "timestamp",
+        "Collation": null,
+        "Null": "YES",
+        "Key": "",
+        "Default": "CURRENT_TIMESTAMP",
+        "Extra": "DEFAULT_GENERATED",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "coupons": {
+      "type": "table",
+      "properties": {}
+    },
+    "coupons.coupon_id": {
+      "type": "attribute",
+      "properties": {
+        "Field": "coupon_id",
+        "Type": "int",
+        "Collation": null,
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "coupons.coupon_code": {
+      "type": "attribute",
+      "properties": {
+        "Field": "coupon_code",
+        "Type": "varchar(50)",
+        "Collation": "utf8mb4_0900_ai_ci",
+        "Null": "NO",
+        "Key": "UNI",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "coupons.coupon_name": {
+      "type": "attribute",
+      "properties": {
+        "Field": "coupon_name",
+        "Type": "varchar(100)",
+        "Collation": "utf8mb4_0900_ai_ci",
+        "Null": "NO",
+        "Key": "",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "coupons.description": {
+      "type": "attribute",
+      "properties": {
+        "Field": "description",
+        "Type": "text",
+        "Collation": "utf8mb4_0900_ai_ci",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "coupons.discount_type": {
+      "type": "attribute",
+      "properties": {
+        "Field": "discount_type",
+        "Type": "enum('Percentage','Fixed Amount')",
+        "Collation": "utf8mb4_0900_ai_ci",
+        "Null": "NO",
+        "Key": "",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "coupons.discount_value": {
+      "type": "attribute",
+      "properties": {
+        "Field": "discount_value",
+        "Type": "decimal(10,2)",
+        "Collation": null,
+        "Null": "NO",
+        "Key": "",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "coupons.minimum_order_amount": {
+      "type": "attribute",
+      "properties": {
+        "Field": "minimum_order_amount",
+        "Type": "decimal(10,2)",
+        "Collation": null,
+        "Null": "YES",
+        "Key": "",
+        "Default": "0.00",
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "coupons.maximum_discount_amount": {
+      "type": "attribute",
+      "properties": {
+        "Field": "maximum_discount_amount",
+        "Type": "decimal(10,2)",
+        "Collation": null,
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "coupons.usage_limit": {
+      "type": "attribute",
+      "properties": {
+        "Field": "usage_limit",
+        "Type": "int",
+        "Collation": null,
+        "Null": "YES",
+        "Key": "",
+        "Default": "1",
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "coupons.used_count": {
+      "type": "attribute",
+      "properties": {
+        "Field": "used_count",
+        "Type": "int",
+        "Collation": null,
+        "Null": "YES",
+        "Key": "",
+        "Default": "0",
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "coupons.valid_from": {
+      "type": "attribute",
+      "properties": {
+        "Field": "valid_from",
+        "Type": "date",
+        "Collation": null,
+        "Null": "NO",
+        "Key": "",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "coupons.valid_until": {
+      "type": "attribute",
+      "properties": {
+        "Field": "valid_until",
+        "Type": "date",
+        "Collation": null,
+        "Null": "NO",
+        "Key": "",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "coupons.is_active": {
+      "type": "attribute",
+      "properties": {
+        "Field": "is_active",
+        "Type": "tinyint(1)",
+        "Collation": null,
+        "Null": "YES",
+        "Key": "",
+        "Default": "1",
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "coupons.created_at": {
+      "type": "attribute",
+      "properties": {
+        "Field": "created_at",
+        "Type": "timestamp",
+        "Collation": null,
+        "Null": "YES",
+        "Key": "",
+        "Default": "CURRENT_TIMESTAMP",
+        "Extra": "DEFAULT_GENERATED",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "order_items": {
+      "type": "table",
+      "properties": {}
+    },
+    "order_items.order_item_id": {
+      "type": "attribute",
+      "properties": {
+        "Field": "order_item_id",
+        "Type": "int",
+        "Collation": null,
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "order_items.order_id": {
+      "type": "attribute",
+      "properties": {
+        "Field": "order_id",
+        "Type": "int",
+        "Collation": null,
+        "Null": "NO",
+        "Key": "MUL",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "order_items.product_id": {
+      "type": "attribute",
+      "properties": {
+        "Field": "product_id",
+        "Type": "int",
+        "Collation": null,
+        "Null": "NO",
+        "Key": "MUL",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "order_items.seller_id": {
+      "type": "attribute",
+      "properties": {
+        "Field": "seller_id",
+        "Type": "int",
+        "Collation": null,
+        "Null": "NO",
+        "Key": "MUL",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "order_items.quantity": {
+      "type": "attribute",
+      "properties": {
+        "Field": "quantity",
+        "Type": "int",
+        "Collation": null,
+        "Null": "NO",
+        "Key": "",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "order_items.unit_price": {
+      "type": "attribute",
+      "properties": {
+        "Field": "unit_price",
+        "Type": "decimal(10,2)",
+        "Collation": null,
+        "Null": "NO",
+        "Key": "",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "order_items.total_price": {
+      "type": "attribute",
+      "properties": {
+        "Field": "total_price",
+        "Type": "decimal(10,2)",
+        "Collation": null,
+        "Null": "NO",
+        "Key": "",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "order_items.discount_applied": {
+      "type": "attribute",
+      "properties": {
+        "Field": "discount_applied",
+        "Type": "decimal(10,2)",
+        "Collation": null,
+        "Null": "YES",
+        "Key": "",
+        "Default": "0.00",
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "order_items.item_status": {
+      "type": "attribute",
+      "properties": {
+        "Field": "item_status",
+        "Type": "enum('Placed','Confirmed','Shipped','Delivered','Cancelled','Returned')",
+        "Collation": "utf8mb4_0900_ai_ci",
+        "Null": "YES",
+        "Key": "",
+        "Default": "Placed",
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "order_items.tracking_number": {
+      "type": "attribute",
+      "properties": {
+        "Field": "tracking_number",
+        "Type": "varchar(50)",
+        "Collation": "utf8mb4_0900_ai_ci",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "orders": {
+      "type": "table",
+      "properties": {}
+    },
+    "orders.order_id": {
+      "type": "attribute",
+      "properties": {
+        "Field": "order_id",
+        "Type": "int",
+        "Collation": null,
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "orders.user_id": {
+      "type": "attribute",
+      "properties": {
+        "Field": "user_id",
+        "Type": "int",
+        "Collation": null,
+        "Null": "NO",
+        "Key": "MUL",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "orders.order_number": {
+      "type": "attribute",
+      "properties": {
+        "Field": "order_number",
+        "Type": "varchar(50)",
+        "Collation": "utf8mb4_0900_ai_ci",
+        "Null": "NO",
+        "Key": "UNI",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "orders.order_date": {
+      "type": "attribute",
+      "properties": {
+        "Field": "order_date",
+        "Type": "timestamp",
+        "Collation": null,
+        "Null": "YES",
+        "Key": "",
+        "Default": "CURRENT_TIMESTAMP",
+        "Extra": "DEFAULT_GENERATED",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "orders.total_amount": {
+      "type": "attribute",
+      "properties": {
+        "Field": "total_amount",
+        "Type": "decimal(10,2)",
+        "Collation": null,
+        "Null": "NO",
+        "Key": "",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "orders.discount_amount": {
+      "type": "attribute",
+      "properties": {
+        "Field": "discount_amount",
+        "Type": "decimal(10,2)",
+        "Collation": null,
+        "Null": "YES",
+        "Key": "",
+        "Default": "0.00",
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "orders.tax_amount": {
+      "type": "attribute",
+      "properties": {
+        "Field": "tax_amount",
+        "Type": "decimal(10,2)",
+        "Collation": null,
+        "Null": "YES",
+        "Key": "",
+        "Default": "0.00",
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "orders.shipping_amount": {
+      "type": "attribute",
+      "properties": {
+        "Field": "shipping_amount",
+        "Type": "decimal(10,2)",
+        "Collation": null,
+        "Null": "YES",
+        "Key": "",
+        "Default": "0.00",
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "orders.final_amount": {
+      "type": "attribute",
+      "properties": {
+        "Field": "final_amount",
+        "Type": "decimal(10,2)",
+        "Collation": null,
+        "Null": "NO",
+        "Key": "",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "orders.payment_method": {
+      "type": "attribute",
+      "properties": {
+        "Field": "payment_method",
+        "Type": "enum('COD','Credit Card','Debit Card','UPI','Net Banking','Wallet')",
+        "Collation": "utf8mb4_0900_ai_ci",
+        "Null": "NO",
+        "Key": "",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "orders.payment_status": {
+      "type": "attribute",
+      "properties": {
+        "Field": "payment_status",
+        "Type": "enum('Pending','Paid','Failed','Refunded')",
+        "Collation": "utf8mb4_0900_ai_ci",
+        "Null": "YES",
+        "Key": "",
+        "Default": "Pending",
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "orders.order_status": {
+      "type": "attribute",
+      "properties": {
+        "Field": "order_status",
+        "Type": "enum('Placed','Confirmed','Shipped','Out for Delivery','Delivered','Cancelled','Returned')",
+        "Collation": "utf8mb4_0900_ai_ci",
+        "Null": "YES",
+        "Key": "",
+        "Default": "Placed",
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "orders.shipping_address_id": {
+      "type": "attribute",
+      "properties": {
+        "Field": "shipping_address_id",
+        "Type": "int",
+        "Collation": null,
+        "Null": "NO",
+        "Key": "MUL",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "orders.estimated_delivery_date": {
+      "type": "attribute",
+      "properties": {
+        "Field": "estimated_delivery_date",
+        "Type": "date",
+        "Collation": null,
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "orders.actual_delivery_date": {
+      "type": "attribute",
+      "properties": {
+        "Field": "actual_delivery_date",
+        "Type": "date",
+        "Collation": null,
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "orders.created_at": {
+      "type": "attribute",
+      "properties": {
+        "Field": "created_at",
+        "Type": "timestamp",
+        "Collation": null,
+        "Null": "YES",
+        "Key": "",
+        "Default": "CURRENT_TIMESTAMP",
+        "Extra": "DEFAULT_GENERATED",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "orders.updated_at": {
+      "type": "attribute",
+      "properties": {
+        "Field": "updated_at",
+        "Type": "timestamp",
+        "Collation": null,
+        "Null": "YES",
+        "Key": "",
+        "Default": "CURRENT_TIMESTAMP",
+        "Extra": "DEFAULT_GENERATED on update CURRENT_TIMESTAMP",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "payments": {
+      "type": "table",
+      "properties": {}
+    },
+    "payments.payment_id": {
+      "type": "attribute",
+      "properties": {
+        "Field": "payment_id",
+        "Type": "int",
+        "Collation": null,
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "payments.order_id": {
+      "type": "attribute",
+      "properties": {
+        "Field": "order_id",
+        "Type": "int",
+        "Collation": null,
+        "Null": "NO",
+        "Key": "MUL",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "payments.payment_method": {
+      "type": "attribute",
+      "properties": {
+        "Field": "payment_method",
+        "Type": "varchar(50)",
+        "Collation": "utf8mb4_0900_ai_ci",
+        "Null": "NO",
+        "Key": "",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "payments.transaction_id": {
+      "type": "attribute",
+      "properties": {
+        "Field": "transaction_id",
+        "Type": "varchar(100)",
+        "Collation": "utf8mb4_0900_ai_ci",
+        "Null": "YES",
+        "Key": "UNI",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "payments.payment_gateway": {
+      "type": "attribute",
+      "properties": {
+        "Field": "payment_gateway",
+        "Type": "varchar(50)",
+        "Collation": "utf8mb4_0900_ai_ci",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "payments.amount": {
+      "type": "attribute",
+      "properties": {
+        "Field": "amount",
+        "Type": "decimal(10,2)",
+        "Collation": null,
+        "Null": "NO",
+        "Key": "",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "payments.currency": {
+      "type": "attribute",
+      "properties": {
+        "Field": "currency",
+        "Type": "varchar(3)",
+        "Collation": "utf8mb4_0900_ai_ci",
+        "Null": "YES",
+        "Key": "",
+        "Default": "INR",
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "payments.payment_status": {
+      "type": "attribute",
+      "properties": {
+        "Field": "payment_status",
+        "Type": "enum('Pending','Success','Failed','Cancelled','Refunded')",
+        "Collation": "utf8mb4_0900_ai_ci",
+        "Null": "YES",
+        "Key": "",
+        "Default": "Pending",
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "payments.payment_date": {
+      "type": "attribute",
+      "properties": {
+        "Field": "payment_date",
+        "Type": "timestamp",
+        "Collation": null,
+        "Null": "YES",
+        "Key": "",
+        "Default": "CURRENT_TIMESTAMP",
+        "Extra": "DEFAULT_GENERATED",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "payments.gateway_response": {
+      "type": "attribute",
+      "properties": {
+        "Field": "gateway_response",
+        "Type": "text",
+        "Collation": "utf8mb4_0900_ai_ci",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "product_attributes": {
+      "type": "table",
+      "properties": {}
+    },
+    "product_attributes.attribute_id": {
+      "type": "attribute",
+      "properties": {
+        "Field": "attribute_id",
+        "Type": "int",
+        "Collation": null,
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "product_attributes.product_id": {
+      "type": "attribute",
+      "properties": {
+        "Field": "product_id",
+        "Type": "int",
+        "Collation": null,
+        "Null": "NO",
+        "Key": "MUL",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "product_attributes.attribute_name": {
+      "type": "attribute",
+      "properties": {
+        "Field": "attribute_name",
+        "Type": "varchar(50)",
+        "Collation": "utf8mb4_0900_ai_ci",
+        "Null": "NO",
+        "Key": "",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "product_attributes.attribute_value": {
+      "type": "attribute",
+      "properties": {
+        "Field": "attribute_value",
+        "Type": "varchar(100)",
+        "Collation": "utf8mb4_0900_ai_ci",
+        "Null": "NO",
+        "Key": "",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "product_images": {
+      "type": "table",
+      "properties": {}
+    },
+    "product_images.image_id": {
+      "type": "attribute",
+      "properties": {
+        "Field": "image_id",
+        "Type": "int",
+        "Collation": null,
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "product_images.product_id": {
+      "type": "attribute",
+      "properties": {
+        "Field": "product_id",
+        "Type": "int",
+        "Collation": null,
+        "Null": "NO",
+        "Key": "MUL",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "product_images.image_url": {
+      "type": "attribute",
+      "properties": {
+        "Field": "image_url",
+        "Type": "varchar(255)",
+        "Collation": "utf8mb4_0900_ai_ci",
+        "Null": "NO",
+        "Key": "",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "product_images.alt_text": {
+      "type": "attribute",
+      "properties": {
+        "Field": "alt_text",
+        "Type": "varchar(100)",
+        "Collation": "utf8mb4_0900_ai_ci",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "product_images.is_primary": {
+      "type": "attribute",
+      "properties": {
+        "Field": "is_primary",
+        "Type": "tinyint(1)",
+        "Collation": null,
+        "Null": "YES",
+        "Key": "",
+        "Default": "0",
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "product_images.display_order": {
+      "type": "attribute",
+      "properties": {
+        "Field": "display_order",
+        "Type": "int",
+        "Collation": null,
+        "Null": "YES",
+        "Key": "",
+        "Default": "0",
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "products": {
+      "type": "table",
+      "properties": {}
+    },
+    "products.product_id": {
+      "type": "attribute",
+      "properties": {
+        "Field": "product_id",
+        "Type": "int",
+        "Collation": null,
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "products.product_name": {
+      "type": "attribute",
+      "properties": {
+        "Field": "product_name",
+        "Type": "varchar(200)",
+        "Collation": "utf8mb4_0900_ai_ci",
+        "Null": "NO",
+        "Key": "",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "products.description": {
+      "type": "attribute",
+      "properties": {
+        "Field": "description",
+        "Type": "text",
+        "Collation": "utf8mb4_0900_ai_ci",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "products.brand": {
+      "type": "attribute",
+      "properties": {
+        "Field": "brand",
+        "Type": "varchar(100)",
+        "Collation": "utf8mb4_0900_ai_ci",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "products.model": {
+      "type": "attribute",
+      "properties": {
+        "Field": "model",
+        "Type": "varchar(100)",
+        "Collation": "utf8mb4_0900_ai_ci",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "products.category_id": {
+      "type": "attribute",
+      "properties": {
+        "Field": "category_id",
+        "Type": "int",
+        "Collation": null,
+        "Null": "NO",
+        "Key": "MUL",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "products.seller_id": {
+      "type": "attribute",
+      "properties": {
+        "Field": "seller_id",
+        "Type": "int",
+        "Collation": null,
+        "Null": "NO",
+        "Key": "MUL",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "products.original_price": {
+      "type": "attribute",
+      "properties": {
+        "Field": "original_price",
+        "Type": "decimal(10,2)",
+        "Collation": null,
+        "Null": "NO",
+        "Key": "",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "products.selling_price": {
+      "type": "attribute",
+      "properties": {
+        "Field": "selling_price",
+        "Type": "decimal(10,2)",
+        "Collation": null,
+        "Null": "NO",
+        "Key": "",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "products.discount_percentage": {
+      "type": "attribute",
+      "properties": {
+        "Field": "discount_percentage",
+        "Type": "decimal(5,2)",
+        "Collation": null,
+        "Null": "YES",
+        "Key": "",
+        "Default": "0.00",
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "products.stock_quantity": {
+      "type": "attribute",
+      "properties": {
+        "Field": "stock_quantity",
+        "Type": "int",
+        "Collation": null,
+        "Null": "YES",
+        "Key": "",
+        "Default": "0",
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "products.minimum_order_quantity": {
+      "type": "attribute",
+      "properties": {
+        "Field": "minimum_order_quantity",
+        "Type": "int",
+        "Collation": null,
+        "Null": "YES",
+        "Key": "",
+        "Default": "1",
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "products.weight": {
+      "type": "attribute",
+      "properties": {
+        "Field": "weight",
+        "Type": "decimal(8,2)",
+        "Collation": null,
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "products.dimensions": {
+      "type": "attribute",
+      "properties": {
+        "Field": "dimensions",
+        "Type": "varchar(50)",
+        "Collation": "utf8mb4_0900_ai_ci",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "products.color": {
+      "type": "attribute",
+      "properties": {
+        "Field": "color",
+        "Type": "varchar(30)",
+        "Collation": "utf8mb4_0900_ai_ci",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "products.size": {
+      "type": "attribute",
+      "properties": {
+        "Field": "size",
+        "Type": "varchar(20)",
+        "Collation": "utf8mb4_0900_ai_ci",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "products.warranty_period": {
+      "type": "attribute",
+      "properties": {
+        "Field": "warranty_period",
+        "Type": "int",
+        "Collation": null,
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "products.return_policy": {
+      "type": "attribute",
+      "properties": {
+        "Field": "return_policy",
+        "Type": "int",
+        "Collation": null,
+        "Null": "YES",
+        "Key": "",
+        "Default": "7",
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "products.is_featured": {
+      "type": "attribute",
+      "properties": {
+        "Field": "is_featured",
+        "Type": "tinyint(1)",
+        "Collation": null,
+        "Null": "YES",
+        "Key": "",
+        "Default": "0",
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "products.is_active": {
+      "type": "attribute",
+      "properties": {
+        "Field": "is_active",
+        "Type": "tinyint(1)",
+        "Collation": null,
+        "Null": "YES",
+        "Key": "",
+        "Default": "1",
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "products.created_at": {
+      "type": "attribute",
+      "properties": {
+        "Field": "created_at",
+        "Type": "timestamp",
+        "Collation": null,
+        "Null": "YES",
+        "Key": "",
+        "Default": "CURRENT_TIMESTAMP",
+        "Extra": "DEFAULT_GENERATED",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "products.updated_at": {
+      "type": "attribute",
+      "properties": {
+        "Field": "updated_at",
+        "Type": "timestamp",
+        "Collation": null,
+        "Null": "YES",
+        "Key": "",
+        "Default": "CURRENT_TIMESTAMP",
+        "Extra": "DEFAULT_GENERATED on update CURRENT_TIMESTAMP",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "reviews": {
+      "type": "table",
+      "properties": {}
+    },
+    "reviews.review_id": {
+      "type": "attribute",
+      "properties": {
+        "Field": "review_id",
+        "Type": "int",
+        "Collation": null,
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "reviews.user_id": {
+      "type": "attribute",
+      "properties": {
+        "Field": "user_id",
+        "Type": "int",
+        "Collation": null,
+        "Null": "NO",
+        "Key": "MUL",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "reviews.product_id": {
+      "type": "attribute",
+      "properties": {
+        "Field": "product_id",
+        "Type": "int",
+        "Collation": null,
+        "Null": "NO",
+        "Key": "MUL",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "reviews.order_id": {
+      "type": "attribute",
+      "properties": {
+        "Field": "order_id",
+        "Type": "int",
+        "Collation": null,
+        "Null": "YES",
+        "Key": "MUL",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "reviews.rating": {
+      "type": "attribute",
+      "properties": {
+        "Field": "rating",
+        "Type": "int",
+        "Collation": null,
+        "Null": "NO",
+        "Key": "",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "reviews.review_title": {
+      "type": "attribute",
+      "properties": {
+        "Field": "review_title",
+        "Type": "varchar(200)",
+        "Collation": "utf8mb4_0900_ai_ci",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "reviews.review_text": {
+      "type": "attribute",
+      "properties": {
+        "Field": "review_text",
+        "Type": "text",
+        "Collation": "utf8mb4_0900_ai_ci",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "reviews.is_verified_purchase": {
+      "type": "attribute",
+      "properties": {
+        "Field": "is_verified_purchase",
+        "Type": "tinyint(1)",
+        "Collation": null,
+        "Null": "YES",
+        "Key": "",
+        "Default": "0",
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "reviews.helpful_votes": {
+      "type": "attribute",
+      "properties": {
+        "Field": "helpful_votes",
+        "Type": "int",
+        "Collation": null,
+        "Null": "YES",
+        "Key": "",
+        "Default": "0",
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "reviews.created_at": {
+      "type": "attribute",
+      "properties": {
+        "Field": "created_at",
+        "Type": "timestamp",
+        "Collation": null,
+        "Null": "YES",
+        "Key": "",
+        "Default": "CURRENT_TIMESTAMP",
+        "Extra": "DEFAULT_GENERATED",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "reviews.updated_at": {
+      "type": "attribute",
+      "properties": {
+        "Field": "updated_at",
+        "Type": "timestamp",
+        "Collation": null,
+        "Null": "YES",
+        "Key": "",
+        "Default": "CURRENT_TIMESTAMP",
+        "Extra": "DEFAULT_GENERATED on update CURRENT_TIMESTAMP",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "reviews.is_active": {
+      "type": "attribute",
+      "properties": {
+        "Field": "is_active",
+        "Type": "tinyint(1)",
+        "Collation": null,
+        "Null": "YES",
+        "Key": "",
+        "Default": "1",
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "sellers": {
+      "type": "table",
+      "properties": {}
+    },
+    "sellers.seller_id": {
+      "type": "attribute",
+      "properties": {
+        "Field": "seller_id",
+        "Type": "int",
+        "Collation": null,
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "sellers.seller_name": {
+      "type": "attribute",
+      "properties": {
+        "Field": "seller_name",
+        "Type": "varchar(100)",
+        "Collation": "utf8mb4_0900_ai_ci",
+        "Null": "NO",
+        "Key": "",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "sellers.company_name": {
+      "type": "attribute",
+      "properties": {
+        "Field": "company_name",
+        "Type": "varchar(100)",
+        "Collation": "utf8mb4_0900_ai_ci",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "sellers.email": {
+      "type": "attribute",
+      "properties": {
+        "Field": "email",
+        "Type": "varchar(100)",
+        "Collation": "utf8mb4_0900_ai_ci",
+        "Null": "NO",
+        "Key": "UNI",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "sellers.phone": {
+      "type": "attribute",
+      "properties": {
+        "Field": "phone",
+        "Type": "varchar(15)",
+        "Collation": "utf8mb4_0900_ai_ci",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "sellers.gst_number": {
+      "type": "attribute",
+      "properties": {
+        "Field": "gst_number",
+        "Type": "varchar(20)",
+        "Collation": "utf8mb4_0900_ai_ci",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "sellers.business_address": {
+      "type": "attribute",
+      "properties": {
+        "Field": "business_address",
+        "Type": "text",
+        "Collation": "utf8mb4_0900_ai_ci",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "sellers.city": {
+      "type": "attribute",
+      "properties": {
+        "Field": "city",
+        "Type": "varchar(50)",
+        "Collation": "utf8mb4_0900_ai_ci",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "sellers.state": {
+      "type": "attribute",
+      "properties": {
+        "Field": "state",
+        "Type": "varchar(50)",
+        "Collation": "utf8mb4_0900_ai_ci",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "sellers.pincode": {
+      "type": "attribute",
+      "properties": {
+        "Field": "pincode",
+        "Type": "varchar(10)",
+        "Collation": "utf8mb4_0900_ai_ci",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "sellers.rating": {
+      "type": "attribute",
+      "properties": {
+        "Field": "rating",
+        "Type": "decimal(3,2)",
+        "Collation": null,
+        "Null": "YES",
+        "Key": "",
+        "Default": "0.00",
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "sellers.total_reviews": {
+      "type": "attribute",
+      "properties": {
+        "Field": "total_reviews",
+        "Type": "int",
+        "Collation": null,
+        "Null": "YES",
+        "Key": "",
+        "Default": "0",
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "sellers.is_verified": {
+      "type": "attribute",
+      "properties": {
+        "Field": "is_verified",
+        "Type": "tinyint(1)",
+        "Collation": null,
+        "Null": "YES",
+        "Key": "",
+        "Default": "0",
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "sellers.created_at": {
+      "type": "attribute",
+      "properties": {
+        "Field": "created_at",
+        "Type": "timestamp",
+        "Collation": null,
+        "Null": "YES",
+        "Key": "",
+        "Default": "CURRENT_TIMESTAMP",
+        "Extra": "DEFAULT_GENERATED",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "sellers.is_active": {
+      "type": "attribute",
+      "properties": {
+        "Field": "is_active",
+        "Type": "tinyint(1)",
+        "Collation": null,
+        "Null": "YES",
+        "Key": "",
+        "Default": "1",
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "user_coupons": {
+      "type": "table",
+      "properties": {}
+    },
+    "user_coupons.user_coupon_id": {
+      "type": "attribute",
+      "properties": {
+        "Field": "user_coupon_id",
+        "Type": "int",
+        "Collation": null,
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "user_coupons.user_id": {
+      "type": "attribute",
+      "properties": {
+        "Field": "user_id",
+        "Type": "int",
+        "Collation": null,
+        "Null": "NO",
+        "Key": "MUL",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "user_coupons.coupon_id": {
+      "type": "attribute",
+      "properties": {
+        "Field": "coupon_id",
+        "Type": "int",
+        "Collation": null,
+        "Null": "NO",
+        "Key": "MUL",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "user_coupons.order_id": {
+      "type": "attribute",
+      "properties": {
+        "Field": "order_id",
+        "Type": "int",
+        "Collation": null,
+        "Null": "YES",
+        "Key": "MUL",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "user_coupons.used_at": {
+      "type": "attribute",
+      "properties": {
+        "Field": "used_at",
+        "Type": "timestamp",
+        "Collation": null,
+        "Null": "YES",
+        "Key": "",
+        "Default": "CURRENT_TIMESTAMP",
+        "Extra": "DEFAULT_GENERATED",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "user_coupons.discount_applied": {
+      "type": "attribute",
+      "properties": {
+        "Field": "discount_applied",
+        "Type": "decimal(10,2)",
+        "Collation": null,
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "users": {
+      "type": "table",
+      "properties": {}
+    },
+    "users.user_id": {
+      "type": "attribute",
+      "properties": {
+        "Field": "user_id",
+        "Type": "int",
+        "Collation": null,
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "users.first_name": {
+      "type": "attribute",
+      "properties": {
+        "Field": "first_name",
+        "Type": "varchar(50)",
+        "Collation": "utf8mb4_0900_ai_ci",
+        "Null": "NO",
+        "Key": "",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "users.last_name": {
+      "type": "attribute",
+      "properties": {
+        "Field": "last_name",
+        "Type": "varchar(50)",
+        "Collation": "utf8mb4_0900_ai_ci",
+        "Null": "NO",
+        "Key": "",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "users.email": {
+      "type": "attribute",
+      "properties": {
+        "Field": "email",
+        "Type": "varchar(100)",
+        "Collation": "utf8mb4_0900_ai_ci",
+        "Null": "NO",
+        "Key": "UNI",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "users.phone": {
+      "type": "attribute",
+      "properties": {
+        "Field": "phone",
+        "Type": "varchar(15)",
+        "Collation": "utf8mb4_0900_ai_ci",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "users.password_hash": {
+      "type": "attribute",
+      "properties": {
+        "Field": "password_hash",
+        "Type": "varchar(255)",
+        "Collation": "utf8mb4_0900_ai_ci",
+        "Null": "NO",
+        "Key": "",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "users.date_of_birth": {
+      "type": "attribute",
+      "properties": {
+        "Field": "date_of_birth",
+        "Type": "date",
+        "Collation": null,
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "users.gender": {
+      "type": "attribute",
+      "properties": {
+        "Field": "gender",
+        "Type": "enum('Male','Female','Other')",
+        "Collation": "utf8mb4_0900_ai_ci",
+        "Null": "YES",
+        "Key": "",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "users.created_at": {
+      "type": "attribute",
+      "properties": {
+        "Field": "created_at",
+        "Type": "timestamp",
+        "Collation": null,
+        "Null": "YES",
+        "Key": "",
+        "Default": "CURRENT_TIMESTAMP",
+        "Extra": "DEFAULT_GENERATED",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "users.updated_at": {
+      "type": "attribute",
+      "properties": {
+        "Field": "updated_at",
+        "Type": "timestamp",
+        "Collation": null,
+        "Null": "YES",
+        "Key": "",
+        "Default": "CURRENT_TIMESTAMP",
+        "Extra": "DEFAULT_GENERATED on update CURRENT_TIMESTAMP",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "users.is_active": {
+      "type": "attribute",
+      "properties": {
+        "Field": "is_active",
+        "Type": "tinyint(1)",
+        "Collation": null,
+        "Null": "YES",
+        "Key": "",
+        "Default": "1",
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "users.email_verified": {
+      "type": "attribute",
+      "properties": {
+        "Field": "email_verified",
+        "Type": "tinyint(1)",
+        "Collation": null,
+        "Null": "YES",
+        "Key": "",
+        "Default": "0",
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "wishlist": {
+      "type": "table",
+      "properties": {}
+    },
+    "wishlist.wishlist_id": {
+      "type": "attribute",
+      "properties": {
+        "Field": "wishlist_id",
+        "Type": "int",
+        "Collation": null,
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": null,
+        "Extra": "auto_increment",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "wishlist.user_id": {
+      "type": "attribute",
+      "properties": {
+        "Field": "user_id",
+        "Type": "int",
+        "Collation": null,
+        "Null": "NO",
+        "Key": "MUL",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "wishlist.product_id": {
+      "type": "attribute",
+      "properties": {
+        "Field": "product_id",
+        "Type": "int",
+        "Collation": null,
+        "Null": "NO",
+        "Key": "MUL",
+        "Default": null,
+        "Extra": "",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "wishlist.added_at": {
+      "type": "attribute",
+      "properties": {
+        "Field": "added_at",
+        "Type": "timestamp",
+        "Collation": null,
+        "Null": "YES",
+        "Key": "",
+        "Default": "CURRENT_TIMESTAMP",
+        "Extra": "DEFAULT_GENERATED",
+        "Privileges": "select,insert,update,references",
+        "Comment": ""
+      }
+    },
+    "popular_products": {
+      "type": "view",
+      "properties": {}
+    },
+    "user_order_summary": {
+      "type": "view",
+      "properties": {}
+    }
+  }
+}

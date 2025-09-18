@@ -29,7 +29,7 @@ def main():
     def desc(nd):
         return f"{nd.get('type', '')}({nd})"
     context = input("Enter query context (optional, for condition-aware edges): ").strip()
-    cost, path = graph.find_path([start], [end], context)
+    cost, path, walk = graph.find_path([start], [end], context)
     if path:
         print(f"Path found (cost={cost}):")
         for node in path:

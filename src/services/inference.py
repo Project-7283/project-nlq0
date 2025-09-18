@@ -2,6 +2,9 @@ import os
 import requests
 import json
 from typing import Optional, Dict, Any
+from typing import Protocol, List
+
+from src.models.model import Model
 
 class GeminiService:
     """
@@ -11,7 +14,7 @@ class GeminiService:
 
     def __init__(self, api_key: Optional[str] = None):
         self.api_key = api_key or os.getenv("GEMINI_API_KEY")
-        self.api_url = "https://generativelanguage.googleapis.com/v1beta/models/gemma-3-12b-it:generateContent"
+        self.api_url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent"
         if not self.api_key:
             raise ValueError("GEMINI_API_KEY is required for GeminiService.")
 
@@ -87,7 +90,7 @@ class GeminiService:
         Output JSON:
         """
 
-        print("debug prompt\n----------\n", prompt)
+        # print("debug prompt\n----------\n", prompt)
         
         json_string = self._call_gemini(prompt)
         
@@ -122,3 +125,92 @@ class GeminiService:
             prompt = f"User: {message}"
             
         return self._call_gemini(prompt)
+
+class InferenceServiceProtocol(Protocol):
+    def get_summary(self, content: str, max_words: int = 100) -> str: ...
+    def get_structured_output(self, content: str, json_schema: Dict[str, Any]) -> Dict[str, Any]: ...
+    def analyze_intent(self, query: str) -> str: ...
+    def chat_completion(self, message: str, context: Optional[str] = None) -> str: ...
+
+class ModelInferenceService:
+    """
+    Generic inference service using a Model instance (OpenAI-compatible).
+    Exposes the same protocol as GeminiService.
+    """
+    def __init__(self, model: Optional[Model] = None):
+        self.model: Model = model or Model(api_base="http://127.0.0.1:1234/v1", model_name="google/gemma-3-4b", api_key="nt-required")
+
+    def get_summary(self, content: str, max_words: int = 100) -> str:
+        prompt = f"""
+        Summarize the following text in under {max_words} words.
+
+        Text:
+        {content}
+
+        Summary:
+        """
+        messages = [{"role": "user", "content": prompt}]
+        response = self.model.chat(messages)
+        # Try to extract summary from response
+        if isinstance(response, dict):
+            return response.get("choices", [{}])[0].get("message", {}).get("content", "").strip()
+        return str(response).strip()
+
+    def get_structured_output(self, content: str, json_schema: Dict[str, Any]) -> Dict[str, Any]:
+        schema = {
+            "name": "extracted_data",
+            "schema": json_schema
+        }
+        prompt = f"""
+        Extract information from the following text based on the provided JSON schema.
+        The final output MUST be a valid JSON object that adheres to this schema.
+
+        Schema:
+        {json.dumps(json_schema, indent=2)}
+
+        Text:
+        {content}
+
+        Output JSON:
+        """
+        messages = [{"role": "user", "content": prompt}]
+        response = self.model.chat(
+            messages,
+            response_format="json_schema",
+            json_schema=schema
+        )
+        # Try to extract JSON from response
+        try:
+            if isinstance(response, str):
+                return json.loads(response.strip())
+            else:
+                return response
+        except Exception as e:
+            print("Error parsing structured output:", e)
+            return {}
+
+    def analyze_intent(self, query: str) -> str:
+        prompt = """
+        Analyze the intent of the following user query. Respond with a single word or a short phrase that best describes the intent, such as 'booking', 'information', 'purchase', 'complaint', 'technical support'. Do not include any other text or punctuation.
+
+        Query:
+        %s
+
+        Intent:
+        """ % query
+        messages = [{"role": "user", "content": prompt}]
+        response = self.model.chat(messages)
+        if isinstance(response, dict):
+            return response.get("choices", [{}])[0].get("message", {}).get("content", "").strip()
+        return str(response).strip()
+
+    def chat_completion(self, message: str, context: Optional[str] = None) -> str:
+        if context:
+            prompt = f"Context: {context}\n\nUser: {message}"
+        else:
+            prompt = f"User: {message}"
+        messages = [{"role": "user", "content": prompt}]
+        response = self.model.chat(messages)
+        if isinstance(response, dict):
+            return response.get("choices", [{}])[0].get("message", {}).get("content", "").strip()
+        return str(response).strip()

@@ -34,6 +34,20 @@ class SemanticGraph:
         self.graph = defaultdict(dict)
         self.node_properties = {}
 
+    def get_neighbors_by_condition(self, node_id, condition):
+        """
+        Returns a dict of neighbors connected to node_id via edges with the given condition.
+        Each value is a deep copy of the edge properties.
+        """
+        if node_id not in self.graph:
+            print(f"Node '{node_id}' has no outgoing edges.")
+            return {}
+        result = {}
+        for neighbor, edge_data in self.graph[node_id].items():
+            if edge_data.get('condition') == condition:
+                result[neighbor] = copy.deepcopy(edge_data)
+        return result
+
     def add_node(self, node_id, node_type="structural", properties=None):
         """
         Adds a new node to the graph with specified type and properties.
@@ -63,19 +77,23 @@ class SemanticGraph:
         """
         Finds the lowest-cost path from any start node to any target node(s)
         using a modified Dijkstra's algorithm.
+        Returns:
+            cost: total path cost
+            node_path: list of nodes from source to destination
+            edge_list: list of (from_node, to_node, edge_data) for each edge in the path
         """
-        pq = [(0, start_node, [start_node]) for start_node in start_nodes]
+        pq = [(0, start_node, [start_node], []) for start_node in start_nodes]
         visited = set()
 
         while pq:
-            cost, current_node, path = heapq.heappop(pq)
+            cost, current_node, path, edge_list = heapq.heappop(pq)
             
             if current_node in visited:
                 continue
             visited.add(current_node)
 
             if current_node in target_nodes:
-                return cost, path
+                return cost, path, edge_list
 
             for neighbor, edge_data in self.graph.get(current_node, {}).items():
                 edge_weight = edge_data['weight']
@@ -86,10 +104,10 @@ class SemanticGraph:
 
                 new_cost = cost + edge_weight
                 new_path = path + [neighbor]
-                heapq.heappush(pq, (new_cost, neighbor, new_path))
+                new_edge_list = edge_list + [(current_node, neighbor, copy.deepcopy(edge_data))]
+                heapq.heappush(pq, (new_cost, neighbor, new_path, new_edge_list))
         
-        return None, None
-    
+        return None, None, None
     def get_node_details(self, node_id):
         """
         Returns a deep copy of the properties and details of the specified node.
