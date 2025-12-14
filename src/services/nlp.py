@@ -1,7 +1,8 @@
 import os
 from typing import Dict, Any, Optional, Tuple
 from src.modules.semantic_graph import SemanticGraph
-from src.services.inference import GeminiService, ModelInferenceService
+from src.services.inference import GeminiService, InferenceServiceProtocol, ModelInferenceService
+from src.services.vector_service import GraphVectorService
 
 class NLQIntentAnalyzer:
     """
@@ -9,8 +10,9 @@ class NLQIntentAnalyzer:
     (start_node, end_node, condition) using Gemini LLM.
     """
 
-    def __init__(self, gemini_api_key: Optional[str] = None):
-        self.gemini = GeminiService()
+    def __init__(self, model: InferenceServiceProtocol, vector_service: Optional[GraphVectorService] = None):
+        self.model = model
+        self.vector_service = vector_service
 
     def analyze_intent(self, user_query: str, graph: SemanticGraph) -> Optional[Dict[str, Any]]:
         """
@@ -44,7 +46,15 @@ class NLQIntentAnalyzer:
         }
 
         # Optionally, provide node names/types as context for Gemini
-        node_names = list(graph.node_properties.keys())
+        if self.vector_service:
+            # Use vector service to filter relevant nodes
+            # We assume the graph has been indexed previously
+            node_names = self.vector_service.search_nodes(user_query, k=64)
+            print(f"Filtered graph nodes using Vector DB. Retained {len(node_names)} nodes.")
+            print(f"Nodes: {', '.join(node_names)}")
+        else:
+            node_names = list(graph.node_properties.keys())
+            
         context = (
             "Available nodes in the schema graph: " +
             ", ".join(node_names) +
@@ -55,7 +65,7 @@ class NLQIntentAnalyzer:
         content = f"{context}\n\nUser Query: {user_query}"
 
         # Call Gemini for structured output
-        result = self.gemini.get_structured_output(content, schema)
+        result = self.model.get_structured_output(content, schema)
         # result = {
         #     'start_node': 'users',
         #     'end_node': 'orders',

@@ -18,7 +18,7 @@ class MySQLService:
         user=self.db_config.get("user"),
         password=self.db_config.get("password"),
         database=self.db_config.get("database"),
-        port=3308
+        port=3306
         
     )
 

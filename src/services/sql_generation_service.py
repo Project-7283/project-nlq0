@@ -1,6 +1,6 @@
 import json
 from typing import List, Dict, Any, Optional
-from .inference import GeminiService, ModelInferenceService
+from .inference import GeminiService, InferenceServiceProtocol, ModelInferenceService
 from .mysql_service import MySQLService
 from .db_reader import DBSchemaReaderService
 from ..modules.semantic_graph import SemanticGraph
@@ -10,8 +10,8 @@ class SQLGenerationService:
     Service to generate SQL from a semantic graph path and run it on the database.
     Utilizes Gemini LLM for SQL generation and MySQLService for execution.
     """
-    def __init__(self, gemini_api_key: Optional[str] = None, db_name = "nlq0"):
-        self.gemini = GeminiService() # GeminiService(api_key=gemini_api_key)
+    def __init__(self, model: InferenceServiceProtocol, db_name = "nlq0"):
+        self.model = model # GeminiService(api_key=gemini_api_key)
         self.sql_service = MySQLService(database=db_name)
 
     def path_to_sql_prompt(self, path: List[str], graph: SemanticGraph) -> str:
@@ -31,8 +31,6 @@ class SQLGenerationService:
         # get_neighbors_by_condition returns a dict: {neighbor_node: edge_data}
         schema_descriptions = []
         for node in path:
-            # Assume table nodes are those with attribute connections
-            attributes = []
             neighbors = graph.get_neighbors_by_condition(node_id=node, condition="association")
             schema_descriptions.append(f"{node}: " + ", " + json.dumps(neighbors))
         if schema_descriptions:
@@ -63,10 +61,38 @@ class SQLGenerationService:
             },
             "required": ["sql"]
         }
-        result = self.gemini.get_structured_output(prompt, schema)
+        result = self.model.get_structured_output(prompt, schema)
         if isinstance(result, dict) and "sql" in result:
             return result["sql"]
         raise ValueError("Gemini did not return a valid SQL object.")
+
+    def correct_sql(self, invalid_sql: str, error_message: str, user_query: str) -> str:
+        """
+        Corrects an invalid SQL query based on the error message using the LLM.
+        """
+        prompt = f"""
+        The following SQL query failed to execute.
+        
+        User Query: {user_query}
+        Invalid SQL: {invalid_sql}
+        Error Message: {error_message}
+        
+        Please correct the SQL query to fix the error. Ensure the logic still matches the user's intent.
+        Respond ONLY with a JSON object: {{ "sql": "..." }}
+        """
+        
+        schema = {
+            "type": "object",
+            "properties": {
+                "sql": {"type": "string", "description": "The corrected SQL query."}
+            },
+            "required": ["sql"]
+        }
+        
+        result = self.model.get_structured_output(prompt, schema)
+        if isinstance(result, dict) and "sql" in result:
+            return result["sql"]
+        raise ValueError("LLM did not return a valid corrected SQL object.")
 
     def run_sql(self, sql: str) -> List[Any]:
         """
