@@ -53,15 +53,35 @@ The system follows a multi-step flow:
 4.  **Environment Configuration**
     Create a `.env` file in the root directory with the following credentials:
     ```env
+    # Database Configuration
     MYSQL_HOST=
     MYSQL_USER=
     MYSQL_PASSWORD=
-    MYSQL_DATABASE=ecommerce_market
+    MYSQL_DATABASE=ecommerce_marketplace
+    
+    # LLM API Keys
     GEMINI_API_KEY=
     OPENAI_API_KEY=
+    
+    # Optional: Advanced LLM Configuration
     LLM_API_BASE=
     LLM_MODEL=
     LLM_EMBED_MODEL=
+    
+    # Database Profiling (New!)
+    ENABLE_DB_PROFILING=true
+    CATEGORICAL_THRESHOLD=0.1
+    PROFILING_SAMPLE_SIZE=10000
+    
+    # Data Governance
+    DATA_MASKING_ENABLED=true
+    SENSITIVE_COLUMNS_CSV=config/sensitive_keywords.csv
+    
+    # LLM Selection for Profiling
+    LIGHT_LLM_PROVIDER=openai
+    LIGHT_LLM_MODEL=gpt-4o-mini
+    HEAVY_LLM_PROVIDER=gemini
+    HEAVY_LLM_MODEL=gemini-2.5-flash
     ```
 
 5.  **Database Setup**
@@ -77,10 +97,58 @@ The system follows a multi-step flow:
         *   *Important:* Ensure Foreign Keys are defined (e.g., `orders.customer_id` -> `customers.customer_id`) as the graph generation relies on them.
 
 6.  **Generate Semantic Graph**
-    This script reads your DB schema and creates the `schemas/ecommerce_marketplace.json` file used by the application.
+    This script reads your DB schema and creates an enriched `schemas/ecommerce_marketplace.json` file with business context and data governance.
+    
+    **Basic (Schema Only):**
     ```bash
-    python generate_graph_for_db.py
+    ENABLE_DB_PROFILING=false python init/generate_graph_for_db.py
     ```
+    
+    **Enhanced (With LLM-Powered Profiling):**
+    ```bash
+    ENABLE_DB_PROFILING=true python init/generate_graph_for_db.py
+    ```
+    
+    The enhanced mode provides:
+    - Business purpose and domain classification for tables
+    - Semantic descriptions for columns
+    - Categorical value detection (e.g., "books", "electronics" in product categories)
+    - Virtual table suggestions for common queries
+    - Automatic masking of sensitive columns (passwords, tokens, etc.)
+
+## Database Profiling (New Feature)
+
+The system now includes **LLM-powered database profiling** that enriches the semantic graph with business context:
+
+### Features
+- **Dual-LLM Architecture**: Uses lightweight (gpt-4o-mini) and heavyweight (Gemini) LLMs for cost optimization
+- **Business Context**: Extracts business purpose, domain, and impact for each table
+- **Semantic Analysis**: Generates human-readable descriptions for columns
+- **Categorical Detection**: Identifies enum-like columns and their possible values
+- **Virtual Tables**: LLM suggests useful views based on data patterns
+- **Data Governance**: Automatically masks sensitive columns (passwords, tokens, keys)
+
+### How It Helps
+**Problem:** Query "show me all books" fails because system looks for a "books" table.
+**Solution:** Profiling deteLLM service abstraction (Gemini, OpenAI, Ollama).
+        *   `mysql_service.py`: Database connectivity.
+        *   `schema_graph_service.py`: Logic for building the graph from DB schema.
+        *   `db_profiling_service.py`: **NEW** - LLM-powered database profiling.
+        *   `vector_service.py`: ChromaDB for semantic search.
+*   `init/generate_graph_for_db.py`: Script to bootstrap the semantic graph JSON with optional profiling.
+*   `config/`: Configuration files for data governance (sensitive keywords).
+*   `schemas/`: Stores the serialized graph JSON files.
+*   `docs/`: Architecture and service documentation
+### Configuration
+Edit `config/sensitive_keywords.csv` to customize which columns are masked:
+```csv
+keyword,mask_type
+password,full
+token,full
+api_key,full
+```
+
+See [config/README.md](config/README.md) for details.
 
 ## How to Run
 

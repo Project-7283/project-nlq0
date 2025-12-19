@@ -23,6 +23,11 @@ class DBSchemaReaderService:
             elif table_type.lower() == 'view':
                 views.append(table_name)
         return tables, views
+    
+    def get_views(self, database):
+        """Get list of views only"""
+        tables, views = self.get_tables(database)
+        return views
 
     def get_stored_procedures(self, database):
         query = f"""

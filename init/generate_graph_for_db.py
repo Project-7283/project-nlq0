@@ -1,77 +1,106 @@
 import os
 from src.services.mysql_service import MySQLService
 from src.services.db_reader import DBSchemaReaderService
+from src.services.schema_graph_service import SchemaGraphService
+from src.services.db_profiling_service import DBProfilingService, DataGovernanceConfig
+from src.services.inference import GeminiService, OpenAIService
 from src.modules.semantic_graph import SemanticGraph
 
-# filepath: generate_graph_for_db.py
+# filepath: init/generate_graph_for_db.py
 
 
 def main():
-    # Optionally, grow reverse foreign key edges for SQL traversal
-    def grow_reverse_foreign_keys_sql(graph):
-        # Only add reverse for table-to-table foreign_key edges
-        graph.grow_reverse_edges(condition_filter="foreign_key", new_condition="foreign_key")
-
+    """
+    Generate semantic graph with optional enriched profiling.
+    Uses LLM-powered analysis for business context and data governance.
+    """
+    print("\n" + "="*80)
+    print("DATABASE SEMANTIC GRAPH GENERATION")
+    print("="*80)
+    
     # Initialize MySQLService (reads credentials from .env or config)
+    print("\n📊 Connecting to database...")
     mysql_service = MySQLService()
     db_reader = DBSchemaReaderService(mysql_service)
-    graph = SemanticGraph()
+    
+    dbname = os.getenv("MYSQL_DATABASE", "ecommerce_marketplace")
+    print(f"   Database: {dbname}")
+    
+    # Check if profiling is enabled
+    enable_profiling = os.getenv("ENABLE_DB_PROFILING", "true").lower() == "true"
+    
+    profiling_service = None
+    if enable_profiling:
+        print("\n🤖 Initializing LLM services for profiling...")
+        
+        # Initialize LLM services based on configuration
+        light_llm_provider = os.getenv("LIGHT_LLM_PROVIDER", "openai").lower()
+        heavy_llm_provider = os.getenv("HEAVY_LLM_PROVIDER", "gemini").lower()
+        
+        # Light LLM (for column descriptions - cheaper)
+        if light_llm_provider == "openai":
+            light_llm_model = os.getenv("LIGHT_LLM_MODEL", "gpt-4o-mini")
+            light_llm = OpenAIService(model=light_llm_model)
+            print(f"   Light LLM: OpenAI {light_llm_model}")
+        elif light_llm_provider == "gemini":
+            light_llm = GeminiService()
+            print(f"   Light LLM: Gemini")
+        else:
+            # Fallback to Gemini
+            light_llm = GeminiService()
+            print(f"   Light LLM: Gemini (fallback)")
+        
+        # Heavy LLM (for business analysis - more capable)
+        if heavy_llm_provider == "gemini":
+            heavy_llm = GeminiService()
+            print(f"   Heavy LLM: Gemini")
+        elif heavy_llm_provider == "openai":
+            heavy_llm_model = os.getenv("HEAVY_LLM_MODEL", "gpt-4o")
+            heavy_llm = OpenAIService(model=heavy_llm_model)
+            print(f"   Heavy LLM: OpenAI {heavy_llm_model}")
+        else:
+            # Fallback to Gemini
+            heavy_llm = GeminiService()
+            print(f"   Heavy LLM: Gemini (fallback)")
+        
+        # Initialize data governance
+        print("\n🔒 Initializing data governance...")
+        sensitive_csv = os.getenv("SENSITIVE_COLUMNS_CSV", "config/sensitive_keywords.csv")
+        governance = DataGovernanceConfig(sensitive_keywords_csv=sensitive_csv)
+        print(f"   Sensitive keywords loaded: {len(governance.sensitive_keywords)}")
+        print(f"   Masking enabled: {governance.masking_enabled}")
+        
+        # Initialize profiling service
+        profiling_service = DBProfilingService(
+            db_reader=db_reader,
+            mysql_service=mysql_service,
+            light_llm=light_llm,
+            heavy_llm=heavy_llm,
+            governance_config=governance
+        )
+    else:
+        print("\n⚠️  Profiling disabled (ENABLE_DB_PROFILING=false)")
+        print("   Graph will contain schema information only")
+    
+    # Build graph with schema service
+    print("\n🏗️  Building semantic graph...")
+    graph_service = SchemaGraphService(
+        db_reader=db_reader,
+        dbname=dbname,
+        output_dir="schemas",
+        profiling_service=profiling_service
+    )
+    
+    # Build and save
+    output_path = graph_service.build_and_save(
+        add_reverse_fks=True,
+        enable_profiling=enable_profiling
+    )
+    
+    print("\n" + "="*80)
+    print(f"✅ SUCCESS! Semantic graph saved to: {output_path}")
+    print("="*80 + "\n")
 
-    dbname = "ecommerce_marketplace"
-
-    # Fetch tables and views
-    tables, views = db_reader.get_tables(dbname)
-
-    # Add table nodes and their columns as attribute nodes (association only)
-    for table in tables:
-        graph.add_node(table, node_type="table")
-        columns = db_reader.get_table_schema(dbname, table)
-        for col in columns:
-            col_node = f"{table}.{col['Field']}"
-            graph.add_node(col_node, node_type="attribute", properties=col)
-            # Only association: attribute <-> table
-            graph.add_edge(col_node, table, weight=1.0, condition="association")
-            graph.add_edge(table, col_node, weight=1.0, condition="association")
-
-    # Add view nodes
-    for view in views:
-        graph.add_node(view, node_type="view")
-        view_schema = db_reader.get_view_schema(dbname, view)
-        # Optionally, parse view_schema['Create View'] for columns
-
-    # Add table-to-table foreign key relationships as edges with metadata
-    for table in tables:
-        columns = db_reader.get_table_schema(dbname, table)
-        for col in columns:
-            if col.get('Key') == 'MUL':
-                fk_query = f"""
-                    SELECT REFERENCED_TABLE_NAME, REFERENCED_COLUMN_NAME
-                    FROM information_schema.KEY_COLUMN_USAGE
-                    WHERE TABLE_SCHEMA = '{dbname}' AND TABLE_NAME = '{table}' AND COLUMN_NAME = '{col['Field']}'
-                        AND REFERENCED_TABLE_NAME IS NOT NULL
-                """
-                fk_result = mysql_service.execute_query(fk_query)
-                for fk in fk_result:
-                    ref_table = fk['REFERENCED_TABLE_NAME']
-                    ref_col = fk['REFERENCED_COLUMN_NAME']
-                    # Edge: table -> referenced table, with FK metadata
-                    graph.add_edge(
-                        table,
-                        ref_table,
-                        weight=0.2,
-                        condition="foreign_key",
-                        properties={
-                            "source_attribute": f"{table}.{col['Field']}",
-                            "destination_attribute": f"{ref_table}.{ref_col}"
-                        }
-                    )
-
-    # Save graph to schemas/<dbname>.json
-    os.makedirs("schemas", exist_ok=True)
-    out_path = f"schemas/{dbname}.json"
-    # Add reverse foreign key edges if needed
-    grow_reverse_foreign_keys_sql(graph)
-    graph.save_to_json(out_path)
 
 if __name__ == "__main__":
     main()
