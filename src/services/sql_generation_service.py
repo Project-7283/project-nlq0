@@ -28,6 +28,78 @@ class SQLGenerationService:
         
         self.governance_enabled = os.getenv("DATA_GOVERNANCE_ENABLED", "true").lower() == "true"
 
+    def _format_properties(self, properties: Dict[str, Any], indent: int = 0) -> str:
+        """
+        Format node properties in a clean, readable markdown format.
+        Handles nested structures, arrays, and various data types dynamically.
+        
+        Args:
+            properties: Dictionary of properties to format
+            indent: Current indentation level
+            
+        Returns:
+            Formatted string representation
+        """
+        if not properties:
+            return "(no properties)"
+        
+        lines = []
+        indent_str = "  " * indent
+        
+        # Key properties to show first (if they exist)
+        priority_keys = ['description', 'business_purpose', 'semantic_meaning', 'business_relevance', 
+                        'Field', 'Type', 'Comment', 'row_count', 'data_domain', 'business_impact']
+        
+        # Separate priority and other keys
+        priority_props = {k: properties[k] for k in priority_keys if k in properties}
+        other_props = {k: v for k, v in properties.items() if k not in priority_keys}
+        
+        # Format priority properties first
+        for key, value in priority_props.items():
+            lines.append(self._format_property_line(key, value, indent_str))
+        
+        # Format other properties
+        for key, value in other_props.items():
+            lines.append(self._format_property_line(key, value, indent_str))
+        
+        return "\n".join(lines)
+    
+    def _format_property_line(self, key: str, value: Any, indent_str: str) -> str:
+        """
+        Format a single property line based on value type.
+        """
+        # Skip null/None values and masked values
+        if value is None or value == "***MASKED***":
+            return ""
+        
+        # Handle different value types
+        if isinstance(value, bool):
+            return f"{indent_str}• {key}: {value}"
+        elif isinstance(value, (int, float)):
+            return f"{indent_str}• {key}: {value}"
+        elif isinstance(value, str):
+            return f"{indent_str}• {key}: {value}"
+        elif isinstance(value, list):
+            if not value:
+                return ""
+            items = ", ".join([str(v) for v in value])
+            return f"{indent_str}• {key}: [{items}]"
+        elif isinstance(value, dict):
+            if not value:
+                return ""
+            # For nested dicts, show key-value pairs inline if small
+            if len(value) <= 3 and all(isinstance(v, (str, int, float, bool)) for v in value.values()):
+                items = ", ".join([f"{k}={v}" for k, v in value.items()])
+                return f"{indent_str}• {key}: {{{items}}}"
+            else:
+                # Show nested structure without truncation
+                nested_lines = [f"{indent_str}• {key}:"]
+                for k, v in value.items():
+                    nested_lines.append(f"{indent_str}  - {k}: {v}")
+                return "\n".join(nested_lines)
+        else:
+            return f"{indent_str}• {key}: {str(value)}"
+
     def path_to_sql_prompt(self, path: List[str], graph: SemanticGraph) -> str:
         """
         Compose a prompt for Gemini to generate SQL, embedding edge properties and node info.
@@ -47,6 +119,21 @@ class SQLGenerationService:
         # Filter out sensitive columns if governance is enabled
         schema_descriptions = []
         for node in path:
+            # Get node properties from graph
+            node_data = graph.get_node_details(node)
+            node_type = node_data.get('node_type', 'unknown')
+            node_props = node_data.get('properties', {})
+            
+            # Format node information
+            node_desc = [f"\n## {node} ({node_type})"]
+            
+            # Add formatted properties
+            if node_props:
+                formatted_props = self._format_properties(node_props)
+                if formatted_props and formatted_props != "(no properties)":
+                    node_desc.append(formatted_props)
+            
+            # Get associated columns/attributes
             neighbors = graph.get_neighbors_by_condition(node_id=node, condition="association")
             
             # Filter sensitive columns from schema
@@ -59,7 +146,40 @@ class SQLGenerationService:
                         filtered_neighbors[neighbor] = edge_data
                 neighbors = filtered_neighbors
             
-            schema_descriptions.append(f"{node}: " + ", " + json.dumps(neighbors))
+            # Add columns/attributes
+            if neighbors:
+                node_desc.append("\n### Columns:")
+                for neighbor, edge_data in neighbors.items():
+                    neighbor_data = graph.get_node_details(neighbor)
+                    neighbor_props = neighbor_data.get('properties', {})
+                    
+                    # Format column with key properties only
+                    col_name = neighbor.split('.')[-1] if '.' in neighbor else neighbor
+                    col_desc = [f"- **{col_name}**"]
+                    
+                    # Add important column properties inline
+                    col_type = neighbor_props.get('Type', '')
+                    col_comment = neighbor_props.get('Comment', neighbor_props.get('description', ''))
+                    
+                    if col_type:
+                        col_desc.append(f" ({col_type})")
+                    if col_comment:
+                        col_desc.append(f" - {col_comment}")
+                    
+                    # Add semantic/business info if available
+                    semantic = neighbor_props.get('semantic_meaning', '')
+                    business = neighbor_props.get('business_relevance', '')
+                    if semantic or business:
+                        extra_info = []
+                        if semantic:
+                            extra_info.append(f"Semantic: {semantic}")
+                        if business:
+                            extra_info.append(f"Business: {business}")
+                        col_desc.append(f" [{'; '.join(extra_info)}]")
+                    
+                    node_desc.append("".join(col_desc))
+                
+            schema_descriptions.append("\n".join(node_desc))
         
         if schema_descriptions:
             schema_section = "Table schemas (sensitive columns filtered):\n" + "\n".join(schema_descriptions) + "\n"
@@ -67,8 +187,19 @@ class SQLGenerationService:
             schema_section = ""
         prompt = (
             "Given the following path in a database schema graph, generate a SQL query that retrieves the relevant data.\n"
-            "Path: " + " -> ".join(path) + "\n"
-            "Edge details: " + "; ".join(edge_descriptions) + "\n"
+            "Table Joining Path: " + " -> ".join(path) + "\n"
+            "Joining Edge details: " + "; ".join(edge_descriptions) + "\n"
+            "When creating the SQL, follow these guidelines:\n"
+            "1. Only select the columns needed to answer the question. Avoid 'SELECT *'.\n"
+            "2. Name any aggregated fields using clear aliases (e.g., total_revenue, avg_rating).\n"
+            "3. Include WHERE filters that match the user's intent and remove irrelevant rows.\n"
+            "4. Use GROUP BY for aggregations and ensure all non-aggregated columns are grouped.\n"
+            "5. Order the results in a way that makes the answer easy to read (e.g., ORDER BY totals DESC).\n"
+            "6. Limit the number of rows when the user asks for top or specific counts.\n"
+            "7. Use meaningful table aliases to keep the SQL readable.\n"
+            "8. Avoid unnecessary joins or columns that are not referenced in the SELECT clause.\n"
+            "9. Ensure all column references use the correct table aliases to prevent ambiguity.\n"
+            "10. Use DISTINCT when the question implies unique values (e.g., unique users).\n"
             "Respond ONLY with a JSON object: { \"sql\": \"...\" }" + "\n"
             f"{schema_section}"
         )
@@ -82,7 +213,7 @@ class SQLGenerationService:
         """
         prompt = self.path_to_sql_prompt(path, graph)
         if user_query:
-            prompt += f"\nUser Query: {user_query}"
+            prompt = f"\n\nUser Query: {user_query} \n\n" + prompt
         schema = {
             "type": "object",
             "properties": {

@@ -237,7 +237,7 @@ class OllamaService:
     Exposes methods for summarization, structured output, intent analysis, and general chat completion.
     """
 
-    def __init__(self, model: str = "llama3", base_url: str = "http://localhost:11434"):
+    def __init__(self, model: str = "llama3", base_url: str = os.getenv("LLM_API_BASE", "http://localhost:11434")):
         self.model = model
         self.base_url = base_url
 
