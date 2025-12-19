@@ -1961,7 +1961,7 @@
         "Default": null,
         "Extra": "auto_increment",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Unique identifier for each address"
       }
     },
     "addresses.user_id": {
@@ -1975,7 +1975,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "ID of the user this address belongs to"
       }
     },
     "addresses.address_type": {
@@ -1989,7 +1989,7 @@
         "Default": "Home",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Type of address"
       }
     },
     "addresses.full_name": {
@@ -2003,7 +2003,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Full name of the person at this address"
       }
     },
     "addresses.phone": {
@@ -2017,7 +2017,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Phone number for this address"
       }
     },
     "addresses.address_line1": {
@@ -2031,7 +2031,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "First line of the address"
       }
     },
     "addresses.address_line2": {
@@ -2045,7 +2045,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Second line of the address"
       }
     },
     "addresses.landmark": {
@@ -2059,7 +2059,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Landmark near the address"
       }
     },
     "addresses.city": {
@@ -2073,7 +2073,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "City of the address"
       }
     },
     "addresses.state": {
@@ -2087,7 +2087,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "State of the address"
       }
     },
     "addresses.pincode": {
@@ -2101,7 +2101,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Pincode of the address"
       }
     },
     "addresses.is_default": {
@@ -2115,7 +2115,7 @@
         "Default": "0",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Flag indicating if this is the default address"
       }
     },
     "addresses.created_at": {
@@ -2129,7 +2129,7 @@
         "Default": "CURRENT_TIMESTAMP",
         "Extra": "DEFAULT_GENERATED",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Timestamp when the address was added"
       }
     },
     "cart": {
@@ -2147,7 +2147,7 @@
         "Default": null,
         "Extra": "auto_increment",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Unique identifier for each cart item"
       }
     },
     "cart.user_id": {
@@ -2161,7 +2161,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "ID of the user who added the item to cart"
       }
     },
     "cart.product_id": {
@@ -2175,7 +2175,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "ID of the product in the cart"
       }
     },
     "cart.quantity": {
@@ -2189,7 +2189,7 @@
         "Default": "1",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Quantity of the product in the cart"
       }
     },
     "cart.added_at": {
@@ -2203,7 +2203,7 @@
         "Default": "CURRENT_TIMESTAMP",
         "Extra": "DEFAULT_GENERATED",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Timestamp when the item was added to cart"
       }
     },
     "categories": {
@@ -2221,7 +2221,7 @@
         "Default": null,
         "Extra": "auto_increment",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Unique identifier for each category"
       }
     },
     "categories.category_name": {
@@ -2235,7 +2235,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Name of the product category"
       }
     },
     "categories.parent_category_id": {
@@ -2249,7 +2249,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "ID of the parent category for hierarchical structure"
       }
     },
     "categories.description": {
@@ -2263,7 +2263,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Detailed description of the category"
       }
     },
     "categories.image_url": {
@@ -2277,7 +2277,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "URL of the category image"
       }
     },
     "categories.is_active": {
@@ -2291,7 +2291,7 @@
         "Default": "1",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Flag indicating if the category is active"
       }
     },
     "categories.created_at": {
@@ -2305,7 +2305,7 @@
         "Default": "CURRENT_TIMESTAMP",
         "Extra": "DEFAULT_GENERATED",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Timestamp when the category was created"
       }
     },
     "coupons": {
@@ -2323,7 +2323,7 @@
         "Default": null,
         "Extra": "auto_increment",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Unique identifier for each coupon"
       }
     },
     "coupons.coupon_code": {
@@ -2337,7 +2337,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Unique code for the coupon"
       }
     },
     "coupons.coupon_name": {
@@ -2351,7 +2351,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Name of the coupon"
       }
     },
     "coupons.description": {
@@ -2365,7 +2365,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Description of the coupon"
       }
     },
     "coupons.discount_type": {
@@ -2379,7 +2379,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Type of discount offered by the coupon"
       }
     },
     "coupons.discount_value": {
@@ -2393,7 +2393,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Value of the discount"
       }
     },
     "coupons.minimum_order_amount": {
@@ -2407,7 +2407,7 @@
         "Default": "0.00",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Minimum order amount required to use the coupon"
       }
     },
     "coupons.maximum_discount_amount": {
@@ -2421,7 +2421,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Maximum discount amount that can be applied"
       }
     },
     "coupons.usage_limit": {
@@ -2435,7 +2435,7 @@
         "Default": "1",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Maximum number of times the coupon can be used"
       }
     },
     "coupons.used_count": {
@@ -2449,7 +2449,7 @@
         "Default": "0",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Number of times the coupon has been used"
       }
     },
     "coupons.valid_from": {
@@ -2463,7 +2463,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Start date of coupon validity"
       }
     },
     "coupons.valid_until": {
@@ -2477,7 +2477,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "End date of coupon validity"
       }
     },
     "coupons.is_active": {
@@ -2491,7 +2491,7 @@
         "Default": "1",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Flag indicating if the coupon is active"
       }
     },
     "coupons.created_at": {
@@ -2505,7 +2505,7 @@
         "Default": "CURRENT_TIMESTAMP",
         "Extra": "DEFAULT_GENERATED",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Timestamp when the coupon was created"
       }
     },
     "order_items": {
@@ -2523,7 +2523,7 @@
         "Default": null,
         "Extra": "auto_increment",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Unique identifier for each order item"
       }
     },
     "order_items.order_id": {
@@ -2537,7 +2537,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "ID of the order this item belongs to"
       }
     },
     "order_items.product_id": {
@@ -2551,7 +2551,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "ID of the product in this order item"
       }
     },
     "order_items.seller_id": {
@@ -2565,7 +2565,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "ID of the seller for this product"
       }
     },
     "order_items.quantity": {
@@ -2579,7 +2579,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Quantity of the product ordered"
       }
     },
     "order_items.unit_price": {
@@ -2593,7 +2593,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Price per unit of the product"
       }
     },
     "order_items.total_price": {
@@ -2607,7 +2607,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Total price for this order item"
       }
     },
     "order_items.discount_applied": {
@@ -2621,7 +2621,7 @@
         "Default": "0.00",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Discount applied to this order item"
       }
     },
     "order_items.item_status": {
@@ -2635,7 +2635,7 @@
         "Default": "Placed",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Status of this order item"
       }
     },
     "order_items.tracking_number": {
@@ -2649,7 +2649,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Tracking number for shipment"
       }
     },
     "orders": {
@@ -2667,7 +2667,7 @@
         "Default": null,
         "Extra": "auto_increment",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Unique identifier for each order"
       }
     },
     "orders.user_id": {
@@ -2681,7 +2681,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "ID of the user who placed the order"
       }
     },
     "orders.order_number": {
@@ -2695,7 +2695,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Unique order number for reference"
       }
     },
     "orders.order_date": {
@@ -2709,7 +2709,7 @@
         "Default": "CURRENT_TIMESTAMP",
         "Extra": "DEFAULT_GENERATED",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Date and time when the order was placed"
       }
     },
     "orders.total_amount": {
@@ -2723,7 +2723,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Total amount of the order before discounts"
       }
     },
     "orders.discount_amount": {
@@ -2737,7 +2737,7 @@
         "Default": "0.00",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Total discount applied to the order"
       }
     },
     "orders.tax_amount": {
@@ -2751,7 +2751,7 @@
         "Default": "0.00",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Tax amount for the order"
       }
     },
     "orders.shipping_amount": {
@@ -2765,7 +2765,7 @@
         "Default": "0.00",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Shipping cost for the order"
       }
     },
     "orders.final_amount": {
@@ -2779,7 +2779,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Final amount to be paid after all calculations"
       }
     },
     "orders.payment_method": {
@@ -2793,7 +2793,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Payment method used for the order"
       }
     },
     "orders.payment_status": {
@@ -2807,7 +2807,7 @@
         "Default": "Pending",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Current status of the payment"
       }
     },
     "orders.order_status": {
@@ -2821,7 +2821,7 @@
         "Default": "Placed",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Current status of the order"
       }
     },
     "orders.shipping_address_id": {
@@ -2835,7 +2835,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "ID of the shipping address for the order"
       }
     },
     "orders.estimated_delivery_date": {
@@ -2849,7 +2849,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Estimated delivery date for the order"
       }
     },
     "orders.actual_delivery_date": {
@@ -2863,7 +2863,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Actual delivery date of the order"
       }
     },
     "orders.created_at": {
@@ -2877,7 +2877,7 @@
         "Default": "CURRENT_TIMESTAMP",
         "Extra": "DEFAULT_GENERATED",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Timestamp when the order was created"
       }
     },
     "orders.updated_at": {
@@ -2891,7 +2891,7 @@
         "Default": "CURRENT_TIMESTAMP",
         "Extra": "DEFAULT_GENERATED on update CURRENT_TIMESTAMP",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Timestamp when the order was last updated"
       }
     },
     "payments": {
@@ -2909,7 +2909,7 @@
         "Default": null,
         "Extra": "auto_increment",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Unique identifier for each payment"
       }
     },
     "payments.order_id": {
@@ -2923,7 +2923,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "ID of the order this payment is for"
       }
     },
     "payments.payment_method": {
@@ -2937,7 +2937,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Method used for payment"
       }
     },
     "payments.transaction_id": {
@@ -2951,7 +2951,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Unique transaction ID from payment gateway"
       }
     },
     "payments.payment_gateway": {
@@ -2965,7 +2965,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Name of the payment gateway used"
       }
     },
     "payments.amount": {
@@ -2979,7 +2979,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Amount of the payment"
       }
     },
     "payments.currency": {
@@ -2993,7 +2993,7 @@
         "Default": "INR",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Currency of the payment"
       }
     },
     "payments.payment_status": {
@@ -3007,7 +3007,7 @@
         "Default": "Pending",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Status of the payment"
       }
     },
     "payments.payment_date": {
@@ -3021,7 +3021,7 @@
         "Default": "CURRENT_TIMESTAMP",
         "Extra": "DEFAULT_GENERATED",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Date and time of the payment"
       }
     },
     "payments.gateway_response": {
@@ -3035,7 +3035,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Response received from the payment gateway"
       }
     },
     "product_attributes": {
@@ -3053,7 +3053,7 @@
         "Default": null,
         "Extra": "auto_increment",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Unique identifier for each product attribute"
       }
     },
     "product_attributes.product_id": {
@@ -3067,7 +3067,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "ID of the product this attribute belongs to"
       }
     },
     "product_attributes.attribute_name": {
@@ -3081,7 +3081,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Name of the attribute (e.g., RAM, Storage)"
       }
     },
     "product_attributes.attribute_value": {
@@ -3095,7 +3095,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Value of the attribute"
       }
     },
     "product_images": {
@@ -3113,7 +3113,7 @@
         "Default": null,
         "Extra": "auto_increment",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Unique identifier for each product image"
       }
     },
     "product_images.product_id": {
@@ -3127,7 +3127,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "ID of the product this image belongs to"
       }
     },
     "product_images.image_url": {
@@ -3141,7 +3141,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "URL of the product image"
       }
     },
     "product_images.alt_text": {
@@ -3155,7 +3155,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Alternative text for the image for accessibility"
       }
     },
     "product_images.is_primary": {
@@ -3169,7 +3169,7 @@
         "Default": "0",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Flag indicating if this is the primary image"
       }
     },
     "product_images.display_order": {
@@ -3183,7 +3183,7 @@
         "Default": "0",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Order in which the image should be displayed"
       }
     },
     "products": {
@@ -3201,7 +3201,7 @@
         "Default": null,
         "Extra": "auto_increment",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Unique identifier for each product"
       }
     },
     "products.product_name": {
@@ -3215,7 +3215,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Name of the product"
       }
     },
     "products.description": {
@@ -3229,7 +3229,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Detailed description of the product"
       }
     },
     "products.brand": {
@@ -3243,7 +3243,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Brand name of the product"
       }
     },
     "products.model": {
@@ -3257,7 +3257,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Model number or name of the product"
       }
     },
     "products.category_id": {
@@ -3271,7 +3271,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "ID of the category this product belongs to"
       }
     },
     "products.seller_id": {
@@ -3285,7 +3285,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "ID of the seller offering this product"
       }
     },
     "products.original_price": {
@@ -3299,7 +3299,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Original price of the product before discount"
       }
     },
     "products.selling_price": {
@@ -3313,7 +3313,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Current selling price of the product"
       }
     },
     "products.discount_percentage": {
@@ -3327,7 +3327,7 @@
         "Default": "0.00",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Discount percentage applied to the product"
       }
     },
     "products.stock_quantity": {
@@ -3341,7 +3341,7 @@
         "Default": "0",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Available stock quantity of the product"
       }
     },
     "products.minimum_order_quantity": {
@@ -3355,7 +3355,7 @@
         "Default": "1",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Minimum quantity that can be ordered"
       }
     },
     "products.weight": {
@@ -3369,7 +3369,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Weight of the product in appropriate units"
       }
     },
     "products.dimensions": {
@@ -3383,7 +3383,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Dimensions of the product (length x width x height)"
       }
     },
     "products.color": {
@@ -3397,7 +3397,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Color of the product"
       }
     },
     "products.size": {
@@ -3411,7 +3411,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Size of the product"
       }
     },
     "products.warranty_period": {
@@ -3425,7 +3425,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Warranty period in months"
       }
     },
     "products.return_policy": {
@@ -3439,7 +3439,7 @@
         "Default": "7",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Return policy period in days"
       }
     },
     "products.is_featured": {
@@ -3453,7 +3453,7 @@
         "Default": "0",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Flag indicating if the product is featured"
       }
     },
     "products.is_active": {
@@ -3467,7 +3467,7 @@
         "Default": "1",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Flag indicating if the product is active"
       }
     },
     "products.created_at": {
@@ -3481,7 +3481,7 @@
         "Default": "CURRENT_TIMESTAMP",
         "Extra": "DEFAULT_GENERATED",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Timestamp when the product was added"
       }
     },
     "products.updated_at": {
@@ -3495,7 +3495,7 @@
         "Default": "CURRENT_TIMESTAMP",
         "Extra": "DEFAULT_GENERATED on update CURRENT_TIMESTAMP",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Timestamp when the product was last updated"
       }
     },
     "reviews": {
@@ -3513,7 +3513,7 @@
         "Default": null,
         "Extra": "auto_increment",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Unique identifier for each review"
       }
     },
     "reviews.user_id": {
@@ -3527,7 +3527,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "ID of the user who wrote the review"
       }
     },
     "reviews.product_id": {
@@ -3541,7 +3541,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "ID of the product being reviewed"
       }
     },
     "reviews.order_id": {
@@ -3555,7 +3555,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "ID of the order associated with the review"
       }
     },
     "reviews.rating": {
@@ -3569,7 +3569,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Rating given by the user (1-5)"
       }
     },
     "reviews.review_title": {
@@ -3583,7 +3583,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Title of the review"
       }
     },
     "reviews.review_text": {
@@ -3597,7 +3597,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Detailed text of the review"
       }
     },
     "reviews.is_verified_purchase": {
@@ -3611,7 +3611,7 @@
         "Default": "0",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Flag indicating if the review is from a verified purchase"
       }
     },
     "reviews.helpful_votes": {
@@ -3625,7 +3625,7 @@
         "Default": "0",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Number of helpful votes for the review"
       }
     },
     "reviews.created_at": {
@@ -3639,7 +3639,7 @@
         "Default": "CURRENT_TIMESTAMP",
         "Extra": "DEFAULT_GENERATED",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Timestamp when the review was created"
       }
     },
     "reviews.updated_at": {
@@ -3653,7 +3653,7 @@
         "Default": "CURRENT_TIMESTAMP",
         "Extra": "DEFAULT_GENERATED on update CURRENT_TIMESTAMP",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Timestamp when the review was last updated"
       }
     },
     "reviews.is_active": {
@@ -3667,7 +3667,7 @@
         "Default": "1",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Flag indicating if the review is active"
       }
     },
     "sellers": {
@@ -3685,7 +3685,7 @@
         "Default": null,
         "Extra": "auto_increment",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Unique identifier for each seller"
       }
     },
     "sellers.seller_name": {
@@ -3699,7 +3699,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Name of the seller"
       }
     },
     "sellers.company_name": {
@@ -3713,7 +3713,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Name of the seller company"
       }
     },
     "sellers.email": {
@@ -3727,7 +3727,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Email address of the seller"
       }
     },
     "sellers.phone": {
@@ -3741,7 +3741,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Contact phone number of the seller"
       }
     },
     "sellers.gst_number": {
@@ -3755,7 +3755,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "GST number for tax purposes"
       }
     },
     "sellers.business_address": {
@@ -3769,7 +3769,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Business address of the seller"
       }
     },
     "sellers.city": {
@@ -3783,7 +3783,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "City of the seller"
       }
     },
     "sellers.state": {
@@ -3797,7 +3797,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "State of the seller"
       }
     },
     "sellers.pincode": {
@@ -3811,7 +3811,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Pincode of the seller location"
       }
     },
     "sellers.rating": {
@@ -3825,7 +3825,7 @@
         "Default": "0.00",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Average rating of the seller"
       }
     },
     "sellers.total_reviews": {
@@ -3839,7 +3839,7 @@
         "Default": "0",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Total number of reviews for the seller"
       }
     },
     "sellers.is_verified": {
@@ -3853,7 +3853,7 @@
         "Default": "0",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Flag indicating if the seller is verified"
       }
     },
     "sellers.created_at": {
@@ -3867,7 +3867,7 @@
         "Default": "CURRENT_TIMESTAMP",
         "Extra": "DEFAULT_GENERATED",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Timestamp when the seller account was created"
       }
     },
     "sellers.is_active": {
@@ -3881,7 +3881,7 @@
         "Default": "1",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Flag indicating if the seller account is active"
       }
     },
     "user_coupons": {
@@ -3899,7 +3899,7 @@
         "Default": null,
         "Extra": "auto_increment",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Unique identifier for each user coupon usage"
       }
     },
     "user_coupons.user_id": {
@@ -3913,7 +3913,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "ID of the user who used the coupon"
       }
     },
     "user_coupons.coupon_id": {
@@ -3927,7 +3927,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "ID of the coupon used"
       }
     },
     "user_coupons.order_id": {
@@ -3941,7 +3941,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "ID of the order where the coupon was used"
       }
     },
     "user_coupons.used_at": {
@@ -3955,7 +3955,7 @@
         "Default": "CURRENT_TIMESTAMP",
         "Extra": "DEFAULT_GENERATED",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Timestamp when the coupon was used"
       }
     },
     "user_coupons.discount_applied": {
@@ -3969,7 +3969,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Amount of discount applied using the coupon"
       }
     },
     "users": {
@@ -3987,7 +3987,7 @@
         "Default": null,
         "Extra": "auto_increment",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Unique identifier for each user"
       }
     },
     "users.first_name": {
@@ -4001,7 +4001,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "User first name"
       }
     },
     "users.last_name": {
@@ -4015,7 +4015,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "User last name"
       }
     },
     "users.email": {
@@ -4029,7 +4029,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Unique email address for user authentication and communication"
       }
     },
     "users.phone": {
@@ -4043,7 +4043,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Contact phone number"
       }
     },
     "users.password_hash": {
@@ -4057,7 +4057,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Hashed password for secure authentication"
       }
     },
     "users.date_of_birth": {
@@ -4071,7 +4071,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "User birth date for age verification and personalization"
       }
     },
     "users.gender": {
@@ -4085,7 +4085,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "User gender information"
       }
     },
     "users.created_at": {
@@ -4099,7 +4099,7 @@
         "Default": "CURRENT_TIMESTAMP",
         "Extra": "DEFAULT_GENERATED",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Account creation timestamp"
       }
     },
     "users.updated_at": {
@@ -4113,7 +4113,7 @@
         "Default": "CURRENT_TIMESTAMP",
         "Extra": "DEFAULT_GENERATED on update CURRENT_TIMESTAMP",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Last profile update timestamp"
       }
     },
     "users.is_active": {
@@ -4127,7 +4127,7 @@
         "Default": "1",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Account status flag; TRUE=active, FALSE=deactivated/suspended"
       }
     },
     "users.email_verified": {
@@ -4141,7 +4141,7 @@
         "Default": "0",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Email verification status for account security"
       }
     },
     "wishlist": {
@@ -4159,7 +4159,7 @@
         "Default": null,
         "Extra": "auto_increment",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Unique identifier for each wishlist item"
       }
     },
     "wishlist.user_id": {
@@ -4173,7 +4173,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "ID of the user who added the item to wishlist"
       }
     },
     "wishlist.product_id": {
@@ -4187,7 +4187,7 @@
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "ID of the product in the wishlist"
       }
     },
     "wishlist.added_at": {
@@ -4201,10 +4201,14 @@
         "Default": "CURRENT_TIMESTAMP",
         "Extra": "DEFAULT_GENERATED",
         "Privileges": "select,insert,update,references",
-        "Comment": ""
+        "Comment": "Timestamp when the item was added to wishlist"
       }
     },
     "popular_products": {
+      "type": "view",
+      "properties": {}
+    },
+    "seller_performance": {
       "type": "view",
       "properties": {}
     },

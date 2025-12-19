@@ -53,11 +53,15 @@ The system follows a multi-step flow:
 4.  **Environment Configuration**
     Create a `.env` file in the root directory with the following credentials:
     ```env
-    MYSQL_HOST=localhost
-    MYSQL_USER=your_user
-    MYSQL_PASSWORD=your_password
-    MYSQL_DATABASE=ecommerce_marketplace
-    GEMINI_API_KEY=your_gemini_api_key
+    MYSQL_HOST=
+    MYSQL_USER=
+    MYSQL_PASSWORD=
+    MYSQL_DATABASE=ecommerce_market
+    GEMINI_API_KEY=
+    OPENAI_API_KEY=
+    LLM_API_BASE=
+    LLM_MODEL=
+    LLM_EMBED_MODEL=
     ```
 
 5.  **Database Setup**
