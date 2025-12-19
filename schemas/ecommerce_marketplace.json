@@ -1948,7 +1948,28 @@
   "node_properties": {
     "addresses": {
       "type": "table",
-      "properties": {}
+      "properties": {
+        "row_count": 15,
+        "business_purpose": "Address management for shipping and billing purposes",
+        "data_domain": "Sales",
+        "business_impact": "HIGH",
+        "description": "This table stores user addresses for shipping and billing purposes. It includes details such as address type, full name, phone number, address lines, landmark, city, state, pincode, default status, and timestamp of creation.",
+        "typical_queries": [
+          "What is my delivery address?",
+          "Where should the bill be sent for this order?",
+          "Can I change my shipping address?",
+          "What are the details of an address associated with a particular user?",
+          "Which addresses have been set as default?"
+        ],
+        "related_business_processes": [
+          "Order processing",
+          "Invoice generation",
+          "Customer service interactions",
+          "Shipping and delivery management",
+          "Fraud detection and prevention"
+        ],
+        "table_comment": "Table storing user addresses for shipping and billing purposes"
+      }
     },
     "addresses.address_id": {
       "type": "attribute",
@@ -1957,11 +1978,19 @@
         "Type": "int",
         "Collation": null,
         "Null": "NO",
-        "Key": "PRI",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "auto_increment",
         "Privileges": "select,insert,update,references",
-        "Comment": "Unique identifier for each address"
+        "Comment": "Unique identifier for each address",
+        "is_sensitive": false,
+        "distinct_count": 15,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 1.0,
+        "is_categorical": false,
+        "description": "Unique identifier for each address",
+        "semantic_meaning": "Identifier",
+        "business_relevance": "Key to identify individual addresses"
       }
     },
     "addresses.user_id": {
@@ -1971,11 +2000,19 @@
         "Type": "int",
         "Collation": null,
         "Null": "NO",
-        "Key": "MUL",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "ID of the user this address belongs to"
+        "Comment": "ID of the user this address belongs to",
+        "is_sensitive": false,
+        "distinct_count": 13,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.8667,
+        "is_categorical": false,
+        "description": "ID of the user this address belongs to",
+        "semantic_meaning": "Identifier",
+        "business_relevance": "Link between users and their addresses"
       }
     },
     "addresses.address_type": {
@@ -1985,11 +2022,19 @@
         "Type": "enum('Home','Work','Other')",
         "Collation": "utf8mb4_0900_ai_ci",
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": "Home",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Type of address"
+        "Comment": "Type of address",
+        "is_sensitive": false,
+        "distinct_count": 2,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.1333,
+        "is_categorical": false,
+        "description": "Type of address",
+        "semantic_meaning": "Categorical data",
+        "business_relevance": "Helps in categorizing the purpose of the address"
       }
     },
     "addresses.full_name": {
@@ -1999,11 +2044,19 @@
         "Type": "varchar(100)",
         "Collation": "utf8mb4_0900_ai_ci",
         "Null": "NO",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Full name of the person at this address"
+        "Comment": "Full name of the person at this address",
+        "is_sensitive": false,
+        "distinct_count": 13,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.8667,
+        "is_categorical": false,
+        "description": "Full name of the person at this address",
+        "semantic_meaning": "String data",
+        "business_relevance": "Used for personalization and communication purposes"
       }
     },
     "addresses.phone": {
@@ -2013,11 +2066,19 @@
         "Type": "varchar(15)",
         "Collation": "utf8mb4_0900_ai_ci",
         "Null": "NO",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Phone number for this address"
+        "Comment": "Phone number for this address",
+        "is_sensitive": false,
+        "distinct_count": 13,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.8667,
+        "is_categorical": false,
+        "description": "Phone number for this address",
+        "semantic_meaning": "Numeric string",
+        "business_relevance": "Used for contact purposes"
       }
     },
     "addresses.address_line1": {
@@ -2027,11 +2088,19 @@
         "Type": "varchar(255)",
         "Collation": "utf8mb4_0900_ai_ci",
         "Null": "NO",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "First line of the address"
+        "Comment": "First line of the address",
+        "is_sensitive": false,
+        "distinct_count": 15,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 1.0,
+        "is_categorical": false,
+        "description": "First line of the address",
+        "semantic_meaning": "String data",
+        "business_relevance": "Essential for delivering physical items"
       }
     },
     "addresses.address_line2": {
@@ -2041,11 +2110,19 @@
         "Type": "varchar(255)",
         "Collation": "utf8mb4_0900_ai_ci",
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Second line of the address"
+        "Comment": "Second line of the address",
+        "is_sensitive": false,
+        "distinct_count": 15,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 1.0,
+        "is_categorical": false,
+        "description": "Second line of the address",
+        "semantic_meaning": "String data",
+        "business_relevance": "Provides additional details about the address"
       }
     },
     "addresses.landmark": {
@@ -2055,11 +2132,19 @@
         "Type": "varchar(100)",
         "Collation": "utf8mb4_0900_ai_ci",
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Landmark near the address"
+        "Comment": "Landmark near the address",
+        "is_sensitive": false,
+        "distinct_count": 15,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 1.0,
+        "is_categorical": false,
+        "description": "Landmark near the address",
+        "semantic_meaning": "String data",
+        "business_relevance": "Helps in finding the exact location of the address"
       }
     },
     "addresses.city": {
@@ -2069,11 +2154,19 @@
         "Type": "varchar(50)",
         "Collation": "utf8mb4_0900_ai_ci",
         "Null": "NO",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "City of the address"
+        "Comment": "City of the address",
+        "is_sensitive": false,
+        "distinct_count": 10,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.6667,
+        "is_categorical": false,
+        "description": "City of the address",
+        "semantic_meaning": "String data",
+        "business_relevance": "Used for geographical analysis and targeting marketing efforts"
       }
     },
     "addresses.state": {
@@ -2083,11 +2176,19 @@
         "Type": "varchar(50)",
         "Collation": "utf8mb4_0900_ai_ci",
         "Null": "NO",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "State of the address"
+        "Comment": "State of the address",
+        "is_sensitive": false,
+        "distinct_count": 9,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.6,
+        "is_categorical": false,
+        "description": "State of the address",
+        "semantic_meaning": "String data",
+        "business_relevance": "Used for geographical analysis and targeting marketing efforts"
       }
     },
     "addresses.pincode": {
@@ -2097,11 +2198,14 @@
         "Type": "varchar(10)",
         "Collation": "utf8mb4_0900_ai_ci",
         "Null": "NO",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Pincode of the address"
+        "Comment": "Pincode of the address",
+        "is_sensitive": true,
+        "distinct_count": null,
+        "sample_values": []
       }
     },
     "addresses.is_default": {
@@ -2111,11 +2215,19 @@
         "Type": "tinyint(1)",
         "Collation": null,
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": "0",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Flag indicating if this is the default address"
+        "Comment": "Flag indicating if this is the default address",
+        "is_sensitive": false,
+        "distinct_count": 2,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.1333,
+        "is_categorical": false,
+        "description": "Flag indicating if this is the default address",
+        "semantic_meaning": "Boolean data",
+        "business_relevance": "Determines which address is primary or preferred for a user"
       }
     },
     "addresses.created_at": {
@@ -2125,16 +2237,50 @@
         "Type": "timestamp",
         "Collation": null,
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": "CURRENT_TIMESTAMP",
         "Extra": "DEFAULT_GENERATED",
         "Privileges": "select,insert,update,references",
-        "Comment": "Timestamp when the address was added"
+        "Comment": "Timestamp when the address was added",
+        "is_sensitive": false,
+        "distinct_count": 1,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.0667,
+        "is_categorical": true,
+        "value_distribution": {
+          "2025-12-19 03:25:18": 15
+        },
+        "sample_values": [
+          "2025-12-19 03:25:18"
+        ],
+        "description": "Timestamp when the address was added",
+        "semantic_meaning": "Temporal data",
+        "business_relevance": "Helps in tracking when addresses were created"
       }
     },
     "cart": {
       "type": "table",
-      "properties": {}
+      "properties": {
+        "row_count": 16,
+        "business_purpose": "This table serves to track user shopping cart items",
+        "data_domain": "Sales",
+        "business_impact": "MEDIUM",
+        "description": "The 'cart' table stores items added by users to their shopping carts along with associated data such as user ID, product ID, quantity, and timestamp of addition.",
+        "typical_queries": [
+          "What items are in my cart?",
+          "How many of a particular item am I planning to purchase?",
+          "When did I add an item to my cart?",
+          "Can I remove an item from my cart?",
+          "How much do the items in my cart cost?"
+        ],
+        "related_business_processes": [
+          "Inventory management",
+          "Order processing",
+          "Payment processing",
+          "User account management"
+        ],
+        "table_comment": "Table storing items added to user shopping carts"
+      }
     },
     "cart.cart_id": {
       "type": "attribute",
@@ -2143,11 +2289,19 @@
         "Type": "int",
         "Collation": null,
         "Null": "NO",
-        "Key": "PRI",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "auto_increment",
         "Privileges": "select,insert,update,references",
-        "Comment": "Unique identifier for each cart item"
+        "Comment": "Unique identifier for each cart item",
+        "is_sensitive": false,
+        "distinct_count": 16,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 1.0,
+        "is_categorical": false,
+        "description": "Unique identifier for each cart item",
+        "semantic_meaning": "ID",
+        "business_relevance": "Identification and tracking of individual items within a user's shopping cart"
       }
     },
     "cart.user_id": {
@@ -2157,11 +2311,19 @@
         "Type": "int",
         "Collation": null,
         "Null": "NO",
-        "Key": "MUL",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "ID of the user who added the item to cart"
+        "Comment": "ID of the user who added the item to cart",
+        "is_sensitive": false,
+        "distinct_count": 15,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.9375,
+        "is_categorical": false,
+        "description": "ID of the user who added the item to cart",
+        "semantic_meaning": "User Identifier",
+        "business_relevance": "Identification and tracking of users in the system, associating their activities with specific accounts"
       }
     },
     "cart.product_id": {
@@ -2171,11 +2333,19 @@
         "Type": "int",
         "Collation": null,
         "Null": "NO",
-        "Key": "MUL",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "ID of the product in the cart"
+        "Comment": "ID of the product in the cart",
+        "is_sensitive": false,
+        "distinct_count": 15,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.9375,
+        "is_categorical": false,
+        "description": "ID of the product in the cart",
+        "semantic_meaning": "Product Identifier",
+        "business_relevance": "Identification and tracking of products being sold, associating them with individual sales"
       }
     },
     "cart.quantity": {
@@ -2185,11 +2355,19 @@
         "Type": "int",
         "Collation": null,
         "Null": "NO",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": "1",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Quantity of the product in the cart"
+        "Comment": "Quantity of the product in the cart",
+        "is_sensitive": false,
+        "distinct_count": 3,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.1875,
+        "is_categorical": false,
+        "description": "Quantity of the product in the cart",
+        "semantic_meaning": "Count or Amount",
+        "business_relevance": "Tracking and management of inventory levels, customer orders and sales"
       }
     },
     "cart.added_at": {
@@ -2199,16 +2377,51 @@
         "Type": "timestamp",
         "Collation": null,
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": "CURRENT_TIMESTAMP",
         "Extra": "DEFAULT_GENERATED",
         "Privileges": "select,insert,update,references",
-        "Comment": "Timestamp when the item was added to cart"
+        "Comment": "Timestamp when the item was added to cart",
+        "is_sensitive": false,
+        "distinct_count": 1,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.0625,
+        "is_categorical": true,
+        "value_distribution": {
+          "2025-12-19 03:25:18": 16
+        },
+        "sample_values": [
+          "2025-12-19 03:25:18"
+        ],
+        "description": "Timestamp when the item was added to cart",
+        "semantic_meaning": "Date & Time",
+        "business_relevance": "Recording transaction history and providing insights for inventory management, sales analysis and customer service"
       }
     },
     "categories": {
       "type": "table",
-      "properties": {}
+      "properties": {
+        "row_count": 10,
+        "business_purpose": "Product categorization for sales and inventory management",
+        "data_domain": "Sales",
+        "business_impact": "MEDIUM",
+        "description": "This table stores product categories in a hierarchical structure, enabling efficient organization and navigation of products for customers.",
+        "typical_queries": [
+          "What category does this product belong to?",
+          "Find all products under a specific category",
+          "Which parent category does a given category belong to?",
+          "List all categories in the hierarchy",
+          "Is a certain category active or inactive?"
+        ],
+        "related_business_processes": [
+          "Inventory management",
+          "Product categorization and tagging",
+          "Customer navigation and browsing",
+          "Sales reporting and analytics",
+          "Merchandise planning and assortment"
+        ],
+        "table_comment": "Table storing product categories in a hierarchical structure"
+      }
     },
     "categories.category_id": {
       "type": "attribute",
@@ -2217,11 +2430,19 @@
         "Type": "int",
         "Collation": null,
         "Null": "NO",
-        "Key": "PRI",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "auto_increment",
         "Privileges": "select,insert,update,references",
-        "Comment": "Unique identifier for each category"
+        "Comment": "Unique identifier for each category",
+        "is_sensitive": false,
+        "distinct_count": 10,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 1.0,
+        "is_categorical": false,
+        "description": "Unique identifier for each category",
+        "semantic_meaning": "Identifier",
+        "business_relevance": "Key to identify individual categories"
       }
     },
     "categories.category_name": {
@@ -2231,11 +2452,19 @@
         "Type": "varchar(100)",
         "Collation": "utf8mb4_0900_ai_ci",
         "Null": "NO",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Name of the product category"
+        "Comment": "Name of the product category",
+        "is_sensitive": false,
+        "distinct_count": 10,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 1.0,
+        "is_categorical": false,
+        "description": "Name of the product category",
+        "semantic_meaning": "Label/Name",
+        "business_relevance": "Used for categorizing products and user interaction"
       }
     },
     "categories.parent_category_id": {
@@ -2245,11 +2474,19 @@
         "Type": "int",
         "Collation": null,
         "Null": "YES",
-        "Key": "MUL",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "ID of the parent category for hierarchical structure"
+        "Comment": "ID of the parent category for hierarchical structure",
+        "is_sensitive": false,
+        "distinct_count": 3,
+        "null_percentage": 50.0,
+        "cardinality_ratio": 0.3,
+        "is_categorical": false,
+        "description": "ID of the parent category for hierarchical structure",
+        "semantic_meaning": "Relationship",
+        "business_relevance": "Defines a hierarchical relationship between categories"
       }
     },
     "categories.description": {
@@ -2259,11 +2496,19 @@
         "Type": "text",
         "Collation": "utf8mb4_0900_ai_ci",
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Detailed description of the category"
+        "Comment": "Detailed description of the category",
+        "is_sensitive": false,
+        "distinct_count": 10,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 1.0,
+        "is_categorical": false,
+        "description": "Detailed description of the category",
+        "semantic_meaning": "Description/Textual Data",
+        "business_relevance": "Provides additional information about the category for users and SEO purposes"
       }
     },
     "categories.image_url": {
@@ -2273,11 +2518,19 @@
         "Type": "varchar(255)",
         "Collation": "utf8mb4_0900_ai_ci",
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "URL of the category image"
+        "Comment": "URL of the category image",
+        "is_sensitive": false,
+        "distinct_count": 10,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 1.0,
+        "is_categorical": false,
+        "description": "URL of the category image",
+        "semantic_meaning": "URL",
+        "business_relevance": "Visual representation of the category, improving user experience"
       }
     },
     "categories.is_active": {
@@ -2287,11 +2540,19 @@
         "Type": "tinyint(1)",
         "Collation": null,
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": "1",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Flag indicating if the category is active"
+        "Comment": "Flag indicating if the category is active",
+        "is_sensitive": false,
+        "distinct_count": 1,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.1,
+        "is_categorical": false,
+        "description": "Flag indicating if the category is active",
+        "semantic_meaning": "Boolean Flag",
+        "business_relevance": "Determines whether the category is displayed or hidden in the system"
       }
     },
     "categories.created_at": {
@@ -2301,16 +2562,44 @@
         "Type": "timestamp",
         "Collation": null,
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": "CURRENT_TIMESTAMP",
         "Extra": "DEFAULT_GENERATED",
         "Privileges": "select,insert,update,references",
-        "Comment": "Timestamp when the category was created"
+        "Comment": "Timestamp when the category was created",
+        "is_sensitive": false,
+        "distinct_count": 1,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.1,
+        "is_categorical": false,
+        "description": "Timestamp when the category was created",
+        "semantic_meaning": "DateTime",
+        "business_relevance": "Records the time of category creation for tracking purposes"
       }
     },
     "coupons": {
       "type": "table",
-      "properties": {}
+      "properties": {
+        "row_count": 5,
+        "business_purpose": "Provide discounts for various products or services",
+        "data_domain": "Sales",
+        "business_impact": "MEDIUM",
+        "description": "This table stores information about coupons used to offer discounts in the sales domain. It includes details like unique identifiers, codes, names, types of discounts, and usage rules.",
+        "typical_queries": [
+          "What is the value of the Welcome Discount?",
+          "Is there a valid coupon code for electronics with a discount of more than 15%?",
+          "How many times has the Summer Special been used?",
+          "When does the Fashion Fest coupon expire?",
+          "What is the maximum discount that can be applied using the SAVE10 coupon?"
+        ],
+        "related_business_processes": [
+          "Order processing",
+          "Inventory management",
+          "Customer service (handling queries related to coupons)",
+          "Marketing and promotion (coupon campaigns)"
+        ],
+        "table_comment": "Table storing coupon information for discounts"
+      }
     },
     "coupons.coupon_id": {
       "type": "attribute",
@@ -2319,11 +2608,19 @@
         "Type": "int",
         "Collation": null,
         "Null": "NO",
-        "Key": "PRI",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "auto_increment",
         "Privileges": "select,insert,update,references",
-        "Comment": "Unique identifier for each coupon"
+        "Comment": "Unique identifier for each coupon",
+        "is_sensitive": false,
+        "distinct_count": 5,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 1.0,
+        "is_categorical": false,
+        "description": "Unique identifier for each coupon",
+        "semantic_meaning": "Identifier",
+        "business_relevance": "Used to track and manage each individual coupon"
       }
     },
     "coupons.coupon_code": {
@@ -2333,11 +2630,19 @@
         "Type": "varchar(50)",
         "Collation": "utf8mb4_0900_ai_ci",
         "Null": "NO",
-        "Key": "UNI",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Unique code for the coupon"
+        "Comment": "Unique code for the coupon",
+        "is_sensitive": false,
+        "distinct_count": 5,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 1.0,
+        "is_categorical": false,
+        "description": "Unique code for the coupon",
+        "semantic_meaning": "Code",
+        "business_relevance": "Used as a reference for redeeming the coupon"
       }
     },
     "coupons.coupon_name": {
@@ -2347,11 +2652,19 @@
         "Type": "varchar(100)",
         "Collation": "utf8mb4_0900_ai_ci",
         "Null": "NO",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Name of the coupon"
+        "Comment": "Name of the coupon",
+        "is_sensitive": false,
+        "distinct_count": 5,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 1.0,
+        "is_categorical": false,
+        "description": "Name of the coupon",
+        "semantic_meaning": "Name",
+        "business_relevance": "Identifies the coupon in user interface"
       }
     },
     "coupons.description": {
@@ -2361,11 +2674,19 @@
         "Type": "text",
         "Collation": "utf8mb4_0900_ai_ci",
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Description of the coupon"
+        "Comment": "Description of the coupon",
+        "is_sensitive": false,
+        "distinct_count": 5,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 1.0,
+        "is_categorical": false,
+        "description": "Description of the coupon",
+        "semantic_meaning": "Textual description",
+        "business_relevance": "Provides additional information about the coupon"
       }
     },
     "coupons.discount_type": {
@@ -2375,11 +2696,19 @@
         "Type": "enum('Percentage','Fixed Amount')",
         "Collation": "utf8mb4_0900_ai_ci",
         "Null": "NO",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Type of discount offered by the coupon"
+        "Comment": "Type of discount offered by the coupon",
+        "is_sensitive": false,
+        "distinct_count": 2,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.4,
+        "is_categorical": false,
+        "description": "Type of discount offered by the coupon",
+        "semantic_meaning": "Enumeration",
+        "business_relevance": "Determines how the discount is applied"
       }
     },
     "coupons.discount_value": {
@@ -2389,11 +2718,19 @@
         "Type": "decimal(10,2)",
         "Collation": null,
         "Null": "NO",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Value of the discount"
+        "Comment": "Value of the discount",
+        "is_sensitive": false,
+        "distinct_count": 5,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 1.0,
+        "is_categorical": false,
+        "description": "Value of the discount",
+        "semantic_meaning": "Numeric value",
+        "business_relevance": "Specifies the amount of discount provided by the coupon"
       }
     },
     "coupons.minimum_order_amount": {
@@ -2403,11 +2740,19 @@
         "Type": "decimal(10,2)",
         "Collation": null,
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": "0.00",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Minimum order amount required to use the coupon"
+        "Comment": "Minimum order amount required to use the coupon",
+        "is_sensitive": false,
+        "distinct_count": 5,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 1.0,
+        "is_categorical": false,
+        "description": "Minimum order amount required to use the coupon",
+        "semantic_meaning": "Numeric value",
+        "business_relevance": "Ensures customers meet a minimum spending requirement before applying the coupon"
       }
     },
     "coupons.maximum_discount_amount": {
@@ -2417,11 +2762,19 @@
         "Type": "decimal(10,2)",
         "Collation": null,
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Maximum discount amount that can be applied"
+        "Comment": "Maximum discount amount that can be applied",
+        "is_sensitive": false,
+        "distinct_count": 5,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 1.0,
+        "is_categorical": false,
+        "description": "Maximum discount amount that can be applied",
+        "semantic_meaning": "Numeric value",
+        "business_relevance": "Prevents over-application of the coupon's discount"
       }
     },
     "coupons.usage_limit": {
@@ -2431,11 +2784,19 @@
         "Type": "int",
         "Collation": null,
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": "1",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Maximum number of times the coupon can be used"
+        "Comment": "Maximum number of times the coupon can be used",
+        "is_sensitive": false,
+        "distinct_count": 5,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 1.0,
+        "is_categorical": false,
+        "description": "Maximum number of times the coupon can be used",
+        "semantic_meaning": "Numeric value",
+        "business_relevance": "Prevents a single coupon from being overused"
       }
     },
     "coupons.used_count": {
@@ -2445,11 +2806,19 @@
         "Type": "int",
         "Collation": null,
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": "0",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Number of times the coupon has been used"
+        "Comment": "Number of times the coupon has been used",
+        "is_sensitive": false,
+        "distinct_count": 5,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 1.0,
+        "is_categorical": false,
+        "description": "Number of times the coupon has been used",
+        "semantic_meaning": "Counter",
+        "business_relevance": "Tracks the usage of each individual coupon"
       }
     },
     "coupons.valid_from": {
@@ -2459,11 +2828,19 @@
         "Type": "date",
         "Collation": null,
         "Null": "NO",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Start date of coupon validity"
+        "Comment": "Start date of coupon validity",
+        "is_sensitive": false,
+        "distinct_count": 4,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.8,
+        "is_categorical": false,
+        "description": "Start date of coupon validity",
+        "semantic_meaning": "Date",
+        "business_relevance": "Defines when the coupon becomes active"
       }
     },
     "coupons.valid_until": {
@@ -2473,11 +2850,19 @@
         "Type": "date",
         "Collation": null,
         "Null": "NO",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "End date of coupon validity"
+        "Comment": "End date of coupon validity",
+        "is_sensitive": false,
+        "distinct_count": 2,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.4,
+        "is_categorical": false,
+        "description": "End date of coupon validity",
+        "semantic_meaning": "Date",
+        "business_relevance": "Defines when the coupon expires"
       }
     },
     "coupons.is_active": {
@@ -2487,11 +2872,19 @@
         "Type": "tinyint(1)",
         "Collation": null,
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": "1",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Flag indicating if the coupon is active"
+        "Comment": "Flag indicating if the coupon is active",
+        "is_sensitive": false,
+        "distinct_count": 1,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.2,
+        "is_categorical": false,
+        "description": "Flag indicating if the coupon is active",
+        "semantic_meaning": "Boolean",
+        "business_relevance": "Determines whether the coupon can be used or not"
       }
     },
     "coupons.created_at": {
@@ -2501,16 +2894,45 @@
         "Type": "timestamp",
         "Collation": null,
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": "CURRENT_TIMESTAMP",
         "Extra": "DEFAULT_GENERATED",
         "Privileges": "select,insert,update,references",
-        "Comment": "Timestamp when the coupon was created"
+        "Comment": "Timestamp when the coupon was created",
+        "is_sensitive": false,
+        "distinct_count": 1,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.2,
+        "is_categorical": false,
+        "description": "Timestamp when the coupon was created",
+        "semantic_meaning": "Timestamp",
+        "business_relevance": "Tracks when each individual coupon was created"
       }
     },
     "order_items": {
       "type": "table",
-      "properties": {}
+      "properties": {
+        "row_count": 240,
+        "business_purpose": "Order Management",
+        "data_domain": "Sales",
+        "business_impact": "HIGH",
+        "description": "This table stores the details of each item within an order, including product ID, seller ID, quantity, unit price, total price, discount applied, status, and tracking number. The table serves the purpose of managing orders and their respective items in the sales process.",
+        "typical_queries": [
+          "What is the total cost for all the items ordered in order 1?",
+          "Who is the seller for the product with ID 10 in order 5?",
+          "When was the item with ID 3 shipped?",
+          "What is the status of the order item with ID 4?",
+          "Is there any discount applied to the order item with ID 2?"
+        ],
+        "related_business_processes": [
+          "Order Creation",
+          "Inventory Management",
+          "Discount Application",
+          "Shipment and Delivery",
+          "Customer Support"
+        ],
+        "table_comment": "Table storing individual items within orders"
+      }
     },
     "order_items.order_item_id": {
       "type": "attribute",
@@ -2519,11 +2941,19 @@
         "Type": "int",
         "Collation": null,
         "Null": "NO",
-        "Key": "PRI",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "auto_increment",
         "Privileges": "select,insert,update,references",
-        "Comment": "Unique identifier for each order item"
+        "Comment": "Unique identifier for each order item",
+        "is_sensitive": false,
+        "distinct_count": 240,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 1.0,
+        "is_categorical": false,
+        "description": "Unique identifier for each order item",
+        "semantic_meaning": "Identifier",
+        "business_relevance": "Tracking"
       }
     },
     "order_items.order_id": {
@@ -2533,11 +2963,19 @@
         "Type": "int",
         "Collation": null,
         "Null": "NO",
-        "Key": "MUL",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "ID of the order this item belongs to"
+        "Comment": "ID of the order this item belongs to",
+        "is_sensitive": false,
+        "distinct_count": 240,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 1.0,
+        "is_categorical": false,
+        "description": "ID of the order this item belongs to",
+        "semantic_meaning": "Order reference",
+        "business_relevance": "Association"
       }
     },
     "order_items.product_id": {
@@ -2547,11 +2985,19 @@
         "Type": "int",
         "Collation": null,
         "Null": "NO",
-        "Key": "MUL",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "ID of the product in this order item"
+        "Comment": "ID of the product in this order item",
+        "is_sensitive": false,
+        "distinct_count": 34,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.1417,
+        "is_categorical": false,
+        "description": "ID of the product in this order item",
+        "semantic_meaning": "Product identifier",
+        "business_relevance": "Inventory management"
       }
     },
     "order_items.seller_id": {
@@ -2561,11 +3007,33 @@
         "Type": "int",
         "Collation": null,
         "Null": "NO",
-        "Key": "MUL",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "ID of the seller for this product"
+        "Comment": "ID of the seller for this product",
+        "is_sensitive": false,
+        "distinct_count": 5,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.0208,
+        "is_categorical": true,
+        "value_distribution": {
+          "1": 86,
+          "2": 71,
+          "3": 47,
+          "4": 20,
+          "5": 16
+        },
+        "sample_values": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+        ],
+        "description": "ID of the seller for this product",
+        "semantic_meaning": "Seller identifier",
+        "business_relevance": "Business partner identification"
       }
     },
     "order_items.quantity": {
@@ -2575,11 +3043,25 @@
         "Type": "int",
         "Collation": null,
         "Null": "NO",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Quantity of the product ordered"
+        "Comment": "Quantity of the product ordered",
+        "is_sensitive": false,
+        "distinct_count": 1,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.0042,
+        "is_categorical": true,
+        "value_distribution": {
+          "1": 240
+        },
+        "sample_values": [
+          "1"
+        ],
+        "description": "Quantity of the product ordered",
+        "semantic_meaning": "Quantity",
+        "business_relevance": "Inventory management"
       }
     },
     "order_items.unit_price": {
@@ -2589,11 +3071,19 @@
         "Type": "decimal(10,2)",
         "Collation": null,
         "Null": "NO",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Price per unit of the product"
+        "Comment": "Price per unit of the product",
+        "is_sensitive": false,
+        "distinct_count": 34,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.1417,
+        "is_categorical": false,
+        "description": "Price per unit of the product",
+        "semantic_meaning": "Price",
+        "business_relevance": "Pricing and revenue calculation"
       }
     },
     "order_items.total_price": {
@@ -2603,11 +3093,19 @@
         "Type": "decimal(10,2)",
         "Collation": null,
         "Null": "NO",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Total price for this order item"
+        "Comment": "Total price for this order item",
+        "is_sensitive": false,
+        "distinct_count": 34,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.1417,
+        "is_categorical": false,
+        "description": "Total price for this order item",
+        "semantic_meaning": "Total price",
+        "business_relevance": "Revenue calculation"
       }
     },
     "order_items.discount_applied": {
@@ -2617,11 +3115,35 @@
         "Type": "decimal(10,2)",
         "Collation": null,
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": "0.00",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Discount applied to this order item"
+        "Comment": "Discount applied to this order item",
+        "is_sensitive": false,
+        "distinct_count": 6,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.025,
+        "is_categorical": true,
+        "value_distribution": {
+          "0.00": 219,
+          "299.90": 8,
+          "5199.90": 7,
+          "50.00": 4,
+          "2499.90": 1,
+          "7299.90": 1
+        },
+        "sample_values": [
+          "0.00",
+          "299.90",
+          "5199.90",
+          "50.00",
+          "2499.90",
+          "7299.90"
+        ],
+        "description": "Discount applied to this order item",
+        "semantic_meaning": "Discount",
+        "business_relevance": "Promotion and discount management"
       }
     },
     "order_items.item_status": {
@@ -2631,11 +3153,31 @@
         "Type": "enum('Placed','Confirmed','Shipped','Delivered','Cancelled','Returned')",
         "Collation": "utf8mb4_0900_ai_ci",
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": "Placed",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Status of this order item"
+        "Comment": "Status of this order item",
+        "is_sensitive": false,
+        "distinct_count": 4,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.0167,
+        "is_categorical": true,
+        "value_distribution": {
+          "Delivered": 225,
+          "Placed": 10,
+          "Shipped": 3,
+          "Confirmed": 2
+        },
+        "sample_values": [
+          "Delivered",
+          "Placed",
+          "Shipped",
+          "Confirmed"
+        ],
+        "description": "Status of this order item",
+        "semantic_meaning": "Status",
+        "business_relevance": "Order management and customer service"
       }
     },
     "order_items.tracking_number": {
@@ -2645,16 +3187,45 @@
         "Type": "varchar(50)",
         "Collation": "utf8mb4_0900_ai_ci",
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Tracking number for shipment"
+        "Comment": "Tracking number for shipment",
+        "is_sensitive": false,
+        "distinct_count": 230,
+        "null_percentage": 4.17,
+        "cardinality_ratio": 0.9583,
+        "is_categorical": false,
+        "description": "Tracking number for shipment",
+        "semantic_meaning": "Shipment tracking number",
+        "business_relevance": "Logistics and shipping"
       }
     },
     "orders": {
       "type": "table",
-      "properties": {}
+      "properties": {
+        "row_count": 240,
+        "business_purpose": "Manage and track customer orders",
+        "data_domain": "Sales",
+        "business_impact": "HIGH",
+        "description": "This table stores detailed information about each order placed by customers, including total amount, payment method, order status, shipping address, and delivery dates. It allows the business to manage orders efficiently, track sales, and ensure customer satisfaction.",
+        "typical_queries": [
+          "What is the current status of order ORD-JUL-001?",
+          "How much did order ORD-JUL-002 cost after all calculations?",
+          "When was order ORD-JUL-003 shipped?",
+          "Is payment for order ORD-JUL-004 still pending or has it been processed?",
+          "What is the estimated delivery date for order ORD-JUL-005?"
+        ],
+        "related_business_processes": [
+          "Order processing",
+          "Invoice generation",
+          "Shipping and logistics",
+          "Customer service and support",
+          "Payment processing"
+        ],
+        "table_comment": "Table storing order information and status"
+      }
     },
     "orders.order_id": {
       "type": "attribute",
@@ -2663,11 +3234,19 @@
         "Type": "int",
         "Collation": null,
         "Null": "NO",
-        "Key": "PRI",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "auto_increment",
         "Privileges": "select,insert,update,references",
-        "Comment": "Unique identifier for each order"
+        "Comment": "Unique identifier for each order",
+        "is_sensitive": false,
+        "distinct_count": 240,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 1.0,
+        "is_categorical": false,
+        "description": "Unique identifier for each order",
+        "semantic_meaning": "Identifier",
+        "business_relevance": "Order management"
       }
     },
     "orders.user_id": {
@@ -2677,11 +3256,53 @@
         "Type": "int",
         "Collation": null,
         "Null": "NO",
-        "Key": "MUL",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "ID of the user who placed the order"
+        "Comment": "ID of the user who placed the order",
+        "is_sensitive": false,
+        "distinct_count": 15,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.0625,
+        "is_categorical": true,
+        "value_distribution": {
+          "1": 16,
+          "2": 16,
+          "3": 16,
+          "4": 16,
+          "5": 16,
+          "6": 16,
+          "7": 16,
+          "8": 16,
+          "9": 16,
+          "10": 16,
+          "11": 16,
+          "12": 16,
+          "13": 16,
+          "14": 16,
+          "15": 16
+        },
+        "sample_values": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9",
+          "10",
+          "11",
+          "12",
+          "13",
+          "14",
+          "15"
+        ],
+        "description": "ID of the user who placed the order",
+        "semantic_meaning": "User identifier",
+        "business_relevance": "User behavior tracking"
       }
     },
     "orders.order_number": {
@@ -2691,11 +3312,19 @@
         "Type": "varchar(50)",
         "Collation": "utf8mb4_0900_ai_ci",
         "Null": "NO",
-        "Key": "UNI",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Unique order number for reference"
+        "Comment": "Unique order number for reference",
+        "is_sensitive": false,
+        "distinct_count": 240,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 1.0,
+        "is_categorical": false,
+        "description": "Unique order number for reference",
+        "semantic_meaning": "Order reference",
+        "business_relevance": "Order management"
       }
     },
     "orders.order_date": {
@@ -2705,11 +3334,19 @@
         "Type": "timestamp",
         "Collation": null,
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": "CURRENT_TIMESTAMP",
         "Extra": "DEFAULT_GENERATED",
         "Privileges": "select,insert,update,references",
-        "Comment": "Date and time when the order was placed"
+        "Comment": "Date and time when the order was placed",
+        "is_sensitive": false,
+        "distinct_count": 236,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.9833,
+        "is_categorical": false,
+        "description": "Date and time when the order was placed",
+        "semantic_meaning": "Timestamp",
+        "business_relevance": "Order history"
       }
     },
     "orders.total_amount": {
@@ -2719,11 +3356,19 @@
         "Type": "decimal(10,2)",
         "Collation": null,
         "Null": "NO",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Total amount of the order before discounts"
+        "Comment": "Total amount of the order before discounts",
+        "is_sensitive": false,
+        "distinct_count": 34,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.1417,
+        "is_categorical": false,
+        "description": "Total amount of the order before discounts",
+        "semantic_meaning": "Monetary value",
+        "business_relevance": "Financial tracking"
       }
     },
     "orders.discount_amount": {
@@ -2733,11 +3378,35 @@
         "Type": "decimal(10,2)",
         "Collation": null,
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": "0.00",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Total discount applied to the order"
+        "Comment": "Total discount applied to the order",
+        "is_sensitive": false,
+        "distinct_count": 6,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.025,
+        "is_categorical": true,
+        "value_distribution": {
+          "0.00": 219,
+          "300.00": 8,
+          "5200.00": 7,
+          "50.00": 4,
+          "2500.00": 1,
+          "7300.00": 1
+        },
+        "sample_values": [
+          "0.00",
+          "300.00",
+          "5200.00",
+          "50.00",
+          "2500.00",
+          "7300.00"
+        ],
+        "description": "Total discount applied to the order",
+        "semantic_meaning": "Discount amount",
+        "business_relevance": "Pricing and promotions"
       }
     },
     "orders.tax_amount": {
@@ -2747,11 +3416,19 @@
         "Type": "decimal(10,2)",
         "Collation": null,
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": "0.00",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Tax amount for the order"
+        "Comment": "Tax amount for the order",
+        "is_sensitive": false,
+        "distinct_count": 41,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.1708,
+        "is_categorical": false,
+        "description": "Tax amount for the order",
+        "semantic_meaning": "Tax amount",
+        "business_relevance": "Fiscal compliance"
       }
     },
     "orders.shipping_amount": {
@@ -2761,11 +3438,14 @@
         "Type": "decimal(10,2)",
         "Collation": null,
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": "0.00",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Shipping cost for the order"
+        "Comment": "Shipping cost for the order",
+        "is_sensitive": true,
+        "distinct_count": null,
+        "sample_values": []
       }
     },
     "orders.final_amount": {
@@ -2775,11 +3455,19 @@
         "Type": "decimal(10,2)",
         "Collation": null,
         "Null": "NO",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Final amount to be paid after all calculations"
+        "Comment": "Final amount to be paid after all calculations",
+        "is_sensitive": false,
+        "distinct_count": 41,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.1708,
+        "is_categorical": false,
+        "description": "Final amount to be paid after all calculations",
+        "semantic_meaning": "Payment amount",
+        "business_relevance": "Financial tracking"
       }
     },
     "orders.payment_method": {
@@ -2789,11 +3477,33 @@
         "Type": "enum('COD','Credit Card','Debit Card','UPI','Net Banking','Wallet')",
         "Collation": "utf8mb4_0900_ai_ci",
         "Null": "NO",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Payment method used for the order"
+        "Comment": "Payment method used for the order",
+        "is_sensitive": false,
+        "distinct_count": 5,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.0208,
+        "is_categorical": true,
+        "value_distribution": {
+          "UPI": 54,
+          "Credit Card": 48,
+          "Net Banking": 47,
+          "COD": 47,
+          "Wallet": 44
+        },
+        "sample_values": [
+          "UPI",
+          "Credit Card",
+          "Net Banking",
+          "COD",
+          "Wallet"
+        ],
+        "description": "Payment method used for the order",
+        "semantic_meaning": "Payment type",
+        "business_relevance": "Transaction processing"
       }
     },
     "orders.payment_status": {
@@ -2803,11 +3513,27 @@
         "Type": "enum('Pending','Paid','Failed','Refunded')",
         "Collation": "utf8mb4_0900_ai_ci",
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": "Pending",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Current status of the payment"
+        "Comment": "Current status of the payment",
+        "is_sensitive": false,
+        "distinct_count": 2,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.0083,
+        "is_categorical": true,
+        "value_distribution": {
+          "Paid": 238,
+          "Pending": 2
+        },
+        "sample_values": [
+          "Paid",
+          "Pending"
+        ],
+        "description": "Current status of the payment",
+        "semantic_meaning": "Payment status",
+        "business_relevance": "Transaction tracking"
       }
     },
     "orders.order_status": {
@@ -2817,11 +3543,31 @@
         "Type": "enum('Placed','Confirmed','Shipped','Out for Delivery','Delivered','Cancelled','Returned')",
         "Collation": "utf8mb4_0900_ai_ci",
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": "Placed",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Current status of the order"
+        "Comment": "Current status of the order",
+        "is_sensitive": false,
+        "distinct_count": 4,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.0167,
+        "is_categorical": true,
+        "value_distribution": {
+          "Delivered": 225,
+          "Placed": 10,
+          "Shipped": 3,
+          "Confirmed": 2
+        },
+        "sample_values": [
+          "Delivered",
+          "Placed",
+          "Shipped",
+          "Confirmed"
+        ],
+        "description": "Current status of the order",
+        "semantic_meaning": "Order status",
+        "business_relevance": "Order management"
       }
     },
     "orders.shipping_address_id": {
@@ -2831,11 +3577,14 @@
         "Type": "int",
         "Collation": null,
         "Null": "NO",
-        "Key": "MUL",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "ID of the shipping address for the order"
+        "Comment": "ID of the shipping address for the order",
+        "is_sensitive": true,
+        "distinct_count": null,
+        "sample_values": []
       }
     },
     "orders.estimated_delivery_date": {
@@ -2845,11 +3594,19 @@
         "Type": "date",
         "Collation": null,
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Estimated delivery date for the order"
+        "Comment": "Estimated delivery date for the order",
+        "is_sensitive": false,
+        "distinct_count": 136,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.5667,
+        "is_categorical": false,
+        "description": "Estimated delivery date for the order",
+        "semantic_meaning": "Delivery estimate",
+        "business_relevance": "Customer service"
       }
     },
     "orders.actual_delivery_date": {
@@ -2859,11 +3616,19 @@
         "Type": "date",
         "Collation": null,
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Actual delivery date of the order"
+        "Comment": "Actual delivery date of the order",
+        "is_sensitive": false,
+        "distinct_count": 133,
+        "null_percentage": 5.42,
+        "cardinality_ratio": 0.5542,
+        "is_categorical": false,
+        "description": "Actual delivery date of the order",
+        "semantic_meaning": "Delivery actual",
+        "business_relevance": "Customer service"
       }
     },
     "orders.created_at": {
@@ -2873,11 +3638,25 @@
         "Type": "timestamp",
         "Collation": null,
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": "CURRENT_TIMESTAMP",
         "Extra": "DEFAULT_GENERATED",
         "Privileges": "select,insert,update,references",
-        "Comment": "Timestamp when the order was created"
+        "Comment": "Timestamp when the order was created",
+        "is_sensitive": false,
+        "distinct_count": 1,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.0042,
+        "is_categorical": true,
+        "value_distribution": {
+          "2025-12-19 03:25:18": 240
+        },
+        "sample_values": [
+          "2025-12-19 03:25:18"
+        ],
+        "description": "Timestamp when the order was created",
+        "semantic_meaning": "Creation timestamp",
+        "business_relevance": "Order history"
       }
     },
     "orders.updated_at": {
@@ -2887,16 +3666,51 @@
         "Type": "timestamp",
         "Collation": null,
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": "CURRENT_TIMESTAMP",
         "Extra": "DEFAULT_GENERATED on update CURRENT_TIMESTAMP",
         "Privileges": "select,insert,update,references",
-        "Comment": "Timestamp when the order was last updated"
+        "Comment": "Timestamp when the order was last updated",
+        "is_sensitive": false,
+        "distinct_count": 1,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.0042,
+        "is_categorical": true,
+        "value_distribution": {
+          "2025-12-19 03:25:18": 240
+        },
+        "sample_values": [
+          "2025-12-19 03:25:18"
+        ],
+        "description": "Timestamp when the order was last updated",
+        "semantic_meaning": "Last update timestamp",
+        "business_relevance": "Order history"
       }
     },
     "payments": {
       "type": "table",
-      "properties": {}
+      "properties": {
+        "row_count": 10,
+        "business_purpose": "Table for tracking and managing payment transactions",
+        "data_domain": "Finance",
+        "business_impact": "HIGH",
+        "description": "This table stores details about different payments made through various methods for orders in the system. It helps monitor transaction statuses, amounts, currencies, and gateway responses.",
+        "typical_queries": [
+          "What is the payment status for order number X?",
+          "How much was the payment for order number Y?",
+          "When was the payment for order number Z made?",
+          "Which payment gateway was used for a specific transaction?",
+          "What are all the successful payments made using UPI?"
+        ],
+        "related_business_processes": [
+          "Order processing",
+          "Invoice generation",
+          "Refund handling",
+          "Chargeback management",
+          "Financial reporting"
+        ],
+        "table_comment": "Table storing payment information for orders"
+      }
     },
     "payments.payment_id": {
       "type": "attribute",
@@ -2905,11 +3719,19 @@
         "Type": "int",
         "Collation": null,
         "Null": "NO",
-        "Key": "PRI",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "auto_increment",
         "Privileges": "select,insert,update,references",
-        "Comment": "Unique identifier for each payment"
+        "Comment": "Unique identifier for each payment",
+        "is_sensitive": false,
+        "distinct_count": 10,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 1.0,
+        "is_categorical": false,
+        "description": "Unique identifier for each payment",
+        "semantic_meaning": "Identifier",
+        "business_relevance": "Record keeping"
       }
     },
     "payments.order_id": {
@@ -2919,11 +3741,19 @@
         "Type": "int",
         "Collation": null,
         "Null": "NO",
-        "Key": "MUL",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "ID of the order this payment is for"
+        "Comment": "ID of the order this payment is for",
+        "is_sensitive": false,
+        "distinct_count": 10,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 1.0,
+        "is_categorical": false,
+        "description": "ID of the order this payment is for",
+        "semantic_meaning": "Order Reference",
+        "business_relevance": "Linking payments to orders"
       }
     },
     "payments.payment_method": {
@@ -2933,11 +3763,19 @@
         "Type": "varchar(50)",
         "Collation": "utf8mb4_0900_ai_ci",
         "Null": "NO",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Method used for payment"
+        "Comment": "Method used for payment",
+        "is_sensitive": false,
+        "distinct_count": 4,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.4,
+        "is_categorical": false,
+        "description": "Method used for payment",
+        "semantic_meaning": "Payment Method",
+        "business_relevance": "Tracking payment methods for analysis and improvement"
       }
     },
     "payments.transaction_id": {
@@ -2947,11 +3785,19 @@
         "Type": "varchar(100)",
         "Collation": "utf8mb4_0900_ai_ci",
         "Null": "YES",
-        "Key": "UNI",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Unique transaction ID from payment gateway"
+        "Comment": "Unique transaction ID from payment gateway",
+        "is_sensitive": false,
+        "distinct_count": 10,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 1.0,
+        "is_categorical": false,
+        "description": "Unique transaction ID from payment gateway",
+        "semantic_meaning": "Transaction Identifier",
+        "business_relevance": "Identifying specific transactions for troubleshooting and reconciliation"
       }
     },
     "payments.payment_gateway": {
@@ -2961,11 +3807,19 @@
         "Type": "varchar(50)",
         "Collation": "utf8mb4_0900_ai_ci",
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Name of the payment gateway used"
+        "Comment": "Name of the payment gateway used",
+        "is_sensitive": false,
+        "distinct_count": 4,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.4,
+        "is_categorical": false,
+        "description": "Name of the payment gateway used",
+        "semantic_meaning": "Payment Provider",
+        "business_relevance": "Tracking which payment gateways are being used"
       }
     },
     "payments.amount": {
@@ -2975,11 +3829,19 @@
         "Type": "decimal(10,2)",
         "Collation": null,
         "Null": "NO",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Amount of the payment"
+        "Comment": "Amount of the payment",
+        "is_sensitive": false,
+        "distinct_count": 4,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.4,
+        "is_categorical": false,
+        "description": "Amount of the payment",
+        "semantic_meaning": "Monetary Value",
+        "business_relevance": "Calculating total revenue, tracking refunds etc."
       }
     },
     "payments.currency": {
@@ -2989,11 +3851,19 @@
         "Type": "varchar(3)",
         "Collation": "utf8mb4_0900_ai_ci",
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": "INR",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Currency of the payment"
+        "Comment": "Currency of the payment",
+        "is_sensitive": false,
+        "distinct_count": 1,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.1,
+        "is_categorical": false,
+        "description": "Currency of the payment",
+        "semantic_meaning": "Currency Code",
+        "business_relevance": "Converting and comparing values across different currencies"
       }
     },
     "payments.payment_status": {
@@ -3003,11 +3873,19 @@
         "Type": "enum('Pending','Success','Failed','Cancelled','Refunded')",
         "Collation": "utf8mb4_0900_ai_ci",
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": "Pending",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Status of the payment"
+        "Comment": "Status of the payment",
+        "is_sensitive": false,
+        "distinct_count": 1,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.1,
+        "is_categorical": false,
+        "description": "Status of the payment",
+        "semantic_meaning": "Payment Status",
+        "business_relevance": "Tracking successful payments, failed payments etc."
       }
     },
     "payments.payment_date": {
@@ -3017,11 +3895,19 @@
         "Type": "timestamp",
         "Collation": null,
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": "CURRENT_TIMESTAMP",
         "Extra": "DEFAULT_GENERATED",
         "Privileges": "select,insert,update,references",
-        "Comment": "Date and time of the payment"
+        "Comment": "Date and time of the payment",
+        "is_sensitive": false,
+        "distinct_count": 10,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 1.0,
+        "is_categorical": false,
+        "description": "Date and time of the payment",
+        "semantic_meaning": "Timestamp",
+        "business_relevance": "Analyzing transaction trends over time"
       }
     },
     "payments.gateway_response": {
@@ -3031,16 +3917,43 @@
         "Type": "text",
         "Collation": "utf8mb4_0900_ai_ci",
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Response received from the payment gateway"
+        "Comment": "Response received from the payment gateway",
+        "is_sensitive": false,
+        "distinct_count": 1,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.1,
+        "is_categorical": false,
+        "description": "Response received from the payment gateway",
+        "semantic_meaning": "Gateway Response",
+        "business_relevance": "Troubleshooting and understanding gateway responses"
       }
     },
     "product_attributes": {
       "type": "table",
-      "properties": {}
+      "properties": {
+        "row_count": 0,
+        "business_purpose": "To store additional attributes for products used in filtering and search",
+        "data_domain": "Sales",
+        "business_impact": "MEDIUM",
+        "description": "This table allows users to filter and search products based on various attributes like RAM, Storage.",
+        "typical_queries": [
+          "Which products have more than X GB of RAM?",
+          "Find all products with a storage capacity greater than Y GB",
+          "Show me products with specific attribute X",
+          "What are the available product options for attribute Y?"
+        ],
+        "related_business_processes": [
+          "Product categorization and classification",
+          "Product filtering and search",
+          "Inventory management",
+          "Customer order processing"
+        ],
+        "table_comment": "Table storing additional attributes for products used in filtering and search"
+      }
     },
     "product_attributes.attribute_id": {
       "type": "attribute",
@@ -3049,11 +3962,19 @@
         "Type": "int",
         "Collation": null,
         "Null": "NO",
-        "Key": "PRI",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "auto_increment",
         "Privileges": "select,insert,update,references",
-        "Comment": "Unique identifier for each product attribute"
+        "Comment": "Unique identifier for each product attribute",
+        "is_sensitive": false,
+        "distinct_count": 0,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0,
+        "is_categorical": true,
+        "description": "Unique identifier for each product attribute",
+        "semantic_meaning": "Identifier",
+        "business_relevance": "Used to identify specific product attributes"
       }
     },
     "product_attributes.product_id": {
@@ -3063,11 +3984,19 @@
         "Type": "int",
         "Collation": null,
         "Null": "NO",
-        "Key": "MUL",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "ID of the product this attribute belongs to"
+        "Comment": "ID of the product this attribute belongs to",
+        "is_sensitive": false,
+        "distinct_count": 0,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0,
+        "is_categorical": true,
+        "description": "ID of the product this attribute belongs to",
+        "semantic_meaning": "Product identifier",
+        "business_relevance": "Used to link each attribute with its corresponding product"
       }
     },
     "product_attributes.attribute_name": {
@@ -3077,11 +4006,19 @@
         "Type": "varchar(50)",
         "Collation": "utf8mb4_0900_ai_ci",
         "Null": "NO",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Name of the attribute (e.g., RAM, Storage)"
+        "Comment": "Name of the attribute (e.g., RAM, Storage)",
+        "is_sensitive": false,
+        "distinct_count": 0,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0,
+        "is_categorical": true,
+        "description": "Name of the attribute (e.g., RAM, Storage)",
+        "semantic_meaning": "Attribute name",
+        "business_relevance": "Provides context for the type of product attribute"
       }
     },
     "product_attributes.attribute_value": {
@@ -3091,16 +4028,44 @@
         "Type": "varchar(100)",
         "Collation": "utf8mb4_0900_ai_ci",
         "Null": "NO",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Value of the attribute"
+        "Comment": "Value of the attribute",
+        "is_sensitive": false,
+        "distinct_count": 0,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0,
+        "is_categorical": true,
+        "description": "Value of the attribute",
+        "semantic_meaning": "Attribute value",
+        "business_relevance": "Represents the specific value of a product attribute"
       }
     },
     "product_images": {
       "type": "table",
-      "properties": {}
+      "properties": {
+        "row_count": 0,
+        "business_purpose": "Table stores product images for display on the e-commerce platform",
+        "data_domain": "Sales",
+        "business_impact": "MEDIUM",
+        "description": "The product_images table is used to store and manage product images in the e-commerce system. This includes information like image URL, alternative text, primary flag, and display order.",
+        "typical_queries": [
+          "Which images belong to a specific product?",
+          "What is the primary image for a given product?",
+          "Can I get all images for a specific product in a certain order?",
+          "How many images does each product have?",
+          "Are there any issues with the product images?"
+        ],
+        "related_business_processes": [
+          "Product Management",
+          "E-commerce Operations",
+          "Customer Service (handling image-related inquiries)",
+          "Web Development (site maintenance and updates)"
+        ],
+        "table_comment": "Table storing images associated with products"
+      }
     },
     "product_images.image_id": {
       "type": "attribute",
@@ -3109,11 +4074,19 @@
         "Type": "int",
         "Collation": null,
         "Null": "NO",
-        "Key": "PRI",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "auto_increment",
         "Privileges": "select,insert,update,references",
-        "Comment": "Unique identifier for each product image"
+        "Comment": "Unique identifier for each product image",
+        "is_sensitive": false,
+        "distinct_count": 0,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0,
+        "is_categorical": true,
+        "description": "Unique identifier for each product image",
+        "semantic_meaning": "Identifier",
+        "business_relevance": "Used to track and manage images"
       }
     },
     "product_images.product_id": {
@@ -3123,11 +4096,19 @@
         "Type": "int",
         "Collation": null,
         "Null": "NO",
-        "Key": "MUL",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "ID of the product this image belongs to"
+        "Comment": "ID of the product this image belongs to",
+        "is_sensitive": false,
+        "distinct_count": 0,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0,
+        "is_categorical": true,
+        "description": "ID of the product this image belongs to",
+        "semantic_meaning": "Relationship",
+        "business_relevance": "Links the image with its corresponding product"
       }
     },
     "product_images.image_url": {
@@ -3137,11 +4118,19 @@
         "Type": "varchar(255)",
         "Collation": "utf8mb4_0900_ai_ci",
         "Null": "NO",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "URL of the product image"
+        "Comment": "URL of the product image",
+        "is_sensitive": false,
+        "distinct_count": 0,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0,
+        "is_categorical": true,
+        "description": "URL of the product image",
+        "semantic_meaning": "Link",
+        "business_relevance": "Makes the image accessible for viewing"
       }
     },
     "product_images.alt_text": {
@@ -3151,11 +4140,19 @@
         "Type": "varchar(100)",
         "Collation": "utf8mb4_0900_ai_ci",
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Alternative text for the image for accessibility"
+        "Comment": "Alternative text for the image for accessibility",
+        "is_sensitive": false,
+        "distinct_count": 0,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0,
+        "is_categorical": true,
+        "description": "Alternative text for the image for accessibility",
+        "semantic_meaning": "Text alternative",
+        "business_relevance": "Enables access to visual content by non-visual browsers and screen readers"
       }
     },
     "product_images.is_primary": {
@@ -3165,11 +4162,19 @@
         "Type": "tinyint(1)",
         "Collation": null,
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": "0",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Flag indicating if this is the primary image"
+        "Comment": "Flag indicating if this is the primary image",
+        "is_sensitive": false,
+        "distinct_count": 0,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0,
+        "is_categorical": true,
+        "description": "Flag indicating if this is the primary image",
+        "semantic_meaning": "Boolean flag",
+        "business_relevance": "Determines which image is displayed prominently for a product"
       }
     },
     "product_images.display_order": {
@@ -3179,16 +4184,45 @@
         "Type": "int",
         "Collation": null,
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": "0",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Order in which the image should be displayed"
+        "Comment": "Order in which the image should be displayed",
+        "is_sensitive": false,
+        "distinct_count": 0,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0,
+        "is_categorical": true,
+        "description": "Order in which the image should be displayed",
+        "semantic_meaning": "Ranking or ordering",
+        "business_relevance": "Determines the order in which images are presented to users"
       }
     },
     "products": {
       "type": "table",
-      "properties": {}
+      "properties": {
+        "row_count": 40,
+        "business_purpose": "Product information management",
+        "data_domain": "Sales",
+        "business_impact": "HIGH",
+        "description": "This table stores detailed information about products available in the marketplace, including their name, description, brand, model, category, selling price, discount percentage, stock quantity, and other relevant details.",
+        "typical_queries": [
+          "What is the current price of product Samsung Galaxy S23?",
+          "Do we have any discounts on product iPhone 14 Pro?",
+          "How many units of product OnePlus 11 are available in stock?",
+          "What is the warranty period for product Xiaomi 13 Pro?",
+          "Is product Dell XPS 15 featured or not?"
+        ],
+        "related_business_processes": [
+          "Inventory management",
+          "Pricing strategy",
+          "Discount administration",
+          "Product marketing and promotion",
+          "Order fulfillment"
+        ],
+        "table_comment": "Table storing detailed information about products available in the marketplace"
+      }
     },
     "products.product_id": {
       "type": "attribute",
@@ -3197,11 +4231,19 @@
         "Type": "int",
         "Collation": null,
         "Null": "NO",
-        "Key": "PRI",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "auto_increment",
         "Privileges": "select,insert,update,references",
-        "Comment": "Unique identifier for each product"
+        "Comment": "Unique identifier for each product",
+        "is_sensitive": false,
+        "distinct_count": 40,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 1.0,
+        "is_categorical": false,
+        "description": "Unique identifier for each product",
+        "semantic_meaning": "Identifier",
+        "business_relevance": "Primary key"
       }
     },
     "products.product_name": {
@@ -3211,11 +4253,19 @@
         "Type": "varchar(200)",
         "Collation": "utf8mb4_0900_ai_ci",
         "Null": "NO",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Name of the product"
+        "Comment": "Name of the product",
+        "is_sensitive": false,
+        "distinct_count": 40,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 1.0,
+        "is_categorical": false,
+        "description": "Name of the product",
+        "semantic_meaning": "Textual label",
+        "business_relevance": "Product identification"
       }
     },
     "products.description": {
@@ -3225,11 +4275,19 @@
         "Type": "text",
         "Collation": "utf8mb4_0900_ai_ci",
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Detailed description of the product"
+        "Comment": "Detailed description of the product",
+        "is_sensitive": false,
+        "distinct_count": 40,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 1.0,
+        "is_categorical": false,
+        "description": "Detailed description of the product",
+        "semantic_meaning": "Narrative text",
+        "business_relevance": "Product information"
       }
     },
     "products.brand": {
@@ -3239,11 +4297,19 @@
         "Type": "varchar(100)",
         "Collation": "utf8mb4_0900_ai_ci",
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Brand name of the product"
+        "Comment": "Brand name of the product",
+        "is_sensitive": false,
+        "distinct_count": 38,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.95,
+        "is_categorical": false,
+        "description": "Brand name of the product",
+        "semantic_meaning": "Textual label",
+        "business_relevance": "Manufacturer identification"
       }
     },
     "products.model": {
@@ -3253,11 +4319,19 @@
         "Type": "varchar(100)",
         "Collation": "utf8mb4_0900_ai_ci",
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Model number or name of the product"
+        "Comment": "Model number or name of the product",
+        "is_sensitive": false,
+        "distinct_count": 40,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 1.0,
+        "is_categorical": false,
+        "description": "Model number or name of the product",
+        "semantic_meaning": "Product version",
+        "business_relevance": "Product differentiation"
       }
     },
     "products.category_id": {
@@ -3267,11 +4341,19 @@
         "Type": "int",
         "Collation": null,
         "Null": "NO",
-        "Key": "MUL",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "ID of the category this product belongs to"
+        "Comment": "ID of the category this product belongs to",
+        "is_sensitive": false,
+        "distinct_count": 9,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.225,
+        "is_categorical": false,
+        "description": "ID of the category this product belongs to",
+        "semantic_meaning": "Categorical label",
+        "business_relevance": "Product classification"
       }
     },
     "products.seller_id": {
@@ -3281,11 +4363,19 @@
         "Type": "int",
         "Collation": null,
         "Null": "NO",
-        "Key": "MUL",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "ID of the seller offering this product"
+        "Comment": "ID of the seller offering this product",
+        "is_sensitive": false,
+        "distinct_count": 5,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.125,
+        "is_categorical": false,
+        "description": "ID of the seller offering this product",
+        "semantic_meaning": "Identifier",
+        "business_relevance": "Seller identification"
       }
     },
     "products.original_price": {
@@ -3295,11 +4385,19 @@
         "Type": "decimal(10,2)",
         "Collation": null,
         "Null": "NO",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Original price of the product before discount"
+        "Comment": "Original price of the product before discount",
+        "is_sensitive": false,
+        "distinct_count": 30,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.75,
+        "is_categorical": false,
+        "description": "Original price of the product before discount",
+        "semantic_meaning": "Monetary value",
+        "business_relevance": "Product pricing"
       }
     },
     "products.selling_price": {
@@ -3309,11 +4407,19 @@
         "Type": "decimal(10,2)",
         "Collation": null,
         "Null": "NO",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Current selling price of the product"
+        "Comment": "Current selling price of the product",
+        "is_sensitive": false,
+        "distinct_count": 34,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.85,
+        "is_categorical": false,
+        "description": "Current selling price of the product",
+        "semantic_meaning": "Monetary value",
+        "business_relevance": "Product pricing"
       }
     },
     "products.discount_percentage": {
@@ -3323,11 +4429,19 @@
         "Type": "decimal(5,2)",
         "Collation": null,
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": "0.00",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Discount percentage applied to the product"
+        "Comment": "Discount percentage applied to the product",
+        "is_sensitive": false,
+        "distinct_count": 29,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.725,
+        "is_categorical": false,
+        "description": "Discount percentage applied to the product",
+        "semantic_meaning": "Percentage value",
+        "business_relevance": "Price adjustment"
       }
     },
     "products.stock_quantity": {
@@ -3337,11 +4451,19 @@
         "Type": "int",
         "Collation": null,
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": "0",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Available stock quantity of the product"
+        "Comment": "Available stock quantity of the product",
+        "is_sensitive": false,
+        "distinct_count": 19,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.475,
+        "is_categorical": false,
+        "description": "Available stock quantity of the product",
+        "semantic_meaning": "Countable amount",
+        "business_relevance": "Inventory management"
       }
     },
     "products.minimum_order_quantity": {
@@ -3351,11 +4473,25 @@
         "Type": "int",
         "Collation": null,
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": "1",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Minimum quantity that can be ordered"
+        "Comment": "Minimum quantity that can be ordered",
+        "is_sensitive": false,
+        "distinct_count": 1,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.025,
+        "is_categorical": true,
+        "value_distribution": {
+          "1": 40
+        },
+        "sample_values": [
+          "1"
+        ],
+        "description": "Minimum quantity that can be ordered",
+        "semantic_meaning": "Countable amount",
+        "business_relevance": "Order minimums"
       }
     },
     "products.weight": {
@@ -3365,11 +4501,19 @@
         "Type": "decimal(8,2)",
         "Collation": null,
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Weight of the product in appropriate units"
+        "Comment": "Weight of the product in appropriate units",
+        "is_sensitive": false,
+        "distinct_count": 33,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.825,
+        "is_categorical": false,
+        "description": "Weight of the product in appropriate units",
+        "semantic_meaning": "Measurement value",
+        "business_relevance": "Shipping & handling"
       }
     },
     "products.dimensions": {
@@ -3379,11 +4523,19 @@
         "Type": "varchar(50)",
         "Collation": "utf8mb4_0900_ai_ci",
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Dimensions of the product (length x width x height)"
+        "Comment": "Dimensions of the product (length x width x height)",
+        "is_sensitive": false,
+        "distinct_count": 33,
+        "null_percentage": 17.5,
+        "cardinality_ratio": 0.825,
+        "is_categorical": false,
+        "description": "Dimensions of the product (length x width x height)",
+        "semantic_meaning": "Spatial measurement",
+        "business_relevance": "Shipping & handling"
       }
     },
     "products.color": {
@@ -3393,11 +4545,19 @@
         "Type": "varchar(30)",
         "Collation": "utf8mb4_0900_ai_ci",
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Color of the product"
+        "Comment": "Color of the product",
+        "is_sensitive": false,
+        "distinct_count": 22,
+        "null_percentage": 12.5,
+        "cardinality_ratio": 0.55,
+        "is_categorical": false,
+        "description": "Color of the product",
+        "semantic_meaning": "Color label",
+        "business_relevance": "Product differentiation"
       }
     },
     "products.size": {
@@ -3407,11 +4567,19 @@
         "Type": "varchar(20)",
         "Collation": "utf8mb4_0900_ai_ci",
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Size of the product"
+        "Comment": "Size of the product",
+        "is_sensitive": false,
+        "distinct_count": 10,
+        "null_percentage": 70.0,
+        "cardinality_ratio": 0.25,
+        "is_categorical": false,
+        "description": "Size of the product",
+        "semantic_meaning": "Sizing label",
+        "business_relevance": "Product differentiation"
       }
     },
     "products.warranty_period": {
@@ -3421,11 +4589,19 @@
         "Type": "int",
         "Collation": null,
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Warranty period in months"
+        "Comment": "Warranty period in months",
+        "is_sensitive": false,
+        "distinct_count": 5,
+        "null_percentage": 40.0,
+        "cardinality_ratio": 0.125,
+        "is_categorical": false,
+        "description": "Warranty period in months",
+        "semantic_meaning": "Time duration",
+        "business_relevance": "Customer support & service"
       }
     },
     "products.return_policy": {
@@ -3435,11 +4611,29 @@
         "Type": "int",
         "Collation": null,
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": "7",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Return policy period in days"
+        "Comment": "Return policy period in days",
+        "is_sensitive": false,
+        "distinct_count": 3,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.075,
+        "is_categorical": true,
+        "value_distribution": {
+          "7": 26,
+          "15": 13,
+          "30": 1
+        },
+        "sample_values": [
+          "7",
+          "15",
+          "30"
+        ],
+        "description": "Return policy period in days",
+        "semantic_meaning": "Time duration",
+        "business_relevance": "Customer service"
       }
     },
     "products.is_featured": {
@@ -3449,11 +4643,27 @@
         "Type": "tinyint(1)",
         "Collation": null,
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": "0",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Flag indicating if the product is featured"
+        "Comment": "Flag indicating if the product is featured",
+        "is_sensitive": false,
+        "distinct_count": 2,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.05,
+        "is_categorical": true,
+        "value_distribution": {
+          "0": 22,
+          "1": 18
+        },
+        "sample_values": [
+          "0",
+          "1"
+        ],
+        "description": "Flag indicating if the product is featured",
+        "semantic_meaning": "Boolean value",
+        "business_relevance": "Product promotion"
       }
     },
     "products.is_active": {
@@ -3463,11 +4673,25 @@
         "Type": "tinyint(1)",
         "Collation": null,
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": "1",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Flag indicating if the product is active"
+        "Comment": "Flag indicating if the product is active",
+        "is_sensitive": false,
+        "distinct_count": 1,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.025,
+        "is_categorical": true,
+        "value_distribution": {
+          "1": 40
+        },
+        "sample_values": [
+          "1"
+        ],
+        "description": "Flag indicating if the product is active",
+        "semantic_meaning": "Boolean value",
+        "business_relevance": "Product availability"
       }
     },
     "products.created_at": {
@@ -3477,11 +4701,25 @@
         "Type": "timestamp",
         "Collation": null,
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": "CURRENT_TIMESTAMP",
         "Extra": "DEFAULT_GENERATED",
         "Privileges": "select,insert,update,references",
-        "Comment": "Timestamp when the product was added"
+        "Comment": "Timestamp when the product was added",
+        "is_sensitive": false,
+        "distinct_count": 1,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.025,
+        "is_categorical": true,
+        "value_distribution": {
+          "2025-12-19 03:25:18": 40
+        },
+        "sample_values": [
+          "2025-12-19 03:25:18"
+        ],
+        "description": "Timestamp when the product was added",
+        "semantic_meaning": "DateTime",
+        "business_relevance": "Product history & auditing"
       }
     },
     "products.updated_at": {
@@ -3491,16 +4729,50 @@
         "Type": "timestamp",
         "Collation": null,
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": "CURRENT_TIMESTAMP",
         "Extra": "DEFAULT_GENERATED on update CURRENT_TIMESTAMP",
         "Privileges": "select,insert,update,references",
-        "Comment": "Timestamp when the product was last updated"
+        "Comment": "Timestamp when the product was last updated",
+        "is_sensitive": false,
+        "distinct_count": 1,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.025,
+        "is_categorical": true,
+        "value_distribution": {
+          "2025-12-19 03:25:18": 40
+        },
+        "sample_values": [
+          "2025-12-19 03:25:18"
+        ],
+        "description": "Timestamp when the product was last updated",
+        "semantic_meaning": "DateTime",
+        "business_relevance": "Product history & auditing"
       }
     },
     "reviews": {
       "type": "table",
-      "properties": {}
+      "properties": {
+        "row_count": 15,
+        "business_purpose": "To collect and store user reviews and ratings for products",
+        "data_domain": "Sales",
+        "business_impact": "HIGH",
+        "description": "This table stores user reviews and ratings, providing valuable feedback on the quality of products. It helps improve product development and marketing strategies.",
+        "typical_queries": [
+          "What is the average rating for a specific product?",
+          "How many helpful votes does a review have?",
+          "Who wrote a particular review for a product?",
+          "When was a specific review written or updated?",
+          "Which products have received the most reviews?"
+        ],
+        "related_business_processes": [
+          "Product development (to address issues mentioned in reviews)",
+          "Marketing (to promote high-rated products)",
+          "Customer service (to respond to customer concerns and feedback)",
+          "Sales (to guide purchasing decisions)"
+        ],
+        "table_comment": "Table storing user reviews and ratings for products"
+      }
     },
     "reviews.review_id": {
       "type": "attribute",
@@ -3509,11 +4781,19 @@
         "Type": "int",
         "Collation": null,
         "Null": "NO",
-        "Key": "PRI",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "auto_increment",
         "Privileges": "select,insert,update,references",
-        "Comment": "Unique identifier for each review"
+        "Comment": "Unique identifier for each review",
+        "is_sensitive": false,
+        "distinct_count": 15,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 1.0,
+        "is_categorical": false,
+        "description": "Unique identifier for each review",
+        "semantic_meaning": "Identifier",
+        "business_relevance": "Record keeping"
       }
     },
     "reviews.user_id": {
@@ -3523,11 +4803,19 @@
         "Type": "int",
         "Collation": null,
         "Null": "NO",
-        "Key": "MUL",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "ID of the user who wrote the review"
+        "Comment": "ID of the user who wrote the review",
+        "is_sensitive": false,
+        "distinct_count": 14,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.9333,
+        "is_categorical": false,
+        "description": "ID of the user who wrote the review",
+        "semantic_meaning": "User ID",
+        "business_relevance": "User tracking, personalization"
       }
     },
     "reviews.product_id": {
@@ -3537,11 +4825,19 @@
         "Type": "int",
         "Collation": null,
         "Null": "NO",
-        "Key": "MUL",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "ID of the product being reviewed"
+        "Comment": "ID of the product being reviewed",
+        "is_sensitive": false,
+        "distinct_count": 10,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.6667,
+        "is_categorical": false,
+        "description": "ID of the product being reviewed",
+        "semantic_meaning": "Product ID",
+        "business_relevance": "Product performance monitoring"
       }
     },
     "reviews.order_id": {
@@ -3551,11 +4847,19 @@
         "Type": "int",
         "Collation": null,
         "Null": "YES",
-        "Key": "MUL",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "ID of the order associated with the review"
+        "Comment": "ID of the order associated with the review",
+        "is_sensitive": false,
+        "distinct_count": 15,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 1.0,
+        "is_categorical": false,
+        "description": "ID of the order associated with the review",
+        "semantic_meaning": "Order ID",
+        "business_relevance": "Order tracking, sales analysis"
       }
     },
     "reviews.rating": {
@@ -3565,11 +4869,19 @@
         "Type": "int",
         "Collation": null,
         "Null": "NO",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Rating given by the user (1-5)"
+        "Comment": "Rating given by the user (1-5)",
+        "is_sensitive": false,
+        "distinct_count": 3,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.2,
+        "is_categorical": false,
+        "description": "Rating given by the user (1-5)",
+        "semantic_meaning": "Rating",
+        "business_relevance": "Product/service evaluation"
       }
     },
     "reviews.review_title": {
@@ -3579,11 +4891,19 @@
         "Type": "varchar(200)",
         "Collation": "utf8mb4_0900_ai_ci",
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Title of the review"
+        "Comment": "Title of the review",
+        "is_sensitive": false,
+        "distinct_count": 15,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 1.0,
+        "is_categorical": false,
+        "description": "Title of the review",
+        "semantic_meaning": "Title",
+        "business_relevance": "Quick summary of review content"
       }
     },
     "reviews.review_text": {
@@ -3593,11 +4913,19 @@
         "Type": "text",
         "Collation": "utf8mb4_0900_ai_ci",
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Detailed text of the review"
+        "Comment": "Detailed text of the review",
+        "is_sensitive": false,
+        "distinct_count": 15,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 1.0,
+        "is_categorical": false,
+        "description": "Detailed text of the review",
+        "semantic_meaning": "Text",
+        "business_relevance": "Customer feedback analysis"
       }
     },
     "reviews.is_verified_purchase": {
@@ -3607,11 +4935,25 @@
         "Type": "tinyint(1)",
         "Collation": null,
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": "0",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Flag indicating if the review is from a verified purchase"
+        "Comment": "Flag indicating if the review is from a verified purchase",
+        "is_sensitive": false,
+        "distinct_count": 1,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.0667,
+        "is_categorical": true,
+        "value_distribution": {
+          "1": 15
+        },
+        "sample_values": [
+          "1"
+        ],
+        "description": "Flag indicating if the review is from a verified purchase",
+        "semantic_meaning": "Verification flag",
+        "business_relevance": "Trustworthiness of reviews"
       }
     },
     "reviews.helpful_votes": {
@@ -3621,11 +4963,19 @@
         "Type": "int",
         "Collation": null,
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": "0",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Number of helpful votes for the review"
+        "Comment": "Number of helpful votes for the review",
+        "is_sensitive": false,
+        "distinct_count": 15,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 1.0,
+        "is_categorical": false,
+        "description": "Number of helpful votes for the review",
+        "semantic_meaning": "Vote count",
+        "business_relevance": "Influence on other customers"
       }
     },
     "reviews.created_at": {
@@ -3635,11 +4985,25 @@
         "Type": "timestamp",
         "Collation": null,
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": "CURRENT_TIMESTAMP",
         "Extra": "DEFAULT_GENERATED",
         "Privileges": "select,insert,update,references",
-        "Comment": "Timestamp when the review was created"
+        "Comment": "Timestamp when the review was created",
+        "is_sensitive": false,
+        "distinct_count": 1,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.0667,
+        "is_categorical": true,
+        "value_distribution": {
+          "2025-12-19 03:25:18": 15
+        },
+        "sample_values": [
+          "2025-12-19 03:25:18"
+        ],
+        "description": "Timestamp when the review was created",
+        "semantic_meaning": "Creation timestamp",
+        "business_relevance": "Review timeline analysis"
       }
     },
     "reviews.updated_at": {
@@ -3649,11 +5013,25 @@
         "Type": "timestamp",
         "Collation": null,
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": "CURRENT_TIMESTAMP",
         "Extra": "DEFAULT_GENERATED on update CURRENT_TIMESTAMP",
         "Privileges": "select,insert,update,references",
-        "Comment": "Timestamp when the review was last updated"
+        "Comment": "Timestamp when the review was last updated",
+        "is_sensitive": false,
+        "distinct_count": 1,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.0667,
+        "is_categorical": true,
+        "value_distribution": {
+          "2025-12-19 03:25:18": 15
+        },
+        "sample_values": [
+          "2025-12-19 03:25:18"
+        ],
+        "description": "Timestamp when the review was last updated",
+        "semantic_meaning": "Last update timestamp",
+        "business_relevance": "Review activity tracking"
       }
     },
     "reviews.is_active": {
@@ -3663,16 +5041,51 @@
         "Type": "tinyint(1)",
         "Collation": null,
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": "1",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Flag indicating if the review is active"
+        "Comment": "Flag indicating if the review is active",
+        "is_sensitive": false,
+        "distinct_count": 1,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.0667,
+        "is_categorical": true,
+        "value_distribution": {
+          "1": 15
+        },
+        "sample_values": [
+          "1"
+        ],
+        "description": "Flag indicating if the review is active",
+        "semantic_meaning": "Activity status flag",
+        "business_relevance": "Active/inactive review filtering"
       }
     },
     "sellers": {
       "type": "table",
-      "properties": {}
+      "properties": {
+        "row_count": 5,
+        "business_purpose": "Manage seller information for e-commerce platform",
+        "data_domain": "Sales",
+        "business_impact": "HIGH",
+        "description": "This table stores essential details of sellers who list their products on our e-commerce platform. The data includes contact information, GST number, ratings, and other relevant details.",
+        "typical_queries": [
+          "Who is the seller for a specific product?",
+          "What is the average rating of a particular seller?",
+          "Where is a seller located?",
+          "Can I verify if a seller is active or not?",
+          "How many reviews does a seller have?"
+        ],
+        "related_business_processes": [
+          "Seller onboarding",
+          "Product listing management",
+          "Order fulfillment and tracking",
+          "Customer complaints and resolution",
+          "Performance evaluation and incentives"
+        ],
+        "table_comment": "Table storing seller information and business details"
+      }
     },
     "sellers.seller_id": {
       "type": "attribute",
@@ -3681,11 +5094,19 @@
         "Type": "int",
         "Collation": null,
         "Null": "NO",
-        "Key": "PRI",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "auto_increment",
         "Privileges": "select,insert,update,references",
-        "Comment": "Unique identifier for each seller"
+        "Comment": "Unique identifier for each seller",
+        "is_sensitive": false,
+        "distinct_count": 5,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 1.0,
+        "is_categorical": false,
+        "description": "Unique identifier for each seller",
+        "semantic_meaning": "Identifier",
+        "business_relevance": "Used to distinguish between different sellers"
       }
     },
     "sellers.seller_name": {
@@ -3695,11 +5116,19 @@
         "Type": "varchar(100)",
         "Collation": "utf8mb4_0900_ai_ci",
         "Null": "NO",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Name of the seller"
+        "Comment": "Name of the seller",
+        "is_sensitive": false,
+        "distinct_count": 5,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 1.0,
+        "is_categorical": false,
+        "description": "Name of the seller",
+        "semantic_meaning": "Textual data",
+        "business_relevance": "Identifies the individual or entity selling products"
       }
     },
     "sellers.company_name": {
@@ -3709,11 +5138,19 @@
         "Type": "varchar(100)",
         "Collation": "utf8mb4_0900_ai_ci",
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Name of the seller company"
+        "Comment": "Name of the seller company",
+        "is_sensitive": false,
+        "distinct_count": 5,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 1.0,
+        "is_categorical": false,
+        "description": "Name of the seller company",
+        "semantic_meaning": "Textual data",
+        "business_relevance": "Identifies the business entity associated with the seller"
       }
     },
     "sellers.email": {
@@ -3723,11 +5160,19 @@
         "Type": "varchar(100)",
         "Collation": "utf8mb4_0900_ai_ci",
         "Null": "NO",
-        "Key": "UNI",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Email address of the seller"
+        "Comment": "Email address of the seller",
+        "is_sensitive": false,
+        "distinct_count": 5,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 1.0,
+        "is_categorical": false,
+        "description": "Email address of the seller",
+        "semantic_meaning": "Communication address",
+        "business_relevance": "Used for communication between the platform and the seller"
       }
     },
     "sellers.phone": {
@@ -3737,11 +5182,19 @@
         "Type": "varchar(15)",
         "Collation": "utf8mb4_0900_ai_ci",
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Contact phone number of the seller"
+        "Comment": "Contact phone number of the seller",
+        "is_sensitive": false,
+        "distinct_count": 5,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 1.0,
+        "is_categorical": false,
+        "description": "Contact phone number of the seller",
+        "semantic_meaning": "Contact information",
+        "business_relevance": "Used for direct communication with the seller"
       }
     },
     "sellers.gst_number": {
@@ -3751,11 +5204,19 @@
         "Type": "varchar(20)",
         "Collation": "utf8mb4_0900_ai_ci",
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "GST number for tax purposes"
+        "Comment": "GST number for tax purposes",
+        "is_sensitive": false,
+        "distinct_count": 5,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 1.0,
+        "is_categorical": false,
+        "description": "GST number for tax purposes",
+        "semantic_meaning": "Tax-related identifier",
+        "business_relevance": "Used for compliance and taxation purposes"
       }
     },
     "sellers.business_address": {
@@ -3765,11 +5226,19 @@
         "Type": "text",
         "Collation": "utf8mb4_0900_ai_ci",
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Business address of the seller"
+        "Comment": "Business address of the seller",
+        "is_sensitive": false,
+        "distinct_count": 5,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 1.0,
+        "is_categorical": false,
+        "description": "Business address of the seller",
+        "semantic_meaning": "Location data",
+        "business_relevance": "Used to facilitate deliveries and for geographical analytics"
       }
     },
     "sellers.city": {
@@ -3779,11 +5248,19 @@
         "Type": "varchar(50)",
         "Collation": "utf8mb4_0900_ai_ci",
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "City of the seller"
+        "Comment": "City of the seller",
+        "is_sensitive": false,
+        "distinct_count": 3,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.6,
+        "is_categorical": false,
+        "description": "City of the seller",
+        "semantic_meaning": "Geographical location",
+        "business_relevance": "Used for local insights, deliveries, and marketing campaigns"
       }
     },
     "sellers.state": {
@@ -3793,11 +5270,19 @@
         "Type": "varchar(50)",
         "Collation": "utf8mb4_0900_ai_ci",
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "State of the seller"
+        "Comment": "State of the seller",
+        "is_sensitive": false,
+        "distinct_count": 3,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.6,
+        "is_categorical": false,
+        "description": "State of the seller",
+        "semantic_meaning": "Geographical location",
+        "business_relevance": "Used for local insights, deliveries, and marketing campaigns"
       }
     },
     "sellers.pincode": {
@@ -3807,11 +5292,14 @@
         "Type": "varchar(10)",
         "Collation": "utf8mb4_0900_ai_ci",
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Pincode of the seller location"
+        "Comment": "Pincode of the seller location",
+        "is_sensitive": true,
+        "distinct_count": null,
+        "sample_values": []
       }
     },
     "sellers.rating": {
@@ -3821,11 +5309,19 @@
         "Type": "decimal(3,2)",
         "Collation": null,
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": "0.00",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Average rating of the seller"
+        "Comment": "Average rating of the seller",
+        "is_sensitive": false,
+        "distinct_count": 5,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 1.0,
+        "is_categorical": false,
+        "description": "Average rating of the seller",
+        "semantic_meaning": "Qualitative data",
+        "business_relevance": "Reflects customer satisfaction and trustworthiness of the seller"
       }
     },
     "sellers.total_reviews": {
@@ -3835,11 +5331,19 @@
         "Type": "int",
         "Collation": null,
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": "0",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Total number of reviews for the seller"
+        "Comment": "Total number of reviews for the seller",
+        "is_sensitive": false,
+        "distinct_count": 5,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 1.0,
+        "is_categorical": false,
+        "description": "Total number of reviews for the seller",
+        "semantic_meaning": "Quantitative data",
+        "business_relevance": "Indicates overall performance and customer engagement"
       }
     },
     "sellers.is_verified": {
@@ -3849,11 +5353,19 @@
         "Type": "tinyint(1)",
         "Collation": null,
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": "0",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Flag indicating if the seller is verified"
+        "Comment": "Flag indicating if the seller is verified",
+        "is_sensitive": false,
+        "distinct_count": 1,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.2,
+        "is_categorical": false,
+        "description": "Flag indicating if the seller is verified",
+        "semantic_meaning": "Boolean value",
+        "business_relevance": "Signifies authenticity of the seller account"
       }
     },
     "sellers.created_at": {
@@ -3863,11 +5375,19 @@
         "Type": "timestamp",
         "Collation": null,
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": "CURRENT_TIMESTAMP",
         "Extra": "DEFAULT_GENERATED",
         "Privileges": "select,insert,update,references",
-        "Comment": "Timestamp when the seller account was created"
+        "Comment": "Timestamp when the seller account was created",
+        "is_sensitive": false,
+        "distinct_count": 1,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.2,
+        "is_categorical": false,
+        "description": "Timestamp when the seller account was created",
+        "semantic_meaning": "Temporal data",
+        "business_relevance": "Tracks when the seller joined the platform"
       }
     },
     "sellers.is_active": {
@@ -3877,16 +5397,44 @@
         "Type": "tinyint(1)",
         "Collation": null,
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": "1",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Flag indicating if the seller account is active"
+        "Comment": "Flag indicating if the seller account is active",
+        "is_sensitive": false,
+        "distinct_count": 1,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.2,
+        "is_categorical": false,
+        "description": "Flag indicating if the seller account is active",
+        "semantic_meaning": "Boolean value",
+        "business_relevance": "Indicates availability of the seller for transactions"
       }
     },
     "user_coupons": {
       "type": "table",
-      "properties": {}
+      "properties": {
+        "row_count": 15,
+        "business_purpose": "Tracking coupon usage by users",
+        "data_domain": "Sales",
+        "business_impact": "HIGH",
+        "description": "This table tracks the usage of coupons by users in the sales domain, recording details such as user ID, coupon ID, order ID, timestamps, and discount amounts applied. This information is crucial for understanding customer behavior and sales performance.",
+        "typical_queries": [
+          "Who used a particular coupon?",
+          "What was the total discount amount applied using coupon X on order Y?",
+          "Which users have taken advantage of the highest-value coupons?",
+          "When was the last time coupon Z was used?",
+          "How many unique coupons were used in a given period?"
+        ],
+        "related_business_processes": [
+          "Sales promotion management",
+          "Order processing",
+          "Customer service and support",
+          "Marketing campaign analysis"
+        ],
+        "table_comment": "Table tracking coupon usage by users"
+      }
     },
     "user_coupons.user_coupon_id": {
       "type": "attribute",
@@ -3895,11 +5443,19 @@
         "Type": "int",
         "Collation": null,
         "Null": "NO",
-        "Key": "PRI",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "auto_increment",
         "Privileges": "select,insert,update,references",
-        "Comment": "Unique identifier for each user coupon usage"
+        "Comment": "Unique identifier for each user coupon usage",
+        "is_sensitive": false,
+        "distinct_count": 15,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 1.0,
+        "is_categorical": false,
+        "description": "Unique identifier for each user coupon usage",
+        "semantic_meaning": "Identifier",
+        "business_relevance": "Tracking individual coupon usages"
       }
     },
     "user_coupons.user_id": {
@@ -3909,11 +5465,19 @@
         "Type": "int",
         "Collation": null,
         "Null": "NO",
-        "Key": "MUL",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "ID of the user who used the coupon"
+        "Comment": "ID of the user who used the coupon",
+        "is_sensitive": false,
+        "distinct_count": 8,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.5333,
+        "is_categorical": false,
+        "description": "ID of the user who used the coupon",
+        "semantic_meaning": "User Identifier",
+        "business_relevance": "Identifying customers redeeming coupons"
       }
     },
     "user_coupons.coupon_id": {
@@ -3923,11 +5487,19 @@
         "Type": "int",
         "Collation": null,
         "Null": "NO",
-        "Key": "MUL",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "ID of the coupon used"
+        "Comment": "ID of the coupon used",
+        "is_sensitive": false,
+        "distinct_count": 3,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.2,
+        "is_categorical": false,
+        "description": "ID of the coupon used",
+        "semantic_meaning": "Coupon Identifier",
+        "business_relevance": "Tracking which coupons are being redeemed"
       }
     },
     "user_coupons.order_id": {
@@ -3937,11 +5509,19 @@
         "Type": "int",
         "Collation": null,
         "Null": "YES",
-        "Key": "MUL",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "ID of the order where the coupon was used"
+        "Comment": "ID of the order where the coupon was used",
+        "is_sensitive": false,
+        "distinct_count": 15,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 1.0,
+        "is_categorical": false,
+        "description": "ID of the order where the coupon was used",
+        "semantic_meaning": "Order Identifier",
+        "business_relevance": "Linking coupon redemption to specific orders"
       }
     },
     "user_coupons.used_at": {
@@ -3951,11 +5531,19 @@
         "Type": "timestamp",
         "Collation": null,
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": "CURRENT_TIMESTAMP",
         "Extra": "DEFAULT_GENERATED",
         "Privileges": "select,insert,update,references",
-        "Comment": "Timestamp when the coupon was used"
+        "Comment": "Timestamp when the coupon was used",
+        "is_sensitive": false,
+        "distinct_count": 14,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.9333,
+        "is_categorical": false,
+        "description": "Timestamp when the coupon was used",
+        "semantic_meaning": "Time",
+        "business_relevance": "Tracking when coupons are being redeemed"
       }
     },
     "user_coupons.discount_applied": {
@@ -3965,16 +5553,45 @@
         "Type": "decimal(10,2)",
         "Collation": null,
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Amount of discount applied using the coupon"
+        "Comment": "Amount of discount applied using the coupon",
+        "is_sensitive": false,
+        "distinct_count": 5,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.3333,
+        "is_categorical": false,
+        "description": "Amount of discount applied using the coupon",
+        "semantic_meaning": "Monetary Value",
+        "business_relevance": "Quantifying the discount provided by a coupon"
       }
     },
     "users": {
       "type": "table",
-      "properties": {}
+      "properties": {
+        "row_count": 50,
+        "business_purpose": "Core user account table for storing customer profile information, authentication credentials, and account status for the ecommerce marketplace platform",
+        "data_domain": "Sales",
+        "business_impact": "HIGH",
+        "description": "This table stores essential user data such as name, email, phone number, password, gender, birthdate, account status, and verification status. It plays a critical role in user authentication and communication.",
+        "typical_queries": [
+          "Who are the active users on our platform?",
+          "What is the total count of registered users?",
+          "Find all users with email addresses ending in @email.com",
+          "Which gender has the most number of registered users?",
+          "Who are the users born in 1990?"
+        ],
+        "related_business_processes": [
+          "User registration",
+          "User authentication",
+          "Email verification",
+          "Account deactivation/suspension",
+          "Customer support interactions"
+        ],
+        "table_comment": "Core user account table storing customer profile information, authentication credentials, and account status for the ecommerce marketplace platform"
+      }
     },
     "users.user_id": {
       "type": "attribute",
@@ -3983,11 +5600,19 @@
         "Type": "int",
         "Collation": null,
         "Null": "NO",
-        "Key": "PRI",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "auto_increment",
         "Privileges": "select,insert,update,references",
-        "Comment": "Unique identifier for each user"
+        "Comment": "Unique identifier for each user",
+        "is_sensitive": false,
+        "distinct_count": 50,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 1.0,
+        "is_categorical": false,
+        "description": "Unique identifier for each user",
+        "semantic_meaning": "Identifier",
+        "business_relevance": "Tracking and identification of users"
       }
     },
     "users.first_name": {
@@ -3997,11 +5622,19 @@
         "Type": "varchar(50)",
         "Collation": "utf8mb4_0900_ai_ci",
         "Null": "NO",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "User first name"
+        "Comment": "User first name",
+        "is_sensitive": false,
+        "distinct_count": 50,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 1.0,
+        "is_categorical": false,
+        "description": "User first name",
+        "semantic_meaning": "Name component",
+        "business_relevance": "Personalization and user identification"
       }
     },
     "users.last_name": {
@@ -4011,11 +5644,19 @@
         "Type": "varchar(50)",
         "Collation": "utf8mb4_0900_ai_ci",
         "Null": "NO",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "User last name"
+        "Comment": "User last name",
+        "is_sensitive": false,
+        "distinct_count": 48,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.96,
+        "is_categorical": false,
+        "description": "User last name",
+        "semantic_meaning": "Name component",
+        "business_relevance": "Personalization and user identification"
       }
     },
     "users.email": {
@@ -4025,11 +5666,19 @@
         "Type": "varchar(100)",
         "Collation": "utf8mb4_0900_ai_ci",
         "Null": "NO",
-        "Key": "UNI",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Unique email address for user authentication and communication"
+        "Comment": "Unique email address for user authentication and communication",
+        "is_sensitive": false,
+        "distinct_count": 50,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 1.0,
+        "is_categorical": false,
+        "description": "Unique email address for user authentication and communication",
+        "semantic_meaning": "Email",
+        "business_relevance": "User authentication, communication, and tracking"
       }
     },
     "users.phone": {
@@ -4039,11 +5688,19 @@
         "Type": "varchar(15)",
         "Collation": "utf8mb4_0900_ai_ci",
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Contact phone number"
+        "Comment": "Contact phone number",
+        "is_sensitive": false,
+        "distinct_count": 50,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 1.0,
+        "is_categorical": false,
+        "description": "Contact phone number",
+        "semantic_meaning": "Phone number",
+        "business_relevance": "Customer service and user identification"
       }
     },
     "users.password_hash": {
@@ -4053,11 +5710,14 @@
         "Type": "varchar(255)",
         "Collation": "utf8mb4_0900_ai_ci",
         "Null": "NO",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Hashed password for secure authentication"
+        "Comment": "Hashed password for secure authentication",
+        "is_sensitive": true,
+        "distinct_count": null,
+        "sample_values": []
       }
     },
     "users.date_of_birth": {
@@ -4067,11 +5727,19 @@
         "Type": "date",
         "Collation": null,
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "User birth date for age verification and personalization"
+        "Comment": "User birth date for age verification and personalization",
+        "is_sensitive": false,
+        "distinct_count": 50,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 1.0,
+        "is_categorical": false,
+        "description": "User birth date for age verification and personalization",
+        "semantic_meaning": "Date",
+        "business_relevance": "Age verification, personalized offers, and data analysis"
       }
     },
     "users.gender": {
@@ -4081,11 +5749,27 @@
         "Type": "enum('Male','Female','Other')",
         "Collation": "utf8mb4_0900_ai_ci",
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "User gender information"
+        "Comment": "User gender information",
+        "is_sensitive": false,
+        "distinct_count": 2,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.04,
+        "is_categorical": true,
+        "value_distribution": {
+          "Male": 25,
+          "Female": 25
+        },
+        "sample_values": [
+          "Male",
+          "Female"
+        ],
+        "description": "User gender information",
+        "semantic_meaning": "Categorical variable",
+        "business_relevance": "Demographic segmentation, targeted marketing, and user profiling"
       }
     },
     "users.created_at": {
@@ -4095,11 +5779,19 @@
         "Type": "timestamp",
         "Collation": null,
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": "CURRENT_TIMESTAMP",
         "Extra": "DEFAULT_GENERATED",
         "Privileges": "select,insert,update,references",
-        "Comment": "Account creation timestamp"
+        "Comment": "Account creation timestamp",
+        "is_sensitive": false,
+        "distinct_count": 50,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 1.0,
+        "is_categorical": false,
+        "description": "Account creation timestamp",
+        "semantic_meaning": "Date/Time",
+        "business_relevance": "Tracking user activity and account management"
       }
     },
     "users.updated_at": {
@@ -4109,11 +5801,25 @@
         "Type": "timestamp",
         "Collation": null,
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": "CURRENT_TIMESTAMP",
         "Extra": "DEFAULT_GENERATED on update CURRENT_TIMESTAMP",
         "Privileges": "select,insert,update,references",
-        "Comment": "Last profile update timestamp"
+        "Comment": "Last profile update timestamp",
+        "is_sensitive": false,
+        "distinct_count": 1,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.02,
+        "is_categorical": true,
+        "value_distribution": {
+          "2025-12-19 03:25:18": 50
+        },
+        "sample_values": [
+          "2025-12-19 03:25:18"
+        ],
+        "description": "Last profile update timestamp",
+        "semantic_meaning": "Date/Time",
+        "business_relevance": "Tracking user activity and account management"
       }
     },
     "users.is_active": {
@@ -4123,11 +5829,25 @@
         "Type": "tinyint(1)",
         "Collation": null,
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": "1",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Account status flag; TRUE=active, FALSE=deactivated/suspended"
+        "Comment": "Account status flag; TRUE=active, FALSE=deactivated/suspended",
+        "is_sensitive": false,
+        "distinct_count": 1,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.02,
+        "is_categorical": true,
+        "value_distribution": {
+          "1": 50
+        },
+        "sample_values": [
+          "1"
+        ],
+        "description": "Account status flag; TRUE=active, FALSE=deactivated/suspended",
+        "semantic_meaning": "Boolean value",
+        "business_relevance": "User account management and system control"
       }
     },
     "users.email_verified": {
@@ -4137,16 +5857,51 @@
         "Type": "tinyint(1)",
         "Collation": null,
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": "0",
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "Email verification status for account security"
+        "Comment": "Email verification status for account security",
+        "is_sensitive": false,
+        "distinct_count": 1,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.02,
+        "is_categorical": true,
+        "value_distribution": {
+          "***": 50
+        },
+        "sample_values": [
+          "***"
+        ],
+        "description": "Email verification status for account security",
+        "semantic_meaning": "Boolean value",
+        "business_relevance": "Account security and user identification"
       }
     },
     "wishlist": {
       "type": "table",
-      "properties": {}
+      "properties": {
+        "row_count": 18,
+        "business_purpose": "The 'wishlist' table serves the purpose of allowing users to save products they are interested in for future purchase",
+        "data_domain": "Sales",
+        "business_impact": "MEDIUM",
+        "description": "This table stores user-added product wishlists, including product IDs, user IDs, and timestamps for when the items were added.",
+        "typical_queries": [
+          "What products have User X saved in their wishlist?",
+          "When did User Y add Product Z to their wishlist?",
+          "How many unique products are in the wishlists of all users?",
+          "What is the most popular product saved in the wishlists?",
+          "How many wishlists contain a specific product?"
+        ],
+        "related_business_processes": [
+          "Product browsing and selection",
+          "User account management",
+          "Shopping cart management",
+          "Inventory management",
+          "Order processing"
+        ],
+        "table_comment": "Table storing products added to user wishlists"
+      }
     },
     "wishlist.wishlist_id": {
       "type": "attribute",
@@ -4155,11 +5910,19 @@
         "Type": "int",
         "Collation": null,
         "Null": "NO",
-        "Key": "PRI",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "auto_increment",
         "Privileges": "select,insert,update,references",
-        "Comment": "Unique identifier for each wishlist item"
+        "Comment": "Unique identifier for each wishlist item",
+        "is_sensitive": false,
+        "distinct_count": 18,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 1.0,
+        "is_categorical": false,
+        "description": "Unique identifier for each wishlist item",
+        "semantic_meaning": "Identifier",
+        "business_relevance": "Identification"
       }
     },
     "wishlist.user_id": {
@@ -4169,11 +5932,19 @@
         "Type": "int",
         "Collation": null,
         "Null": "NO",
-        "Key": "MUL",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "ID of the user who added the item to wishlist"
+        "Comment": "ID of the user who added the item to wishlist",
+        "is_sensitive": false,
+        "distinct_count": 15,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.8333,
+        "is_categorical": false,
+        "description": "ID of the user who added the item to wishlist",
+        "semantic_meaning": "User identification",
+        "business_relevance": "User tracking"
       }
     },
     "wishlist.product_id": {
@@ -4183,11 +5954,19 @@
         "Type": "int",
         "Collation": null,
         "Null": "NO",
-        "Key": "MUL",
+        "Key": "***MASKED***",
         "Default": null,
         "Extra": "",
         "Privileges": "select,insert,update,references",
-        "Comment": "ID of the product in the wishlist"
+        "Comment": "ID of the product in the wishlist",
+        "is_sensitive": false,
+        "distinct_count": 14,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.7778,
+        "is_categorical": false,
+        "description": "ID of the product in the wishlist",
+        "semantic_meaning": "Product identification",
+        "business_relevance": "Product association"
       }
     },
     "wishlist.added_at": {
@@ -4197,11 +5976,25 @@
         "Type": "timestamp",
         "Collation": null,
         "Null": "YES",
-        "Key": "",
+        "Key": "***MASKED***",
         "Default": "CURRENT_TIMESTAMP",
         "Extra": "DEFAULT_GENERATED",
         "Privileges": "select,insert,update,references",
-        "Comment": "Timestamp when the item was added to wishlist"
+        "Comment": "Timestamp when the item was added to wishlist",
+        "is_sensitive": false,
+        "distinct_count": 1,
+        "null_percentage": 0.0,
+        "cardinality_ratio": 0.0556,
+        "is_categorical": true,
+        "value_distribution": {
+          "2025-12-19 03:25:18": 18
+        },
+        "sample_values": [
+          "2025-12-19 03:25:18"
+        ],
+        "description": "Timestamp when the item was added to wishlist",
+        "semantic_meaning": "Event timestamp",
+        "business_relevance": "Transaction tracking"
       }
     },
     "popular_products": {
@@ -4215,6 +6008,33 @@
     "user_order_summary": {
       "type": "view",
       "properties": {}
+    },
+    "User Order Summary": {
+      "type": "virtual_table",
+      "properties": {
+        "type": "virtual_table",
+        "description": "Combines user, orders, and payments for easy access to order summary information",
+        "suggested_sql": "CREATE VIEW user_order_summary AS SELECT u.user_id, o.order_number, o.order_date, o.total_amount, p.payment_method FROM users u JOIN orders o ON u.user_id = o.user_id JOIN payments p ON o.order_id = p.order_id;",
+        "use_case": "Answers common questions like 'What is the total amount spent by each user?' or 'Which payment methods are most commonly used?'"
+      }
+    },
+    "Popular Products and Categories": {
+      "type": "virtual_table",
+      "properties": {
+        "type": "virtual_table",
+        "description": "Pre-aggregates product and category data for analytics purposes",
+        "suggested_sql": "CREATE VIEW popular_products_categories AS SELECT p.product_id, p.product_name, c.category_name, COUNT(oi.order_item_id) as number_of_sales FROM products p JOIN order_items oi ON p.product_id = oi.product_id JOIN categories c ON p.category_id = c.category_id GROUP BY p.product_id, c.category_name ORDER BY number_of_sales DESC;",
+        "use_case": "Helps answer questions like 'What are the top-selling products by category?' or 'Which categories have the most sales overall?'"
+      }
+    },
+    "User Wishlist and Cart Overlap": {
+      "type": "virtual_table",
+      "properties": {
+        "type": "virtual_table",
+        "description": "Simplifies complex relationships between user, wishlist, and cart",
+        "suggested_sql": "CREATE VIEW user_wishlist_cart_overlap AS SELECT u.user_id, w.product_id, CASE WHEN wi.added_at IS NOT NULL THEN 'Wishlisted' ELSE 'In Cart' END as product_status FROM users u JOIN wishlist w ON u.user_id = w.user_id LEFT JOIN cart c ON w.product_id = c.product_id WHERE c.product_id IS NULL UNION SELECT u.user_id, c.product_id, 'In Cart' as product_status FROM users u JOIN cart c ON u.user_id = c.user_id LEFT JOIN wishlist w ON c.product_id = w.product_id WHERE w.product_id IS NULL;",
+        "use_case": "Answers questions like 'Which products are in a user's cart and wishlist?' or 'How many products does each user have in both their cart and wishlist?'"
+      }
     }
   }
 }

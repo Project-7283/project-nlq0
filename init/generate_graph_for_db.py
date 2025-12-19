@@ -1,9 +1,14 @@
 import os
+import sys
+
+# Add project root to path
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 from src.services.mysql_service import MySQLService
 from src.services.db_reader import DBSchemaReaderService
 from src.services.schema_graph_service import SchemaGraphService
 from src.services.db_profiling_service import DBProfilingService, DataGovernanceConfig
-from src.services.inference import GeminiService, OpenAIService
+from src.services.inference import GeminiService, OpenAIService, OllamaService
 from src.modules.semantic_graph import SemanticGraph
 
 # filepath: init/generate_graph_for_db.py
@@ -45,6 +50,11 @@ def main():
         elif light_llm_provider == "gemini":
             light_llm = GeminiService()
             print(f"   Light LLM: Gemini")
+        elif light_llm_provider == "ollama":
+            light_llm_model = os.getenv("LIGHT_LLM_MODEL", "llama3.2")
+            light_llm_base_url = os.getenv("LLM_API_BASE", "http://localhost:11434")
+            light_llm = OllamaService(model=light_llm_model, base_url=light_llm_base_url)
+            print(f"   Light LLM: Ollama {light_llm_model}")
         else:
             # Fallback to Gemini
             light_llm = GeminiService()
@@ -58,6 +68,11 @@ def main():
             heavy_llm_model = os.getenv("HEAVY_LLM_MODEL", "gpt-4o")
             heavy_llm = OpenAIService(model=heavy_llm_model)
             print(f"   Heavy LLM: OpenAI {heavy_llm_model}")
+        elif heavy_llm_provider == "ollama":
+            heavy_llm_model = os.getenv("HEAVY_LLM_MODEL", "mistral:7b")
+            heavy_llm_base_url = os.getenv("LLM_API_BASE", "http://localhost:11434")
+            heavy_llm = OllamaService(model=heavy_llm_model, base_url=heavy_llm_base_url)
+            print(f"   Heavy LLM: Ollama {heavy_llm_model}")
         else:
             # Fallback to Gemini
             heavy_llm = GeminiService()

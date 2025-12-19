@@ -41,6 +41,9 @@ class DataGovernanceService:
         self.enabled = os.getenv("DATA_GOVERNANCE_ENABLED", "true").lower() == "true"
         self.strict_mode = os.getenv("DATA_GOVERNANCE_STRICT_MODE", "true").lower() == "true"
         
+        # Masking strategies by keyword pattern
+        self.partial_mask_keywords = ["email", "phone", "mobile", "tel", "contact"]
+        
         # Compile regex patterns for efficient matching
         self._compile_patterns()
     
@@ -66,9 +69,10 @@ class DataGovernanceService:
     
     def _compile_patterns(self):
         """Compile regex patterns for sensitive column detection"""
-        # Create word boundary patterns for each keyword
+        # Create patterns without strict word boundaries to match compound words
+        # e.g., "password" matches "user_password", "password_hash", "api_token" matches "token"
         self.patterns = [
-            re.compile(r'\b' + re.escape(keyword) + r'\b', re.IGNORECASE)
+            re.compile(re.escape(keyword), re.IGNORECASE)
             for keyword in self.sensitive_keywords
         ]
     
@@ -80,13 +84,33 @@ class DataGovernanceService:
             column_name: Column name to check
             
         Returns:
-            True if column is sensitive
+            True if column is sensitive (excludes partial mask columns)
+        """
+        if not self.enabled:
+            return False
+        
+        # Check if it's a partial mask column first (those are sensitive but handled differently)
+        if self.is_partial_mask_column(column_name):
+            return False  # Not "fully" sensitive
+        
+        column_lower = column_name.lower()
+        return any(pattern.search(column_lower) for pattern in self.patterns)
+    
+    def is_partial_mask_column(self, column_name: str) -> bool:
+        """
+        Check if column should use partial masking instead of full masking.
+        
+        Args:
+            column_name: Column name to check
+            
+        Returns:
+            True if column should be partially masked
         """
         if not self.enabled:
             return False
         
         column_lower = column_name.lower()
-        return any(pattern.search(column_lower) for pattern in self.patterns)
+        return any(keyword in column_lower for keyword in self.partial_mask_keywords)
     
     def validate_query(self, sql: str, schema_context: Optional[Dict] = None) -> Tuple[bool, Optional[str]]:
         """
@@ -192,6 +216,7 @@ class DataGovernanceService:
     def mask_results(self, results: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
         """
         Mask sensitive columns in query results.
+        Supports both full masking and partial masking strategies.
         
         Args:
             results: List of result dictionaries
@@ -206,13 +231,50 @@ class DataGovernanceService:
         for row in results:
             masked_row = {}
             for key, value in row.items():
-                if self.is_sensitive_column(key):
+                # Check partial masking first (has priority)
+                if self.is_partial_mask_column(key):
+                    masked_row[key] = self._partial_mask_value(str(value))
+                elif self.is_sensitive_column(key):
                     masked_row[key] = "***MASKED***"
                 else:
                     masked_row[key] = value
             masked_results.append(masked_row)
         
         return masked_results
+    
+    def _partial_mask_value(self, value: str) -> str:
+        """
+        Apply partial masking to a value (e.g., email, phone).
+        
+        Examples:
+            user@example.com → u***@example.com
+            +1-555-1234 → +1-***-1234
+            john.doe@company.com → j***@company.com
+        """
+        if not value or len(value) < 3:
+            return "***"
+        
+        # Email pattern
+        if '@' in value:
+            parts = value.split('@')
+            if len(parts) == 2:
+                local = parts[0]
+                domain = parts[1]
+                if len(local) > 2:
+                    return f"{local[0]}***@{domain}"
+                return f"***@{domain}"
+        
+        # Phone pattern (keep first 3 and last 4 digits if long enough)
+        digits = ''.join(c for c in value if c.isdigit())
+        if len(digits) >= 7:
+            non_digits = ''.join(c for c in value if not c.isdigit())
+            # Keep format but mask middle digits
+            masked_digits = digits[:3] + '***' + digits[-4:]
+            # Reconstruct with non-digit characters
+            return value[:3] + '***' + value[-4:]
+        
+        # Default: show first char + ***
+        return f"{value[0]}***"
     
     def get_safe_columns(self, table_columns: Dict[str, List[str]]) -> Dict[str, List[str]]:
         """
@@ -269,20 +331,27 @@ class DataGovernanceService:
         """Extract table names from SQL query"""
         tables = []
         
-        # Extract FROM clause
-        from_match = re.search(r'FROM\s+(.*?)(?:WHERE|GROUP|ORDER|LIMIT|;|$)', sql, re.IGNORECASE | re.DOTALL)
-        if from_match:
-            from_clause = from_match.group(1)
-            # Split by JOIN, comma
-            parts = re.split(r'\s+JOIN\s+|\s*,\s*', from_clause, flags=re.IGNORECASE)
-            for part in parts:
-                # Extract table name (handle aliases)
-                table_match = re.match(r'(\w+(?:\.\w+)?)', part.strip())
-                if table_match:
-                    table = table_match.group(1).split('.')[-1]  # Get table name without schema
-                    tables.append(table)
+        # Find all table references after FROM and JOIN keywords
+        # Match: FROM table, JOIN table, etc.
+        patterns = [
+            r'FROM\s+(\w+)',
+            r'JOIN\s+(\w+)',
+            r',\s*(\w+)'  # Comma-separated tables
+        ]
         
-        return tables
+        for pattern in patterns:
+            matches = re.findall(pattern, sql, re.IGNORECASE)
+            tables.extend(matches)
+        
+        # Remove duplicates while preserving order
+        seen = set()
+        unique_tables = []
+        for table in tables:
+            if table.lower() not in seen:
+                seen.add(table.lower())
+                unique_tables.append(table)
+        
+        return unique_tables
     
     def get_governance_summary(self) -> Dict[str, Any]:
         """Get governance configuration summary"""
