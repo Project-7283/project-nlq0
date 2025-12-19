@@ -1,0 +1,3 @@
+payments.payment_method
+products.product_name
+foreign_key,association

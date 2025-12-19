@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NLQ Project Presentation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Modal overlay and animation */
+        #result-modal {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0,0,0,0.4);
+            z-index: 1000;
+            transition: opacity 0.3s ease;
+        }
+        #result-modal.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        #result-modal .modal-content {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            padding: 2rem;
+            max-width: 700px;
+            width: 100%;
+            position: relative;
+            animation: modalIn 0.3s cubic-bezier(0.68,-0.55,0.27,1.55);
+        }
+        @keyframes modalIn {
+            from { transform: scale(0.95); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
+            color: #1a202c;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        .slide-container {
+            width: 90vw;
+            height: 50.625vw; /* 16:9 aspect ratio */
+            max-width: 1200px;
+            max-height: 675px;
+            background-color: #fff;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 3rem 5rem;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(100%);
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            text-align: left;
+        }
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(0);
+        }
+        .slide-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #2c5292;
+            margin-bottom: 1rem;
+        }
+        .slide-subtitle {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #4a5568;
+            margin-bottom: 2rem;
+        }
+        .content {
+            font-size: 1.25rem;
+            line-height: 1.75;
+        }
+        .content ul {
+            list-style-type: disc;
+            margin-left: 2rem;
+        }
+        .footer {
+            position: absolute;
+            bottom: 2rem;
+            left: 5rem;
+            right: 5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1rem;
+            color: #718096;
+        }
+        .controls {
+            position: absolute;
+            bottom: 2rem;
+            right: 5rem;
+            display: flex;
+            gap: 1rem;
+        }
+        .nav-btn {
+            background-color: #2c5292;
+            color: #fff;
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.2s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            background-color: #4a5568;
+        }
+        .nav-btn.disabled {
+            background-color: #a0aec0;
+            cursor: not-allowed;
+            transform: translateY(0);
+        }
+        .demo-image {
+            max-width: 80%;
+            height: auto;
+            border-radius: 8px;
+            margin-top: 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        .center-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            height: 100%;
+        }
+        #sql-output {
+            background-color: #f1f5f9;
+            color: #1e3a8a;
+            border-radius: 8px;
+            padding: 1rem;
+            font-family: 'Courier New', Courier, monospace;
+            white-space: pre-wrap;
+            margin-top: 1rem;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.06);
+        }
+        .code-block {
+            background-color: #f1f5f9;
+            color: #1e3a8a;
+            border-radius: 8px;
+            padding: 1rem;
+            font-family: 'Courier New', Courier, monospace;
+            white-space: pre-wrap;
+            margin-top: 1rem;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.06);
+            overflow-x: auto;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+        .data-table th, .data-table td {
+            border: 1px solid #e2e8f0;
+            padding: 0.75rem;
+            text-align: left;
+        }
+        .data-table th {
+            background-color: #e2e8f0;
+            font-weight: 600;
+            color: #2d3748;
+        }
+        .data-table tbody tr:nth-child(even) {
+            background-color: #f7fafc;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="slide-container">
+        <!-- Slide 1 -->
+        <div id="slide-1" class="slide active">
+            <div class="center-content">
+                <h1 class="slide-title !text-5xl">Scaling Natural Language Query (NLQ) for Complex Schemas</h1>
+                <h2 class="slide-subtitle !text-3xl">A Self-Evolving Semantic Graph Approach</h2>
+                <div class="content mt-12">
+                    <p>Presented by: Km Arati Maurya & Antara Middya</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div id="slide-2" class="slide">
+            <h2 class="slide-title">The Problem: Latency in NLQ Engines</h2>
+            <h3 class="slide-subtitle">The Bottleneck: When NLQ Meets Big Data</h3>
+            <div class="content">
+                <ul>
+                    <li><strong>Growing Data Complexity:</strong> Modern enterprises have hundreds of tables with intricate relationships.</li>
+                    <li><strong>Token Limit & Latency:</strong> Feeding the entire database schema into an LLM is a major performance bottleneck due to token limits and inference costs.</li>
+                    <li><strong>Iterative Refinement Delays:</strong> The "try-and-fail" loop of query refinement leads to significant latency, making real-time interaction difficult.</li>
+                </ul>
+                <p class="mt-8"><strong>Core Challenge:</strong> How do we make LLM-based NLQ scalable, accurate, and fast in a large-schema environment?</p>
+            </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div id="slide-3" class="slide">
+            <h2 class="slide-title">The Traditional Approach</h2>
+            <h3 class="slide-subtitle">"Schema-in-Prompt" - The Naive Method</h3>
+            <div class="content">
+                <ul>
+                    <li>User query and a full schema dump are sent to the LLM.</li>
+                    <li>The LLM generates a SQL query.</li>
+                    <li><strong>The Flaw:</strong> As the schema grows, the prompt length increases, leading to higher latency and "hallucinations" as the LLM struggles with irrelevant context.</li>
+                </ul>
+                <div class="flex justify-center mt-12">
+                    <svg width="400" height="200" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" class="demo-image">
+                        <defs>
+                            <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="0" refY="3.5" orient="auto">
+                                <polygon points="0 0, 10 3.5, 0 7" fill="#4A5568" />
+                            </marker>
+                        </defs>
+                        <!-- User Query -->
+                        <rect x="20" y="20" rx="8" ry="8" width="80" height="40" fill="#E2E8F0" stroke="#CBD5E0" stroke-width="1"/>
+                        <text x="60" y="45" font-size="14" text-anchor="middle" fill="#2D3748">Query</text>
+                        <!-- Schema Dump -->
+                        <rect x="20" y="100" rx="8" ry="8" width="80" height="60" fill="#E2E8F0" stroke="#CBD5E0" stroke-width="1"/>
+                        <text x="60" y="115" font-size="12" text-anchor="middle" fill="#2D3748">Full</text>
+                        <text x="60" y="135" font-size="12" text-anchor="middle" fill="#2D3748">Schema</text>
+                        <text x="60" y="155" font-size="12" text-anchor="middle" fill="#2D3748">(100s of tables)</text>
+                        <!-- LLM Box -->
+                        <rect x="150" y="60" rx="12" ry="12" width="100" height="80" fill="#90CDF4" stroke="#4299E1" stroke-width="2"/>
+                        <text x="200" y="105" font-size="16" text-anchor="middle" fill="#2C5292">LLM</text>
+                        <!-- Arrows to LLM -->
+                        <line x1="100" y1="40" x2="150" y2="80" stroke="#4A5568" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        <line x1="100" y1="130" x2="150" y2="120" stroke="#4A5568" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        <!-- Output -->
+                        <rect x="300" y="80" rx="8" ry="8" width="80" height="40" fill="#C6F6D5" stroke="#48BB78" stroke-width="1"/>
+                        <text x="340" y="105" font-size="14" text-anchor="middle" fill="#2F855A">SQL Query</text>
+                        <line x1="250" y1="100" x2="300" y2="100" stroke="#4A5568" stroke-width="2" marker-end="url(#arrowhead)"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4 -->
+        <div id="slide-4" class="slide">
+            <h2 class="slide-title">Our Proposed Solution</h2>
+            <h3 class="slide-subtitle">The Self-Evolving Semantic Graph</h3>
+            <div class="content">
+                <ul>
+                    <li>We abstract the database schema into a lightweight, dynamic graph structure.</li>
+                    <li>This graph models not just structural relationships (`JOINs`) but also <strong>semantic and conceptual links</strong> (e.g., "sales" maps to the `Orders` table).</li>
+                    <li><strong>Self-Evolving:</strong> The graph learns and adapts from every user query, making it more efficient and accurate over time.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 5 -->
+        <div id="slide-5" class="slide">
+            <h2 class="slide-title">Visualizing Schema Pruning</h2>
+            <h3 class="slide-subtitle">Illustration: The Challenge of a Large Schema</h3>
+            <div class="content">
+                <ul>
+                    <li>Imagine a database with 100+ tables. A query about `customers` and `orders` only needs a few of these.</li>
+                    <li><strong>The Goal of Pruning:</strong> Instead of sending all 100 tables, we intelligently select only the relevant few.</li>
+                </ul>
+                <div class="flex justify-center mt-12">
+                    <svg width="400" height="200" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" class="demo-image">
+                        <circle cx="200" cy="100" r="80" fill="#E2E8F0" stroke="#CBD5E0" stroke-width="1"/>
+                        <text x="200" y="105" font-size="16" text-anchor="middle" fill="#2D3748">Full Schema</text>
+                        <text x="200" y="125" font-size="10" text-anchor="middle" fill="#2D3748">(100+ Tables)</text>
+                        <circle cx="200" cy="100" r="70" fill="none" stroke="#A0AEC0" stroke-width="1" stroke-dasharray="2,2"/>
+                        <circle cx="150" cy="80" r="5" fill="#48BB78"/>
+                        <circle cx="220" cy="60" r="5" fill="#48BB78"/>
+                        <circle cx="250" cy="110" r="5" fill="#48BB78"/>
+                        <circle cx="170" cy="140" r="5" fill="#48BB78"/>
+                        <circle cx="120" cy="120" r="5" fill="#48BB78"/>
+                        <circle cx="200" cy="40" r="5" fill="#E53E3E"/>
+                        <circle cx="280" cy="80" r="5" fill="#E53E3E"/>
+                        <circle cx="300" cy="140" r="5" fill="#E53E3E"/>
+                        <circle cx="100" cy="160" r="5" fill="#E53E3E"/>
+                        <path d="M50,100 Q125,50 200,60" stroke="#3182CE" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+                        <rect x="20" y="90" rx="8" ry="8" width="60" height="20" fill="#BEE3F8" stroke="#3182CE" stroke-width="1"/>
+                        <text x="50" y="104" font-size="10" text-anchor="middle" fill="#2C5292">Query</text>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6 -->
+        <div id="slide-6" class="slide">
+            <h2 class="slide-title">How We Prune: The Graph Search</h2>
+            <h3 class="slide-subtitle">Intelligent Schema Pruning with Graph Search</h3>
+            <div class="content">
+                <ol class="list-decimal ml-8">
+                    <li>The user query is parsed to identify key entities (e.g., "customers", "products").</li>
+                    <li>These entities are mapped to nodes in the semantic graph.</li>
+                    <li>A pathfinding algorithm (like Dijkstra's) finds the most relevant path between the nodes.</li>
+                    <li>Only the tables and columns on this optimal path are passed to the LLM.</li>
+                </ol>
+                <p class="mt-8"><strong>Result:</strong> A significantly smaller, highly relevant context for the LLM, dramatically reducing token count and latency.</p>
+            </div>
+        </div>
+
+        <!-- Slide 7 -->
+        <div id="slide-7" class="slide">
+            <h2 class="slide-title">Visualizing the Self-Evolving Mechanism</h2>
+            <h3 class="slide-subtitle">Learning from Every Interaction</h3>
+            <div class="content">
+                <ul>
+                    <li><strong>Positive Reinforcement:</strong> When a query-to-SQL path is successful, the weights on the graph's edges are increased.</li>
+                    <li><strong>Negative Feedback:</strong> When a query fails or requires manual correction, the system captures the change and lowers the weight of the failed path while reinforcing the new, corrected path.</li>
+                    <li><strong>AI-Powered Inference:</strong> A separate, lightweight LLM analyzes user patterns to infer and add new conceptual nodes and edges to the graph.</li>
+                </ul>
+                <div class="flex justify-center mt-8">
+                    <svg width="600" height="250" viewBox="0 0 600 250" xmlns="http://www.w3.org/2000/svg" class="demo-image">
+                        <defs>
+                            <marker id="arrowhead-dark" markerWidth="10" markerHeight="7" refX="0" refY="3.5" orient="auto">
+                                <polygon points="0 0, 10 3.5, 0 7" fill="#2C5292" />
+                            </marker>
+                        </defs>
+                        <!-- Main Loop -->
+                        <path d="M100,125 A 50,50 0 1,1 100,126" fill="none" stroke="#48BB78" stroke-width="2"/>
+                        <path d="M100,125 A 50,50 0 1,0 100,126" fill="none" stroke="#E53E3E" stroke-width="2"/>
+                        <circle cx="100" cy="125" r="30" fill="#BEE3F8" stroke="#3182CE" stroke-width="2"/>
+                        <text x="100" y="130" font-size="12" text-anchor="middle" fill="#2C5292">Semantic Graph</text>
+                        <!-- Query Box -->
+                        <rect x="250" y="80" rx="8" ry="8" width="80" height="40" fill="#E2E8F0" stroke="#CBD5E0" stroke-width="1"/>
+                        <text x="290" y="105" font-size="14" text-anchor="middle" fill="#2D3748">User Query</text>
+                        <!-- LLM Box -->
+                        <rect x="400" y="80" rx="12" ry="12" width="100" height="80" fill="#90CDF4" stroke="#4299E1" stroke-width="2"/>
+                        <text x="450" y="125" font-size="16" text-anchor="middle" fill="#2C5292">LLM</text>
+                        <!-- Arrows -->
+                        <line x1="130" y1="125" x2="250" y2="100" stroke="#2C5292" stroke-width="2" marker-end="url(#arrowhead-dark)"/>
+                        <line x1="330" y1="100" x2="400" y2="120" stroke="#2C5292" stroke-width="2" marker-end="url(#arrowhead-dark)"/>
+                        <line x1="500" y1="120" x2="570" y2="120" stroke="#2C5292" stroke-width="2" marker-end="url(#arrowhead-dark)"/>
+                        <!-- Output/Feedback -->
+                        <rect x="570" y="80" rx="8" ry="8" width="80" height="40" fill="#C6F6D5" stroke="#48BB78" stroke-width="1"/>
+                        <text x="610" y="105" font-size="14" text-anchor="middle" fill="#2F855A">SQL</text>
+                        <!-- Feedback Loop -->
+                        <line x1="650" y1="100" x2="700" y2="100" stroke="#48BB78" stroke-width="2" marker-end="url(#arrowhead-dark)"/>
+                        <path d="M700,100 C750,50 750,200 650,200" fill="none" stroke="#48BB78" stroke-width="2"/>
+                        <line x1="650" y1="200" x2="130" y2="150" stroke="#48BB78" stroke-width="2" marker-end="url(#arrowhead-dark)"/>
+                        <rect x="670" y="180" rx="8" ry="8" width="80" height="40" fill="#FEEBCF" stroke="#F6AD55" stroke-width="1"/>
+                        <text x="710" y="205" font-size="12" text-anchor="middle" fill="#B35D1F">Feedback</text>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8 -->
+        <div id="slide-8" class="slide">
+            <h2 class="slide-title">Live Demo Walkthrough</h2>
+            <h3 class="slide-subtitle">Project Demo</h3>
+            <div class="content">
+                <p>Type a natural language query below to see how our system translates it and retrieves data.</p>
+                <div class="flex flex-col items-center mt-4 w-full">
+                    <input type="text" id="query-input" placeholder="e.g., 'List all products with price more than 25'" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow duration-200">
+                    <button id="generate-sql-btn" class="nav-btn mt-4">✨ Generate SQL & Data ✨</button>
+                    <div id="loading-spinner" class="mt-4 hidden animate-spin rounded-full h-8 w-8 border-4 border-t-4 border-blue-500"></div>
+                </div>
+                <!-- Modal for result display -->
+                <div id="result-modal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50 hidden">
+                    <div class="modal-content">
+                        <button id="close-modal-btn" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 text-2xl font-bold">&times;</button>
+                        <h4 class="font-bold text-lg mb-2">Generated Result:</h4>
+                        <div id="result-display"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9 -->
+        <div id="slide-9" class="slide">
+            <h2 class="slide-title">Project Conclusion</h2>
+            <h3 class="slide-subtitle">Key Takeaways & Impact</h3>
+            <div class="content">
+                <ul>
+                    <li><strong>Scalability Solved:</strong> Our approach handles big data schemas by intelligently pruning the context.</li>
+                    <li><strong>Superior Accuracy:</strong> We encode business logic for semantically correct SQL.</li>
+                    <li><strong>Self-Improving System:</strong> The graph continuously gets smarter and more efficient.</li>
+                    <li><strong>Real-Time Ready:</strong> Reduced latency makes the system viable for real-time environments.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 10 -->
+        <div id="slide-10" class="slide">
+            <div class="center-content">
+                <h2 class="slide-title">Thank You! Questions?</h2>
+                <h3 class="slide-subtitle mt-8">Future Work:</h3>
+                <div class="content">
+                    <ul>
+                        <li>Integration with a real-time database schema crawler.</li>
+                        <li>Robust LLM-based inference mechanism for automated graph growth.</li>
+                        <li>Extensive benchmarking against current solutions.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <span id="slide-number">Slide 1 of 10</span>
+        <div class="controls">
+            <button id="prev-btn" class="nav-btn disabled">Previous</button>
+            <button id="next-btn" class="nav-btn">Next</button>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:8000/query';
+
+        async function generateData(query) {
+            const payload = { query };
+
+            const response = await fetch(API_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            const result = await response.json();
+            // Expecting { results: [...] } from FastAPI
+            console.log(result)
+            return result;
+        }
+        
+        function renderTable(data, container) {
+            if (!data || data.length === 0) {
+                container.innerHTML = '<p class="text-gray-600">No data found for this query.</p>';
+                return;
+            }
+
+            const table = document.createElement('table');
+            table.classList.add('data-table', 'w-full', 'table-auto', 'rounded-lg', 'shadow-md', 'border-collapse');
+            
+            // Create table header
+            const thead = document.createElement('thead');
+            const headerRow = document.createElement('tr');
+            Object.keys(data[0]).forEach(key => {
+                const th = document.createElement('th');
+                th.textContent = key.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+                th.classList.add('p-3', 'text-left', 'bg-gray-200', 'font-semibold', 'border');
+                headerRow.appendChild(th);
+            });
+            thead.appendChild(headerRow);
+            table.appendChild(thead);
+            
+            // Create table body
+            const tbody = document.createElement('tbody');
+            data.forEach(row => {
+                const tr = document.createElement('tr');
+                Object.values(row).forEach(value => {
+                    const td = document.createElement('td');
+                    td.textContent = value;
+                    td.classList.add('p-3', 'border');
+                    tr.appendChild(td);
+                });
+                tbody.appendChild(tr);
+            });
+            table.appendChild(tbody);
+
+            container.innerHTML = '';
+            container.appendChild(table);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const slideNumberSpan = document.getElementById('slide-number');
+            let currentSlideIndex = 0;
+
+            const updateSlide = () => {
+                slides.forEach((slide, index) => {
+                    slide.classList.remove('active');
+                    if (index === currentSlideIndex) {
+                        slide.classList.add('active');
+                    }
+                });
+                updateControls();
+            };
+
+            const updateControls = () => {
+                prevBtn.classList.toggle('disabled', currentSlideIndex === 0);
+                nextBtn.classList.toggle('disabled', currentSlideIndex === slides.length - 1);
+                slideNumberSpan.textContent = `Slide ${currentSlideIndex + 1} of ${slides.length}`;
+            };
+
+            prevBtn.addEventListener('click', () => {
+                if (currentSlideIndex > 0) {
+                    currentSlideIndex--;
+                    updateSlide();
+                }
+            });
+
+            nextBtn.addEventListener('click', () => {
+                if (currentSlideIndex < slides.length - 1) {
+                    currentSlideIndex++;
+                    updateSlide();
+                }
+            });
+
+            // Demo logic
+            const generateBtn = document.getElementById('generate-sql-btn');
+            const queryInput = document.getElementById('query-input');
+            const demoOutputDiv = document.getElementById('demo-output');
+            const resultDisplayDiv = document.getElementById('result-display');
+            const loadingSpinner = document.getElementById('loading-spinner');
+
+            if (generateBtn) {
+                generateBtn.addEventListener('click', async () => {
+                    const query = queryInput.value.trim();
+                    if (!query) return;
+
+                    loadingSpinner.classList.remove('hidden');
+                    resultDisplayDiv.innerHTML = '';
+
+                    try {
+                        const result = await generateData(query);
+
+                        const sqlHeader = document.createElement('h4');
+                        sqlHeader.classList.add('font-bold', 'text-lg', 'mb-2');
+                        sqlHeader.textContent = "Generated SQL Query:";
+
+                        const sqlCode = document.createElement('pre');
+                        sqlCode.classList.add('code-block');
+                        sqlCode.textContent = result.sql;
+
+                        resultDisplayDiv.appendChild(sqlHeader);
+                        resultDisplayDiv.appendChild(sqlCode);
+
+                        const dataHeader = document.createElement('h4');
+                        dataHeader.classList.add('font-bold', 'text-lg', 'mt-4', 'mb-2');
+                        dataHeader.textContent = "Generated Data:";
+                        resultDisplayDiv.appendChild(dataHeader);
+
+                        renderTable(result.results, resultDisplayDiv);
+
+                        // Show modal
+                        document.getElementById('result-modal').classList.remove('hidden');
+
+                    } catch (error) {
+                        console.error("Failed to generate data:", error);
+                        resultDisplayDiv.innerHTML = `<p class="text-red-600">Error: Could not retrieve data. Please try a different query.</p>`;
+                        document.getElementById('result-modal').classList.remove('hidden');
+                    } finally {
+                        loadingSpinner.classList.add('hidden');
+                    }
+                });
+            }
+
+            // Modal close logic
+            const closeModalBtn = document.getElementById('close-modal-btn');
+            const resultModal = document.getElementById('result-modal');
+            if (closeModalBtn && resultModal) {
+                closeModalBtn.addEventListener('click', () => {
+                    resultModal.classList.add('hidden');
+                });
+                // Close modal on click outside
+                resultModal.addEventListener('mousedown', (e) => {
+                    if (e.target === resultModal) {
+                        resultModal.classList.add('hidden');
+                    }
+                });
+                // Close modal on ESC key
+                document.addEventListener('keydown', (e) => {
+                    if (!resultModal.classList.contains('hidden') && e.key === 'Escape') {
+                        resultModal.classList.add('hidden');
+                    }
+                });
+            }
+
+            // Initial state
+            updateSlide();
+        });
+    </script>
+
+</body>
+</html>

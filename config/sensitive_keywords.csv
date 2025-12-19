@@ -1,0 +1,15 @@
+keyword,mask_type
+password,full
+token,full
+secret,full
+hash,full
+api_key,full
+private_key,full
+salt,full
+ssn,full
+credit_card,full
+cvv,full
+pin,full
+auth,full
+credential,full
+key,full

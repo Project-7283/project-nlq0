@@ -1,5 +1,5 @@
 import streamlit as st
-from flows.nl_to_sql import process_nl_query
+from src.flows.nl_to_sql import process_nl_query
 
 
 def run_ui():
