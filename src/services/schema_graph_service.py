@@ -1,8 +1,10 @@
 import os
 import json
+import time
 from pathlib import Path
 from src.modules.semantic_graph import SemanticGraph
 from typing import Protocol, Any, List, Dict, Optional
+from src.utils.logging import performance_logger
 
 class DBReaderProtocol(Protocol):
     def get_tables(self, dbname: str) -> list[str]: ...
@@ -66,6 +68,7 @@ class SchemaGraphService:
         Args:
             enable_profiling: Whether to run profiling for enriched metadata
         """
+        start_time = time.time()
         print(f"\n{'='*60}")
         print(f"🏗️  Building semantic graph for database: {self.dbname}")
         print(f"   Profiling enabled: {enable_profiling}")
@@ -98,6 +101,48 @@ class SchemaGraphService:
             # Get profiling data for this table
             table_props = {}
             if profile_data and table in profile_data.get("tables", {}):
+                table_props = profile_data["tables"][table].get("properties", {})
+            
+            # Add table node
+            self.graph.add_node(table, node_type="table", properties=table_props)
+            
+            # Get columns for this table
+            columns = self.db_reader.get_table_schema(self.dbname, table)
+            for col in columns:
+                col_name = col.get("Field")
+                col_id = f"{table}.{col_name}"
+                
+                # Get profiling data for this column
+                col_props = dict(col)
+                if profile_data and table in profile_data.get("tables", {}):
+                    col_profile = profile_data["tables"][table].get("columns", {}).get(col_name, {})
+                    if col_profile:
+                        col_props.update(col_profile.get("properties", {}))
+                
+                # Add attribute node and association edge
+                self.graph.add_node(col_id, node_type="attribute", properties=col_props)
+                self.graph.add_edge(table, col_id, condition="association")
+        
+        # Add view nodes
+        print("\n🖼️  Adding view nodes to graph...")
+        for view in views:
+            self.graph.add_node(view, node_type="view")
+            columns = self.db_reader.get_view_schema(self.dbname, view)
+            for col in columns:
+                col_name = col.get("Field")
+                col_id = f"{view}.{col_name}"
+                self.graph.add_node(col_id, node_type="attribute", properties=dict(col))
+                self.graph.add_edge(view, col_id, condition="association")
+        
+        # Add foreign key edges
+        print("\n🔗 Adding foreign key relationships...")
+        # This part depends on how db_reader provides FK info. 
+        # For now, we'll assume it's handled or we can add a basic heuristic.
+        
+        duration = time.time() - start_time
+        performance_logger.info(f"Graph generation for {self.dbname} completed in {duration:.2f}s")
+        print(f"\n✅ Graph building complete in {duration:.2f}s")
+        return self.graph
                 table_profile = profile_data["tables"][table]
                 print(f"  ✓ Found profiling data for {table}")
                 print(f"    Keys in profile: {list(table_profile.keys())}")

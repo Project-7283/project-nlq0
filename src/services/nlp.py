@@ -1,13 +1,13 @@
-import os
-from typing import Dict, Any, Optional, Tuple
+from typing import Dict, Any, Optional, Tuple, List
 from src.modules.semantic_graph import SemanticGraph
-from src.services.inference import GeminiService, InferenceServiceProtocol, ModelInferenceService
+from src.services.inference import InferenceServiceProtocol
 from src.services.vector_service import GraphVectorService
+from src.utils.logging import app_logger
 
 class NLQIntentAnalyzer:
     """
     Service to analyze user intent and extract graph search parameters
-    (start_node, end_node, condition) using Gemini LLM.
+    (start_node, end_node, condition) using LLM.
     """
 
     def __init__(self, model: InferenceServiceProtocol, vector_service: Optional[GraphVectorService] = None):
@@ -17,14 +17,6 @@ class NLQIntentAnalyzer:
     def _format_node_context(self, node_id: str, graph: SemanticGraph) -> str:
         """
         Format a node with its key properties for LLM context.
-        Includes node type, description, and comment fields.
-        
-        Args:
-            node_id: The node identifier
-            graph: The semantic graph
-            
-        Returns:
-            Formatted string with node details
         """
         node_details = graph.get_node_details(node_id)
         node_type = node_details.get('node_type', 'unknown')
@@ -62,7 +54,6 @@ class NLQIntentAnalyzer:
         return " ".join(parts)
         
     def refine_intent(self, user_query: str) -> str:
-        # Simple refinement to clarify ambiguous queries
         prompt = (
             "Refine the following user query to make it clearer for database schema search:\n"
             f"User Query: {user_query}\n"
@@ -71,17 +62,54 @@ class NLQIntentAnalyzer:
         refined = self.model.chat_completion(prompt)
         return refined.strip()
 
-    def analyze_intent(self, user_query: str, graph: SemanticGraph) -> Optional[Dict[str, Any]]:
-        """
-        Analyze the user query and extract start_node, end_node, and condition
-        for semantic graph path search.
+    async def refine_intent_async(self, user_query: str) -> str:
+        prompt = (
+            "Refine the following user query to make it clearer for database schema search:\n"
+            f"User Query: {user_query}\n"
+            "Refined Query:"
+        )
+        refined = await self.model.chat_completion_async(prompt)
+        return refined.strip()
 
-        Returns:
-            dict with keys: start_node, end_node, condition
-            or None if extraction fails.
-        """
-        # Prepare a schema for Gemini's structured output
-        schema = {
+    def analyze_intent(self, user_query: str, graph: SemanticGraph) -> Optional[Dict[str, Any]]:
+        """Sync version of analyze_intent"""
+        schema = self._get_intent_schema()
+        nodes_with_properties = self._get_context_nodes(user_query, graph)
+        
+        context = (
+            "Available nodes in the schema graph:\n" +
+            "\n".join(nodes_with_properties) +
+            "\n\nGiven the following user query, extract the start_node, end_node, and condition for a path search."
+        )
+
+        content = f"{context}\n\nUser Query: {user_query}"
+        app_logger.info(f"Analyzing intent for query: {user_query[:50]}...")
+
+        result = self.model.get_structured_output(content, schema)
+        return self._process_intent_result(result)
+
+    async def analyze_intent_async(self, user_query: str, graph: SemanticGraph) -> Optional[Dict[str, Any]]:
+        """Async version of analyze_intent"""
+        schema = self._get_intent_schema()
+        
+        # Vector search is usually fast but we can wrap it if needed. 
+        # For now, keeping it sync as it's local ChromaDB.
+        nodes_with_properties = self._get_context_nodes(user_query, graph)
+        
+        context = (
+            "Available nodes in the schema graph:\n" +
+            "\n".join(nodes_with_properties) +
+            "\n\nGiven the following user query, extract the start_node, end_node, and condition for a path search."
+        )
+
+        content = f"{context}\n\nUser Query: {user_query}"
+        app_logger.info(f"Analyzing intent (async) for query: {user_query[:50]}...")
+
+        result = await self.model.get_structured_output_async(content, schema)
+        return self._process_intent_result(result)
+
+    def _get_intent_schema(self) -> Dict[str, Any]:
+        return {
             "type": "object",
             "properties": {
                 "start_node": {
@@ -100,46 +128,16 @@ class NLQIntentAnalyzer:
             "required": ["start_node", "end_node", "condition"]
         }
 
-        # Optionally, provide node names/types as context for Gemini
+    def _get_context_nodes(self, user_query: str, graph: SemanticGraph) -> List[str]:
         if self.vector_service:
-            # Use vector service to filter relevant nodes
-            # We assume the graph has been indexed previously
-            refined_query = user_query
-
-            node_names = self.vector_service.search_nodes(refined_query, k=16)
-            nodes_with_properties = [
-                self._format_node_context(node, graph)
-                for node in node_names
-            ]
-            print(f"Filtered graph nodes using Vector DB. Retained {len(node_names)} nodes.")
-            print(f"Nodes: {', '.join(node_names)}")
+            node_names = self.vector_service.search_nodes(user_query, k=16)
+            app_logger.debug(f"Vector search found {len(node_names)} nodes")
         else:
             node_names = list(graph.node_properties.keys())
-            nodes_with_properties = [
-                self._format_node_context(node, graph)
-                for node in node_names
-            ]
-            
-        context = (
-            "Available nodes in the schema graph:\n" +
-            "\n".join(nodes_with_properties) +
-            "\n\nGiven the following user query, extract the start_node, end_node, and condition for a path search."
-        )
-
-        # Compose content for Gemini
-        content = f"{context}\n\nUser Query: {user_query}"
         
-        print(f"Getting intent from inference model for prompt: {content}")
+        return [self._format_node_context(node, graph) for node in node_names]
 
-        # Call Gemini for structured output
-        result = self.model.get_structured_output(content, schema)
-        # result = {
-        #     'start_node': 'users',
-        #     'end_node': 'orders',
-        #     'condition': 'some'
-        # }
-
-        # Basic validation
+    def _process_intent_result(self, result: Any) -> Optional[Dict[str, Any]]:
         if (
             isinstance(result, dict)
             and "start_node" in result
@@ -152,4 +150,3 @@ class NLQIntentAnalyzer:
                 "condition": result["condition"]
             }
         return None
-    

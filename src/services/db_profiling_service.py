@@ -2,10 +2,11 @@ import os
 import json
 import csv
 import logging
+import time
 from typing import Optional, Dict, Any, List, Protocol
 from datetime import datetime
 from pathlib import Path
-
+from src.utils.logging import performance_logger
 
 class InferenceServiceProtocol(Protocol):
     """Protocol for LLM inference services"""
@@ -136,6 +137,7 @@ class DBProfilingService:
         Returns:
             Dictionary containing profile data for all tables
         """
+        start_time = time.time()
         print(f"\n{'='*60}")
         print(f"Starting database profiling: {dbname}")
         print(f"{'='*60}\n")
@@ -182,6 +184,8 @@ class DBProfilingService:
         print(f"  Virtual Tables: {len(virtual_tables)}")
         print(f"{'='*60}\n")
         
+        duration = time.time() - start_time
+        performance_logger.info(f"Database profiling for {dbname} completed in {duration:.2f}s")
         return profile_data
     
     def profile_table(self, dbname: str, table: str) -> Dict[str, Any]:

@@ -15,7 +15,9 @@ Usage:
 import os
 import re
 import csv
+import time
 from typing import List, Dict, Any, Optional, Tuple
+from src.utils.logging import performance_logger
 
 
 class DataGovernanceService:
@@ -125,6 +127,7 @@ class DataGovernanceService:
             - If query is valid: (True, None)
             - If query is invalid: (False, "error message")
         """
+        start_time = time.time()
         if not self.enabled:
             return True, None
         
@@ -162,6 +165,8 @@ class DataGovernanceService:
                 f"This query violates data governance policies."
             )
         
+        duration = time.time() - start_time
+        performance_logger.info(f"Query validation completed in {duration:.4f}s")
         return True, None
     
     def sanitize_sql(self, sql: str, mask_value: str = "'***MASKED***'") -> str:
@@ -224,6 +229,7 @@ class DataGovernanceService:
         Returns:
             Results with sensitive values masked
         """
+        start_time = time.time()
         if not self.enabled or not results:
             return results
         
@@ -240,6 +246,8 @@ class DataGovernanceService:
                     masked_row[key] = value
             masked_results.append(masked_row)
         
+        duration = time.time() - start_time
+        performance_logger.info(f"Result masking for {len(results)} rows completed in {duration:.4f}s")
         return masked_results
     
     def _partial_mask_value(self, value: str) -> str:
