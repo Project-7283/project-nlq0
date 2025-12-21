@@ -101,11 +101,13 @@ class TestMySQLServiceWithGovernance(unittest.TestCase):
             pass  # Expected
         
         # Check that audit log file was created
-        log_path = "logs/mysql_audit.log"
+        # The logger name is "audit", and it logs to logs/audit.log
+        log_path = "logs/audit.log"
         if os.path.exists(log_path):
             with open(log_path, 'r') as f:
                 log_content = f.read()
                 self.assertIn("BLOCKED", log_content)
+                self.assertIn("password", log_content)
     
     # Test: Schema Context Validation
     def test_validates_with_schema_context(self):

@@ -148,22 +148,21 @@ class DataGovernanceService:
                                 f"{', '.join(sensitive_cols)}. Please specify columns explicitly."
                             )
         
-        # Extract column names from SELECT clause
+        # Check for sensitive keywords anywhere in the query as identifiers
+        # This catches subqueries, unions, and nested structures
+        for keyword in self.sensitive_keywords:
+            # Match keyword as a whole word, or inside backticks/quotes
+            # We use a regex that looks for the keyword not preceded/followed by other word chars
+            # but allowing for common SQL delimiters
+            pattern = rf'(^|[^a-zA-Z0-9_]){re.escape(keyword)}([^a-zA-Z0-9_]|$)'
+            if re.search(pattern, sql, re.IGNORECASE):
+                return False, (
+                    f"Query blocked: Access to sensitive columns denied: {keyword}. "
+                    f"This query violates data governance policies."
+                )
+
+        # Extract column names from SELECT clause (legacy check for specific column extraction)
         selected_columns = self._extract_selected_columns(sql)
-        
-        # Check if any selected column is sensitive
-        sensitive_found = []
-        for col in selected_columns:
-            # Handle qualified names (table.column)
-            col_name = col.split('.')[-1]
-            if self.is_sensitive_column(col_name):
-                sensitive_found.append(col)
-        
-        if sensitive_found:
-            return False, (
-                f"Query blocked: Access to sensitive columns denied: {', '.join(sensitive_found)}. "
-                f"This query violates data governance policies."
-            )
         
         duration = time.time() - start_time
         performance_logger.info(f"Query validation completed in {duration:.4f}s")
