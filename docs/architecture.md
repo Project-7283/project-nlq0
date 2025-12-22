@@ -5,13 +5,34 @@
 - Converts natural language questions into governed SQL against a MySQL warehouse.
 - Combines a semantic schema graph, vector retrieval, and multi-provider LLM orchestration.
 - Protects sensitive data through policy-aware SQL generation, execution, and result masking.
+- **Industrial-Grade Foundation**: Built with Dependency Injection, Asynchronous processing, and Resiliency patterns (Circuit Breakers, Retries).
 
 ## Layered Architecture
 
 - **Presentation**: Streamlit UI in [src/ui/app.py](src/ui/app.py) collects queries and renders tables.
 - **Orchestration**: LangGraph pipeline in [src/flows/nl_to_sql.py](src/flows/nl_to_sql.py) coordinates analyst refinement, intent extraction, SQL generation, execution, and retries.
 - **Services**: Intent, SQL, vector, schema, governance, and database services under [src/services](src/services) implement reusable capabilities.
+- **Infrastructure**: Dependency Injection container in [src/models/model.py](src/models/model.py) manages service lifecycles and configuration.
 - **Data & Context**: Semantic graph JSON, ChromaDB embeddings, and operational MySQL database provide the context required by the LLM.
+
+## Industrial-Grade Refactoring
+
+The system has been refactored from a prototype into an industrial-grade application with the following features:
+
+### 1. Dependency Injection (DI)
+- Uses a centralized `Container` class to manage service instances.
+- Promotes loose coupling and high testability by allowing easy mocking of dependencies.
+- Supports singleton patterns for resource-heavy services like LLM and Vector stores.
+
+### 2. Asynchronous Processing
+- Core services support `async/await` for non-blocking I/O operations.
+- `MySQLService` uses `asyncio.to_thread` for thread-safe database operations.
+- `InferenceService` handles concurrent LLM requests efficiently.
+
+### 3. Resiliency Patterns
+- **Circuit Breakers**: Protects the system from cascading failures when LLM providers (OpenAI, Gemini) are down or throttled.
+- **Robust Retries**: Uses `tenacity` for intelligent retry logic with exponential backoff during SQL generation and execution.
+- **Graceful Fallbacks**: Multi-model orchestration allows falling back from primary (Gemini) to secondary (Ollama/OpenAI) providers.
 
 ## LangGraph Flow
 
@@ -51,10 +72,21 @@ stateDiagram-v2
 
 ## Data Governance and Observability
 
-- Governance is enabled by default through environment flags and can optionally load custom sensitive column lists.
-- SQLGenerationService filters out sensitive attributes before prompting and sanitizes offending SQL responses when validation fails.
-- MySQLService performs pre-execution validation, raises SecurityError on policy violations, and masks sensitive columns (full or partial) in result rows.
-- All query attempts are logged to logs/mysql_audit.log for traceability, capturing blocked, successful, and failed executions.
+- **Policy Enforcement**: Governance is enabled by default through environment flags and can optionally load custom sensitive column lists.
+- **Adversarial Query Blocking**: `DataGovernanceService` uses advanced regex-based identifier detection to block sensitive data access even in complex SQL structures like `UNION`, subqueries, and nested joins.
+- **SQL Sanitization**: `SQLGenerationService` filters out sensitive attributes before prompting and sanitizes offending SQL responses when validation fails.
+- **Result Masking**: `MySQLService` performs pre-execution validation, raises `SecurityError` on policy violations, and masks sensitive columns (full or partial) in result rows.
+- **Profiling Masking**: `DBProfilingService` masks sensitive data at the SQL level during the profiling phase, ensuring PII never enters the application context.
+- **Audit Logging**: All query attempts are logged to `logs/audit.log` for traceability, capturing `BLOCKED`, `SUCCESS`, and `ERROR` executions with full SQL context.
+
+## Testing Infrastructure
+
+The project implements a 4-tier testing strategy to ensure end-to-end reliability:
+
+1. **Unit Testing**: Validates individual service logic with 70%+ coverage.
+2. **Integration Testing**: Verifies interactions between services (e.g., DB Reader -> Schema Graph -> Semantic Graph).
+3. **Functional Testing**: Validates the complete NL-to-SQL flow using mocked LLM responses and real orchestration logic.
+4. **Security Testing**: Specifically targets SQL injection, governance bypass attempts, and data masking effectiveness.
 
 ## Schema and Retrieval Context
 
@@ -73,6 +105,11 @@ classDiagram
     class LangGraphFlow {
         +invoke(state)
     }
+    class Container {
+        +get_mysql_service()
+        +get_llm_service()
+        +get_governance_service()
+    }
     class NLQIntentAnalyzer
     class SQLGenerationService
     class MySQLService
@@ -82,21 +119,33 @@ classDiagram
     class ModelInferenceService
     class OpenAIService
     class SchemaGraphService
+    class DBProfilingService
 
     StreamlitApp --> LangGraphFlow : triggers
     LangGraphFlow --> NLQIntentAnalyzer
     LangGraphFlow --> SQLGenerationService
     LangGraphFlow --> MySQLService
+    
+    Container --> MySQLService : manages
+    Container --> ModelInferenceService : manages
+    Container --> DataGovernanceService : manages
+    
     NLQIntentAnalyzer --> GraphVectorService
     NLQIntentAnalyzer --> ModelInferenceService
     ModelInferenceService --> OpenAIService
+    
     SQLGenerationService --> ModelInferenceService
     SQLGenerationService --> DataGovernanceService
     SQLGenerationService --> MySQLService
     SQLGenerationService --> SemanticGraph
+    
     MySQLService --> DataGovernanceService
+    
     SchemaGraphService --> SemanticGraph
-    SchemaGraphService --> GraphVectorService
+    SchemaGraphService --> DBProfilingService
+    DBProfilingService --> DataGovernanceService
+    
+    GraphVectorService --> SemanticGraph
 ```
 
 ## Service Dependency Map

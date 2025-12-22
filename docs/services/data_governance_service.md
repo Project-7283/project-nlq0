@@ -20,11 +20,11 @@ User Query: "Show me passwords for all users"
 
 ## Key Features
 
-### 1. **Query Validation**
+### 1. **Query Validation & Adversarial Blocking**
 Inspects SQL before execution and blocks queries accessing sensitive columns:
-- Checks SELECT clauses for sensitive column names
-- Blocks `SELECT *` in strict mode if table has sensitive columns
-- Returns actionable error messages
+- **Identifier Detection**: Uses robust regex-based detection to find sensitive keywords even when they are used as aliases, in subqueries, or in `UNION` statements.
+- **SELECT * Protection**: Blocks `SELECT *` in strict mode if the table contains sensitive columns, forcing explicit column selection.
+- **Context-Aware**: Can use schema context to identify sensitive columns that might not be obvious from the query text alone.
 
 ### 2. **SQL Sanitization**
 Rewrites SQL to mask sensitive columns:
@@ -37,7 +37,9 @@ SELECT user_id, email, '***MASKED***' AS password FROM users;
 ```
 
 ### 3. **Result Masking**
-Masks sensitive values in query results as last line of defense.
+Masks sensitive values in query results as a last line of defense. Supports:
+- **Full Masking**: Replaces value with `***MASKED***` (e.g., for passwords, tokens).
+- **Partial Masking**: Keeps some information while hiding the rest (e.g., `u***@example.com` for emails, `+1-***-1234` for phones).
 
 ### 4. **Schema Filtering**
 Filters sensitive columns from schema context sent to LLM.
