@@ -125,6 +125,15 @@ class SemanticGraph:
             print(f"Edge from '{from_node}' to '{to_node}' does not exist.")
             return None
         return copy.deepcopy(self.graph[from_node][to_node])
+
+    def update_edge_weight(self, from_node, to_node, new_weight):
+        """
+        Updates the weight of an existing edge.
+        """
+        if from_node in self.graph and to_node in self.graph[from_node]:
+            self.graph[from_node][to_node]['weight'] = new_weight
+            return True
+        return False
     
     def save_to_json(self, file_path):
         """

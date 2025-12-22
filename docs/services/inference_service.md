@@ -1,41 +1,64 @@
 # Inference Service
 
-## File: `src/services/inference.py`
+**File:** `src/services/inference.py`
 
-This module provides a unified interface for interacting with various Large Language Models (LLMs).
+## Overview
+Provides a unified interface to multiple LLM providers (Gemini, OpenAI, Ollama) with resiliency (circuit breakers, retries) and structured outputs used across intent analysis, SQL generation, and failure analysis.
 
-## Protocol: `InferenceServiceProtocol`
+## Responsibilities
+- Normalize LLM calls behind `InferenceServiceProtocol`.
+- Provide sync/async chat, summaries, and structured JSON outputs.
+- Apply circuit breakers and timeouts per provider.
 
-Defines the contract that all inference services must follow.
+## Dependencies
+- Environment keys: `OPENAI_API_KEY`, `GEMINI_API_KEY`.
+- `httpx` / provider SDKs for transport.
+- Circuit breaker utilities in `src/utils/circuit_breaker.py`.
 
-*   `get_summary(content: str, max_words: int) -> str`
-*   `get_structured_output(content: str, json_schema: Dict[str, Any]) -> Dict[str, Any]`
+## Data Flow (Mermaid)
+```mermaid
+flowchart TD
+    Client[Caller Service] --> Proto[InferenceServiceProtocol]
+    Proto --> Provider[Provider Adapter]
+    Provider --> LLMAPI[LLM API]
+    LLMAPI --> Provider
+    Provider --> Client
+```
 
-## Class: `GeminiService`
+## Key Algorithms / Patterns
+- **Circuit Breaker** per provider to avoid cascading failures.
+- **Structured Output Parsing**: LLM prompt templates that force JSON; fallback to regex cleanup on malformed JSON.
+- **Provider Fallbacks**: Container can switch providers via config; adapters share the same protocol.
 
-Implementation of `InferenceServiceProtocol` using Google's Gemini API.
+## API Surface (Protocol)
+- `get_summary(content, max_words=100)` / `get_summary_async`
+- `get_structured_output(content, json_schema)` / async variant
+- `analyze_intent(...)` (provider-specific helpers)
+- `chat_completion(message, context=None)` / async variant
 
-### Configuration
-*   Requires `GEMINI_API_KEY` environment variable.
-*   Uses `gemini-2.5-flash` model by default.
+## Key Methods & Complexity
+- `get_summary` — prompt + provider call; time dominated by LLM latency $O(LLM)$, negligible local $O(|content|)$.
+- `get_structured_output` — same as above; includes JSON parse $O(|response|)$.
+- `chat_completion` — LLM latency bound; streaming variants $O(|tokens|)$ to consume.
+- `analyze_intent` — lightweight prompt assembly $O(|context|)$ plus LLM $O(LLM)$.
 
-### Key Methods
+## Method Flow (Mermaid)
+```mermaid
+flowchart TD
+    Caller --> Build[build prompt]
+    Build --> Choose[select provider adapter]
+    Choose --> Circuit[circuit breaker + timeout]
+    Circuit --> LLM[provider API]
+    LLM --> Parse[parse/validate JSON]
+    Parse --> Return[structured result]
+```
 
-#### `get_structured_output(self, content: str, json_schema: Dict[str, Any]) -> Dict[str, Any]`
-Generates a structured JSON response from the LLM based on a provided schema.
+## Implementations
+- `GeminiService` (requires `GEMINI_API_KEY`, model `gemini-2.5-flash`).
+- `OpenAIService` (requires `OPENAI_API_KEY`, model configurable).
+- `OllamaService` (local model name via `LLM_MODEL`).
+- `ModelInferenceService` (wrapper/facade for routing).
 
-*   **Process:**
-    1.  Constructs a prompt including the JSON schema and the content.
-    2.  Calls the Gemini API.
-    3.  Parses the response text to extract the JSON object.
-    4.  Handles potential JSON parsing errors.
-
-#### `get_summary(self, content: str, max_words: int = 100) -> str`
-Generates a text summary of the provided content.
-
-## Other Implementations
-
-The module also contains (or is designed to support) other implementations like:
-*   `OllamaService`: For local LLM inference (e.g., Llama 2, Mistral).
-*   `OpenAIService`: For OpenAI's GPT models.
-*   `ModelInferenceService`: A wrapper or base class for model interactions.
+## Constraints
+- Requests must respect provider rate limits; circuit breaker opens on repeated failures.
+- JSON coercion may require defensive parsing when LLM output is malformed.

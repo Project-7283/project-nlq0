@@ -101,27 +101,57 @@ classDiagram
     class StreamlitApp {
         +submit_query()
         +display_results()
+        +collect_feedback()
     }
     class LangGraphFlow {
         +invoke(state)
     }
     class Container {
+        -_instance: Container
+        +get_instance()
         +get_mysql_service()
-        +get_llm_service()
+        +get_inference_service()
         +get_governance_service()
+        +get_feedback_service()
+        +get_graph_evolution_service()
+        +get_semantic_graph()
     }
-    class NLQIntentAnalyzer
-    class SQLGenerationService
-    class MySQLService
-    class GraphVectorService
-    class DataGovernanceService
-    class SemanticGraph
+    class NLQIntentAnalyzer {
+        +analyze_intent_async()
+    }
+    class SQLGenerationService {
+        +generate_sql_async()
+    }
+    class MySQLService {
+        +execute_query()
+    }
+    class GraphVectorService {
+        +search()
+    }
+    class DataGovernanceService {
+        +is_safe_query()
+        +mask_results()
+    }
+    class SemanticGraph {
+        +find_path()
+        +update_edge_weight()
+    }
+    class FeedbackService {
+        +log_feedback()
+    }
+    class GraphEvolutionService {
+        +process_positive_feedback()
+        +process_negative_feedback()
+    }
     class ModelInferenceService
     class OpenAIService
     class SchemaGraphService
     class DBProfilingService
 
     StreamlitApp --> LangGraphFlow : triggers
+    StreamlitApp --> FeedbackService : logs feedback
+    StreamlitApp --> GraphEvolutionService : triggers evolution
+    
     LangGraphFlow --> NLQIntentAnalyzer
     LangGraphFlow --> SQLGenerationService
     LangGraphFlow --> MySQLService
@@ -129,6 +159,8 @@ classDiagram
     Container --> MySQLService : manages
     Container --> ModelInferenceService : manages
     Container --> DataGovernanceService : manages
+    Container --> FeedbackService : manages
+    Container --> GraphEvolutionService : manages
     
     NLQIntentAnalyzer --> GraphVectorService
     NLQIntentAnalyzer --> ModelInferenceService
@@ -146,6 +178,57 @@ classDiagram
     DBProfilingService --> DataGovernanceService
     
     GraphVectorService --> SemanticGraph
+    
+    GraphEvolutionService --> SemanticGraph : updates
+    GraphEvolutionService --> FeedbackService : reads
+    GraphEvolutionService --> ModelInferenceService : analyzes
+```
+
+## Dependency Injection (DI) Visualization
+
+The system uses a centralized `Container` (Singleton) to wire all dependencies. This ensures that services like `SQLGenerationService` don't instantiate their own dependencies (like `MySQLService` or `InferenceService`), but receive them ready-to-use.
+
+```mermaid
+graph TD
+    subgraph "DI Container"
+        Config[Configuration (.env)]
+        
+        subgraph "Core Services"
+            LLM[Inference Service]
+            DB[MySQL Service]
+            Gov[Governance Service]
+            Vector[Vector Service]
+            Graph[Semantic Graph]
+            FB[Feedback Service]
+        end
+        
+        subgraph "Composite Services"
+            Intent[Intent Analyzer]
+            SQLGen[SQL Generator]
+            Evol[Evolution Service]
+        end
+        
+        Config --> LLM
+        Config --> DB
+        
+        Gov --> DB
+        Gov --> SQLGen
+        
+        LLM --> Intent
+        LLM --> SQLGen
+        LLM --> Evol
+        
+        Vector --> Intent
+        Graph --> Intent
+        Graph --> SQLGen
+        Graph --> Evol
+        
+        DB --> SQLGen
+        FB --> Evol
+    end
+    
+    Client[Main App] -->|Container.get_instance()| Container
+    Container -->|get_sql_generator()| SQLGen
 ```
 
 ## Service Dependency Map

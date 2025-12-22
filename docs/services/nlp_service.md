@@ -1,51 +1,51 @@
 # NLP Service
 
-## Class: `NLQIntentAnalyzer`
-
 **File:** `src/services/nlp.py`
 
-### Description
-The `NLQIntentAnalyzer` service is responsible for analyzing the user's natural language query to extract the intent, specifically identifying the starting point, ending point, and any conditions for traversing the semantic graph.
+## Overview
+`NLQIntentAnalyzer` transforms a natural language query into graph traversal hints (tables, joins, conditions) using retrieval + LLM classification.
 
-### Dependencies
-*   `src.services.inference.InferenceServiceProtocol`: Interface for LLM interaction.
-*   `src.services.vector_service.GraphVectorService`: (Optional) Service for semantic search over graph nodes.
-*   `src.modules.semantic_graph.SemanticGraph`: The semantic graph structure.
+## Responsibilities
+- Retrieve relevant schema nodes via semantic search.
+- Prompt the LLM to emit intent, tables, joins, and filters.
+- Validate and normalize structured intent.
 
-### Key Methods
+## Dependencies
+- `InferenceServiceProtocol` (LLM).
+- `GraphVectorService` (semantic search over graph nodes).
+- `SemanticGraph` (schema graph).
 
-#### `__init__(self, model: InferenceServiceProtocol, vector_service: Optional[GraphVectorService] = None)`
-Initializes the analyzer with an LLM model and an optional vector service.
+## Data Flow (Mermaid)
+```mermaid
+flowchart TD
+    Query[User Query] --> Embed[Embed & Search]
+    Embed --> TopK[Top-K Nodes]
+    TopK --> Prompt[Build Prompt]
+    Prompt --> LLM[LLM Structured Output]
+    LLM --> Intent[Intent JSON]
+    Intent --> Flow[LangGraph Flow]
+```
 
-#### `analyze_intent(self, user_query: str, graph: SemanticGraph) -> Optional[Dict[str, Any]]`
-Analyzes the user query to extract graph search parameters.
+## Algorithm
+1. Embed query with vector service; fetch top-k nodes.
+2. Build prompt listing candidate tables/columns + user query.
+3. Ask LLM for JSON: `{tables, joins, filters, intent}`.
+4. Validate keys; default to safe fallbacks if missing.
 
-*   **Input:**
-    *   `user_query`: The natural language query string.
-    *   `graph`: The `SemanticGraph` object representing the database schema.
-*   **Process:**
-    1.  **Context Retrieval:** If `vector_service` is available, it searches for the top-k most relevant nodes (tables/columns) in the graph based on the user query. Otherwise, it uses all node names.
-    2.  **Prompt Construction:** Constructs a prompt for the LLM that includes the available nodes and the user query.
-    3.  **LLM Call:** Calls the LLM (e.g., Gemini) to get a structured output containing `start_node`, `end_node`, and `condition`.
-    4.  **Validation:** Validates the returned JSON structure.
-*   **Output:** A dictionary with keys `start_node`, `end_node`, and `condition`, or `None` if extraction fails.
+## Constraints
+- Relies on vector store freshness; regenerate embeddings after schema changes.
+- LLM output may be malformed; must validate/repair JSON.
 
-### Usage Example
+## Key Methods
+- `analyze_intent(user_query, graph) -> dict` — embed + search $O(E + N)$ where $E$ embed cost, $N$ nodes scanned by vector search (sublinear with index); prompt + LLM $O(LLM)$; JSON validation $O(|response|)$.
 
-```python
-from src.services.nlp import NLQIntentAnalyzer
-from src.services.inference import GeminiService
-from src.services.vector_service import GraphVectorService
-from src.modules.semantic_graph import SemanticGraph
-
-# Setup
-model = GeminiService()
-vector_service = GraphVectorService()
-graph = SemanticGraph.load_from_json("schemas/ecommerce.json")
-analyzer = NLQIntentAnalyzer(model=model, vector_service=vector_service)
-
-# Analyze
-intent = analyzer.analyze_intent("Show me all orders for user John", graph)
-print(intent)
-# Output: {'start_node': ['users'], 'end_node': ['orders'], 'condition': '...'}
+## Method Flow (Mermaid)
+```mermaid
+flowchart TD
+    Q[User Query] --> Embed[embed]
+    Embed --> Search[search_nodes]
+    Search --> Prompt[build prompt]
+    Prompt --> LLM[LLM classify]
+    LLM --> Validate[validate/repair JSON]
+    Validate --> Intent[intent struct]
 ```

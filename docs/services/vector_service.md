@@ -1,34 +1,45 @@
 # Vector Service
 
-## Class: `GraphVectorService`
-
 **File:** `src/services/vector_service.py`
 
-### Description
-This service manages the vector embeddings of the semantic graph nodes. It uses ChromaDB to store and retrieve node information, enabling semantic search to map user queries to graph nodes (tables/columns).
+## Overview
+Indexes semantic graph nodes into ChromaDB using Ollama embeddings for fast semantic retrieval of tables/columns relevant to a user query.
 
-### Dependencies
-*   `chromadb`: Vector database.
-*   `chromadb.utils.embedding_functions.OllamaEmbeddingFunction`: Uses Ollama (e.g., `nomic-embed-text`) for generating embeddings.
+## Responsibilities
+- Generate embeddings for nodes (type, id, properties).
+- Upsert into ChromaDB collection.
+- Retrieve top-k nodes for query text; feed Intent Analyzer.
 
-### Key Methods
+## Dependencies
+- `chromadb` client.
+- `OllamaEmbeddingFunction` (e.g., `nomic-embed-text`).
+- `SemanticGraph` as source of nodes.
 
-#### `__init__(self, collection_name="schema_nodes")`
-Initializes the ChromaDB client and the embedding function.
+## Data Flow (Mermaid)
+```mermaid
+flowchart TD
+    Graph[Semantic Graph JSON] --> Indexer[index_graph]
+    Indexer --> Chroma[(ChromaDB)]
+    Query[User Query] --> Search[search_nodes]
+    Search --> Chroma
+    Chroma --> Results[Top-K Node IDs]
+    Results --> Intent[Intent Analyzer]
+```
 
-#### `index_graph(self, graph: SemanticGraph)`
-Indexes the graph nodes into ChromaDB.
+## Key Methods
+- `index_graph(graph)` — embeds $N$ nodes; cost $O(N \times E)$ for embedding plus upsert.
+- `search_nodes(query, k=50)` — embed query $O(E)$; vector search sublinear $O(\log N)$ (index-dependent) returning top-$k$.
 
-*   **Process:**
-    *   Iterates through all nodes in the `SemanticGraph`.
-    *   Constructs a text description for each node (Type + ID + Properties).
-    *   Upserts the node ID, description (document), and metadata into the ChromaDB collection.
+## Method Flow (Mermaid)
+```mermaid
+flowchart TD
+    Build[index_graph] --> Embed[embed nodes]
+    Embed --> Upsert[upsert to Chroma]
+    Query[search_nodes] --> QEmbed[embed query]
+    QEmbed --> KNN[vector search]
+    KNN --> Out[top-k node ids]
+```
 
-#### `search_nodes(self, query: str, k: int = 50) -> list[str]`
-Performs a semantic search to find relevant nodes.
-
-*   **Input:** User query string.
-*   **Process:**
-    *   Queries the ChromaDB collection with the input text.
-    *   Retrieves the top-`k` matching node IDs.
-*   **Output:** A list of node IDs.
+## Constraints
+- Embeddings must be refreshed after graph changes (schema updates, virtual nodes).
+- Collection name default: `schema_nodes`; configurable in ctor.

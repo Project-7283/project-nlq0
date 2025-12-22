@@ -1,44 +1,59 @@
 # SQL Generation Service
 
-## Class: `SQLGenerationService`
-
 **File:** `src/services/sql_generation_service.py`
 
-### Description
-This service handles the generation of SQL queries from a given semantic graph path and user query. It uses an LLM to construct the SQL and the `MySQLService` to execute it.
+## Overview
+Transforms graph paths and user intent into governed SQL using LLM prompting. Enforces governance, injects virtual node fragments, and calls MySQL for execution.
 
-### Dependencies
-*   `src.services.inference.InferenceServiceProtocol`: LLM interface.
-*   `src.services.mysql_service.MySQLService`: Database execution service.
-*   `src.modules.semantic_graph.SemanticGraph`: Graph structure.
+## Responsibilities
+- Convert `SemanticGraph` path + intent into LLM prompt.
+- Incorporate governance filters (remove sensitive columns) before prompt.
+- Handle virtual nodes (mandatory SQL fragments).
+- Execute SQL via MySQLService; retry/correct on errors.
 
-### Key Methods
+## Dependencies
+- `InferenceServiceProtocol` (LLM).
+- `MySQLService` (execution).
+- `DataGovernanceService` (filter/mask).
+- `SemanticGraph` (edges, node metadata).
 
-#### `path_to_sql_prompt(self, path: List[str], graph: SemanticGraph) -> str`
-Constructs a detailed prompt for the LLM.
+## Data Flow (Mermaid)
+```mermaid
+flowchart TD
+    Path[Graph Path] --> Prompt[path_to_sql_prompt]
+    Intent[User Intent] --> Prompt
+    Prompt --> LLM[LLM]
+    LLM --> SQL[Draft SQL]
+    SQL --> Gov{Governance Check}
+    Gov -- Block --> Fix[correct_sql]
+    Gov -- OK --> Exec[MySQL]
+    Exec --> Results
+```
 
-*   **Input:** A list of nodes representing the path and the graph object.
-*   **Process:**
-    *   Iterates through the path to describe edges (relationships) and conditions.
-    *   Fetches schema details (columns) for the tables in the path.
-    *   Combines this info into a prompt asking for a JSON response containing the SQL.
+## Key Algorithms
+- **Prompt Construction**: Enumerate nodes/edges; for `virtual` nodes inject `sql_fragment` as mandatory clause.
+- **Governance Filtering**: Remove sensitive columns from prompt context; sanitize SQL before execution.
+- **Correction Loop**: On DB error, re-prompt LLM with error details up to retry limit.
 
-#### `generate_sql(self, path: List[str], graph: SemanticGraph, user_query: str = "") -> str`
-Generates the SQL query.
+## Key Methods
+- `path_to_sql_prompt(path, graph) -> str` — walks nodes/edges; $O(|path|)$.
+- `generate_sql(path, graph, user_query="") -> str` — prompt build $O(|path|)$, LLM $O(LLM)$, governance filter $O(L \times K)$.
+- `correct_sql(invalid_sql, error_message, user_query) -> str` — retry loop up to $R$; cost $R \times O(LLM)$.
+- `run_sql(sql) -> List` — MySQL execution; row scan $O(R \times C)$ plus governance masking.
 
-*   **Process:**
-    1.  Calls `path_to_sql_prompt` to get the base prompt.
-    2.  Appends the user's natural language query.
-    3.  Calls the LLM to get a structured JSON output.
-    4.  Extracts and returns the SQL string.
+## Method Flow (Mermaid)
+```mermaid
+flowchart TD
+    Path[path_to_sql_prompt] --> Prompt
+    Prompt --> LLM[LLM generate]
+    LLM --> Draft[generated SQL]
+    Draft --> Gov[governance validate]
+    Gov -- Block --> Fix[correct_sql]
+    Fix --> Gov
+    Gov -- OK --> Exec[run_sql]
+    Exec --> Return[rows]
+```
 
-#### `correct_sql(self, invalid_sql: str, error_message: str, user_query: str) -> str`
-Attempts to fix a failed SQL query.
-
-*   **Input:** The invalid SQL, the error message from the database, and the original user query.
-*   **Process:**
-    *   Constructs a prompt asking the LLM to fix the SQL based on the error.
-    *   Returns the corrected SQL.
-
-#### `run_sql(self, sql: str) -> List[Any]`
-Executes the generated SQL using the underlying `MySQLService`.
+## Constraints
+- Assumes read-only queries; DML/DDL blocked upstream.
+- Virtual nodes carry fragments that must be honored to keep intent fidelity.

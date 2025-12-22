@@ -656,7 +656,7 @@
         "condition": "association"
       },
       "users": {
-        "weight": 0.2,
+        "weight": 0.19,
         "condition": "foreign_key",
         "properties": {
           "source_attribute": "orders.user_id",
@@ -1788,7 +1788,7 @@
         }
       },
       "orders": {
-        "weight": 0.2,
+        "weight": 0.19,
         "condition": "foreign_key",
         "properties": {
           "source_attribute": "orders.user_id",

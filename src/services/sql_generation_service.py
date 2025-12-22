@@ -78,6 +78,14 @@ class SQLGenerationService:
             node_props = node_data.get('properties', {})
             
             node_desc = [f"\n## {node} ({node_type})"]
+            
+            # Handle Virtual Nodes
+            if node_type == 'virtual':
+                sql_fragment = node_props.get('sql_fragment')
+                if sql_fragment:
+                    node_desc.append(f"\n**MANDATORY SQL FRAGMENT**: `{sql_fragment}`")
+                    node_desc.append("You MUST incorporate this fragment into your query logic.")
+
             if node_props:
                 formatted_props = self._format_properties(node_props)
                 if formatted_props and formatted_props != "(no properties)":

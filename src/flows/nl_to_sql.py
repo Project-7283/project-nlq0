@@ -156,7 +156,7 @@ builder.add_edge("correct_sql", "run_sql")
 
 nlq_to_sql_graph = builder.compile()
 
-async def process_nl_query_async(user_query: str) -> tuple[str, dict]:
+async def process_nl_query_async(user_query: str) -> tuple[str, Any, dict]:
     start_time = time.time()
     state = {"user_query": user_query}
     final_state = await nlq_to_sql_graph.ainvoke(state)
@@ -164,7 +164,14 @@ async def process_nl_query_async(user_query: str) -> tuple[str, dict]:
     duration = time.time() - start_time
     performance_logger.info(f"Flow execution completed in {duration:.2f}s | Query: {user_query[:50]}...")
     
-    return (final_state.get('sql'), final_state.get('results'))
+    # Extract context for feedback (tables, joins, etc.)
+    context = {
+        "tables": final_state.get("tables", []),
+        "joins": final_state.get("joins", []),
+        "intent": final_state.get("intent", "")
+    }
+    
+    return (final_state.get('sql'), final_state.get('results'), context)
 
-def process_nl_query(user_query: str) -> tuple[str, dict]:
+def process_nl_query(user_query: str) -> tuple[str, Any, dict]:
     return asyncio.run(process_nl_query_async(user_query))

@@ -6,6 +6,8 @@ from src.services.data_governance_service import DataGovernanceService
 from src.services.vector_service import GraphVectorService
 from src.services.nlp import NLQIntentAnalyzer
 from src.services.sql_generation_service import SQLGenerationService
+from src.services.feedback_service import FeedbackService
+from src.services.graph_evolution_service import GraphEvolutionService
 from src.modules.semantic_graph import SemanticGraph
 from src.utils.logging import app_logger
 
@@ -100,3 +102,18 @@ class Container:
                 governance_service=self.get_governance_service()
             )
         return self.services["sql_generator"]
+
+    def get_feedback_service(self) -> FeedbackService:
+        if "feedback" not in self.services:
+            self.services["feedback"] = FeedbackService()
+        return self.services["feedback"]
+
+    def get_graph_evolution_service(self) -> GraphEvolutionService:
+        if "evolution" not in self.services:
+            self.services["evolution"] = GraphEvolutionService(
+                graph=self.get_semantic_graph(),
+                feedback_service=self.get_feedback_service(),
+                inference_service=self.get_inference_service(),
+                graph_path=self.config["graph_path"]
+            )
+        return self.services["evolution"]

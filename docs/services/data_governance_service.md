@@ -1,204 +1,91 @@
 # Data Governance Service
 
 ## Overview
+`DataGovernanceService` enforces query-time and result-time controls so that no sensitive data leaks through the NLQ-to-SQL pipeline. It blocks adversarial SQL, strips or masks sensitive attributes, and ensures profiling samples are safe.
 
-The `DataGovernanceService` enforces data security and governance policies throughout the NLQ-to-SQL pipeline. Unlike simple masking during profiling, this service provides **query-time security** to prevent unauthorized access to sensitive data.
+## Responsibilities
+- Validate generated SQL for sensitive access and adversarial patterns.
+- Sanitize SQL by masking sensitive columns at query-time.
+- Mask result sets and profiling samples at source.
+- Provide safe schema context to upstream LLM prompts.
 
-## Architecture
+## Dependencies
+- `MySQLService` (execution layer) for SQL validation/masking integration.
+- `SQLGenerationService` to pre-filter schema context.
+- `DBProfilingService` to mask samples at source.
+- Config: `DATA_GOVERNANCE_ENABLED`, `DATA_GOVERNANCE_STRICT_MODE`, `SENSITIVE_COLUMNS_CSV`.
 
-```
-User Query: "Show me passwords for all users"
-         ↓
-    Intent Extraction
-         ↓
-    SQL Generation: "SELECT email, password FROM users"
-         ↓
-    🔒 Data Governance Check ← BLOCKS QUERY HERE
-         ↓
-    ❌ Query Rejected: "Access to sensitive column 'password' denied"
-```
-
-## Key Features
-
-### 1. **Query Validation & Adversarial Blocking**
-Inspects SQL before execution and blocks queries accessing sensitive columns:
-- **Identifier Detection**: Uses robust regex-based detection to find sensitive keywords even when they are used as aliases, in subqueries, or in `UNION` statements.
-- **SELECT * Protection**: Blocks `SELECT *` in strict mode if the table contains sensitive columns, forcing explicit column selection.
-- **Context-Aware**: Can use schema context to identify sensitive columns that might not be obvious from the query text alone.
-
-### 2. **SQL Sanitization**
-Rewrites SQL to mask sensitive columns:
-```sql
--- Original
-SELECT user_id, email, password FROM users;
-
--- Sanitized
-SELECT user_id, email, '***MASKED***' AS password FROM users;
+## Data Flow (Mermaid)
+```mermaid
+flowchart TD
+    Query[Generated SQL] --> GovCheck{Governance Check}
+    GovCheck -- Blocked --> Err[SecurityError]
+    GovCheck -- Safe --> Sanitize[Sanitize SQL]
+    Sanitize --> Exec[MySQLService]
+    Exec --> Mask[Mask Results]
+    Mask --> Return[Return to UI]
 ```
 
-### 3. **Result Masking**
-Masks sensitive values in query results as a last line of defense. Supports:
-- **Full Masking**: Replaces value with `***MASKED***` (e.g., for passwords, tokens).
-- **Partial Masking**: Keeps some information while hiding the rest (e.g., `u***@example.com` for emails, `+1-***-1234` for phones).
+## Key Algorithms
+- **Sensitive Identifier Detection**: Regex-based scanning of identifiers/aliases/subqueries; optional strict `SELECT *` blocking.
+- **SQL Sanitization**: Replace sensitive columns with `'***MASKED***'` before execution.
+- **Result Masking**: Full/partial masking on returned rows.
+- **Schema Filtering for LLM**: Remove sensitive columns from prompt context.
 
-### 4. **Schema Filtering**
-Filters sensitive columns from schema context sent to LLM.
+## Key Methods & Complexity
+- `is_sensitive_column(name)` — lookup against cached keyword set; $O(1)$ time, $O(K)$ memory for keywords.
+- `validate_query(sql, schema_context=None)` — regex scan across tokens; $O(L \times K)$ where $L$ is SQL length and $K$ keyword count.
+- `sanitize_sql(sql, mask_value="'***MASKED***'")` — token scan with replacements; $O(L)$.
+- `mask_results(rows)` — iterates rows/cols; $O(R \times C)$ where $R$ rows and $C$ masked columns.
+- `get_safe_columns(table_columns)` — filters list; $O(C)$.
+
+## Method Flow (Mermaid)
+```mermaid
+flowchart TD
+    SQL[Input SQL] --> Validate[validate_query]
+    Validate -- Block --> Error[SecurityError]
+    Validate -- OK --> Sanitize[sanitize_sql]
+    Sanitize --> Exec[MySQLService]
+    Exec --> Mask[mask_results]
+    Mask --> Return[Safe Rows]
+```
+
+## Constraints & Notes
+- Operates in read-only contexts; write queries are blocked upstream.
+- Strict mode may reject `SELECT *` on tables containing sensitive columns.
+- Masking happens before data leaves the database when possible.
+
+## API Surface
+- `is_sensitive_column(name) -> bool`
+- `validate_query(sql, schema_context=None) -> (bool, msg)`
+- `sanitize_sql(sql, mask_value="'***MASKED***'") -> str`
+- `mask_results(rows) -> rows`
+- `get_safe_columns(table_columns) -> filtered`
+
+## Usage
+```python
+gov = DataGovernanceService()
+ok, err = gov.validate_query("SELECT email, password FROM users")
+if not ok:
+    raise SecurityError(err)
+
+safe_sql = gov.sanitize_sql("SELECT email, password FROM users")
+```
 
 ## Configuration
-
-### Environment Variables
-
 ```bash
-# Enable/disable governance
 DATA_GOVERNANCE_ENABLED=true
-
-# Strict mode: blocks SELECT * queries
 DATA_GOVERNANCE_STRICT_MODE=true
-
-# Path to sensitive keywords CSV
 SENSITIVE_COLUMNS_CSV=config/sensitive_keywords.csv
 ```
 
-### Sensitive Keywords CSV Format
-
+CSV format:
 ```csv
 keyword,mask_type
 password,full
 token,full
-secret,full
-api_key,full
 email,partial
-phone,partial
-ssn,full
 ```
-
-Currently only `keyword` column is used. The `mask_type` column is for future enhancements.
-
-## Integration Points
-
-### 1. MySQLService Integration
-
-```python
-from src.services.mysql_service import MySQLService
-from src.services.data_governance_service import DataGovernanceService
-
-class SecureMySQLService(MySQLService):
-    def __init__(self, *args, governance_service=None, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.governance = governance_service or DataGovernanceService()
-    
-    def execute_query(self, sql: str, asDict=True):
-        # Validate query before execution
-        is_valid, error_msg = self.governance.validate_query(sql)
-        if not is_valid:
-            raise SecurityError(error_msg)
-        
-        # Execute query
-        results = super().execute_query(sql, asDict)
-        
-        # Mask results
-        return self.governance.mask_results(results)
-```
-
-### 2. SQLGenerationService Integration
-
-```python
-from src.services.sql_generation_service import SQLGenerationService
-from src.services.data_governance_service import DataGovernanceService
-
-class SecureSQLGenerationService(SQLGenerationService):
-    def __init__(self, *args, governance_service=None, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.governance = governance_service or DataGovernanceService()
-    
-    def generate_sql(self, path, graph, user_query):
-        # Filter sensitive columns from schema context
-        schema_context = self._get_schema_context(path, graph)
-        safe_schema = self.governance.get_safe_columns(schema_context)
-        
-        # Generate SQL with filtered schema
-        sql = self._generate_with_llm(safe_schema, user_query)
-        
-        # Validate generated SQL
-        is_valid, error_msg = self.governance.validate_query(sql, schema_context)
-        if not is_valid:
-            # Regenerate with stricter context or return error
-            raise ValueError(f"Generated SQL violates governance: {error_msg}")
-        
-        return sql
-```
-
-### 3. DBProfilingService Integration
-
-Already integrated - uses `is_sensitive_column()` to mask sample data.
-
-## API Reference
-
-### Class: `DataGovernanceService`
-
-#### `__init__(sensitive_keywords_csv: Optional[str] = None)`
-Initialize governance service with optional custom keywords.
-
-#### `is_sensitive_column(column_name: str) -> bool`
-Check if column name contains sensitive keywords.
-
-#### `validate_query(sql: str, schema_context: Optional[Dict] = None) -> Tuple[bool, Optional[str]]`
-Validate SQL query for governance compliance.
-
-**Returns:**
-- `(True, None)` if valid
-- `(False, "error message")` if blocked
-
-#### `sanitize_sql(sql: str, mask_value: str = "'***MASKED***'") -> str`
-Rewrite SQL to mask sensitive columns.
-
-#### `mask_results(results: List[Dict]) -> List[Dict]`
-Mask sensitive values in query results.
-
-#### `get_safe_columns(table_columns: Dict[str, List[str]]) -> Dict[str, List[str]]`
-Filter sensitive columns from schema.
-
-#### `get_governance_summary() -> Dict[str, Any]`
-Get configuration summary.
-
-## Usage Examples
-
-### Basic Validation
-
-```python
-from src.services.data_governance_service import DataGovernanceService
-
-governance = DataGovernanceService()
-
-# Check column
-if governance.is_sensitive_column("user_password"):
-    print("Sensitive column detected!")
-
-# Validate query
-sql = "SELECT email, password FROM users"
-is_valid, error = governance.validate_query(sql)
-if not is_valid:
-    print(f"Query blocked: {error}")
-```
-
-### SQL Sanitization
-
-```python
-sql = "SELECT user_id, email, password, api_token FROM users LIMIT 10"
-sanitized = governance.sanitize_sql(sql)
-print(sanitized)
-# Output: SELECT user_id, email, '***MASKED***' AS password, '***MASKED***' AS api_token FROM users LIMIT 10
-```
-
-### Result Masking
-
-```python
-results = [
-    {"user_id": 1, "email": "user@example.com", "password": "secret123"},
-    {"user_id": 2, "email": "admin@example.com", "password": "admin456"}
-]
-
-masked = governance.mask_results(results)
 # Output: [
 #   {"user_id": 1, "email": "user@example.com", "password": "***MASKED***"},
 #   {"user_id": 2, "email": "admin@example.com", "password": "***MASKED***"}

@@ -1,31 +1,50 @@
 # DB Reader Service
 
-## Class: `DBSchemaReaderService`
-
 **File:** `src/services/db_reader.py`
 
-### Description
-A service designed to inspect the database metadata. It queries the database `information_schema` and system tables to retrieve information about tables, views, columns, and stored procedures.
+## Overview
+Reads database metadata from `information_schema` to bootstrap graph construction and profiling.
 
-### Dependencies
-*   `src.services.mysql_service.MySQLService`: Used to execute metadata queries.
+## Responsibilities
+- List databases (excluding system DBs).
+- Enumerate tables/views, columns, indexes, FKs.
+- Retrieve view definitions and stored procedures.
+- Provide structured metadata to SchemaGraphService/DBProfilingService.
 
-### Key Methods
+## Dependencies
+- `MySQLService` for executing metadata SQL.
 
-#### `get_databases(self)`
-Returns a list of available databases, excluding system databases.
+## Data Flow (Mermaid)
+```mermaid
+flowchart TD
+	DB[(MySQL)] --> Reader[DBReader]
+	Reader --> Tables[Tables/Views]
+	Reader --> Columns[Columns/FKs]
+	Tables --> SchemaBuilder[SchemaGraphService]
+	Columns --> SchemaBuilder
+	Columns --> Profiler[DBProfilingService]
+```
 
-#### `get_tables(self, database)`
-Returns a list of base tables and views in the specified database.
+## Key Methods
+- `get_databases()` — list non-system schemas; $O(D)$ where $D$ schemas.
+- `get_tables(database)` — fetch table/view names; $O(T)$.
+- `get_table_schema(database, table)` — columns + FKs; $O(C + F)$.
+- `get_view_schema(database, view)` — parse definition; $O(|V|)$ by definition length.
+- `get_stored_procedures(database)` — $O(P)$ procedures.
+- `read_full_schema()` — orchestrates above; $O(D + \sum T + \sum(C+F))$.
 
-#### `get_table_schema(self, database, table)`
-Retrieves detailed column information (Field, Type, Key, etc.) for a specific table.
+## Method Flow (Mermaid)
+```mermaid
+flowchart TD
+	Start[read_full_schema] --> DBs[get_databases]
+	DBs --> TLoop[for each db]
+	TLoop --> Tables[get_tables]
+	Tables --> SLoop[for each table/view]
+	SLoop --> Schema[get_table_schema/get_view_schema]
+	Schema --> Procs[get_stored_procedures]
+	Procs --> Out[structured metadata]
+```
 
-#### `get_view_schema(self, database, view)`
-Retrieves the `CREATE VIEW` statement for a specific view.
-
-#### `get_stored_procedures(self, database)`
-Returns a list of stored procedure names.
-
-#### `read_full_schema(self)`
-Crawls the entire database server to build a nested dictionary representation of all databases, tables, views, and procedures.
+## Constraints
+- Read-only connection; no DDL/DML.
+- Must filter out system schemas (`information_schema`, `mysql`, etc.).
