@@ -1,0 +1,113 @@
+version: "3.8"
+
+services:
+  # SQL Query Generator Agent (main service)
+  sql-agent:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: sql-query-agent
+    ports:
+      - "9022:9022"
+    environment:
+      AGENT_ID: sql_query_agent_001
+      AGENT_NAME: SQL Query Generator Agent
+      AGENT_TYPE: data
+      PLATFORM: sql
+      PORT: 9022
+      HOST: 0.0.0.0
+      PROTOCOL_INTERFACE_URL: http://protocol-interface:8001
+      AUTO_REGISTER: "true"
+      
+      # Database
+      MYSQL_HOST: mysql
+      MYSQL_PORT: 3306
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root_password
+      MYSQL_DATABASE: nlq_database
+      
+      # LLM
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      OLLAMA_URL: http://ollama:11434
+      
+      # Logging
+      LOG_LEVEL: INFO
+    
+    depends_on:
+      - mysql
+      - protocol-interface
+    
+    networks:
+      - a2a-network
+    
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9022/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    
+    volumes:
+      - ./chroma_db:/app/chroma_db
+      - ./logs:/app/logs
+
+  # MySQL Database
+  mysql:
+    image: mysql:8.0
+    container_name: nlq-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: nlq_database
+      MYSQL_USER: nlq_user
+      MYSQL_PASSWORD: nlq_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./init/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - a2a-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+  # Protocol Interface (simulated for local testing)
+  protocol-interface:
+    image: python:3.11-slim
+    container_name: protocol-interface
+    working_dir: /app
+    command: >
+      bash -c "pip install fastapi uvicorn httpx pydantic &&
+               python protocol_interface_mock.py"
+    ports:
+      - "8001:8001"
+    volumes:
+      - ./protocol_interface_mock.py:/app/protocol_interface_mock.py
+    networks:
+      - a2a-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Ollama (optional, for local LLM)
+  # Uncomment to use local Ollama instead of Gemini
+  # ollama:
+  #   image: ollama/ollama:latest
+  #   container_name: nlq-ollama
+  #   ports:
+  #     - "11434:11434"
+  #   volumes:
+  #     - ollama_data:/root/.ollama
+  #   networks:
+  #     - a2a-network
+
+networks:
+  a2a-network:
+    driver: bridge
+
+volumes:
+  mysql_data:
+  # ollama_data:
