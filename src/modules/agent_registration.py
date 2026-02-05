@@ -26,6 +26,7 @@ async def build_agent_descriptor() -> AgentDescriptor:
         platform=config.platform,
         capabilities=[
             "generate_query",
+            "execute_query",
             "validate_query",
             "explain_query",
         ],

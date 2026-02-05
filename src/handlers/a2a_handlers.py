@@ -299,6 +299,92 @@ async def handle_explain_query(
         )
 
 
+async def handle_execute_query(
+    request: A2ATaskRequest, agent_id: str
+) -> A2ATaskResponse:
+    """
+    Handle query execution task.
+    
+    Generate SQL from natural language AND execute it.
+    
+    Input parameters:
+    - natural_language: The user's natural language query
+    - platform: Target platform ('sql', 'kql', 'spl')
+    - execute: Whether to execute the query (default: True)
+    
+    Returns: A2ATaskResponse with generated query and execution results
+    """
+    start_time = time.time()
+    
+    try:
+        params = request.parameters or {}
+        natural_language = params.get("natural_language")
+        platform = params.get("platform", "sql")
+        
+        if not natural_language:
+            raise ValueError("Missing 'natural_language' parameter")
+        
+        app_logger.info(
+            f"[A2A Task {request.task_id}] Executing {platform} query for: {natural_language[:100]}"
+        )
+        
+        # Call the existing NLQ processing pipeline which generates AND executes
+        sql_query, results = await process_nl_query_async(natural_language)
+        
+        if not sql_query:
+            raise ValueError("Failed to generate query from natural language")
+        
+        # Extract tables from query
+        tables_involved = extract_tables_from_query(sql_query)
+        
+        # Create result
+        result_content = {
+            "query": sql_query,
+            "platform": platform,
+            "results": results,
+            "row_count": len(results) if isinstance(results, list) else 0,
+            "tables_involved": tables_involved,
+            "executed": True,
+        }
+        
+        elapsed_ms = (time.time() - start_time) * 1000
+        
+        app_logger.info(
+            f"[A2A Task {request.task_id}] Query executed successfully in {elapsed_ms:.2f}ms, "
+            f"returned {len(results) if isinstance(results, list) else 0} rows"
+        )
+        
+        return A2ATaskResponse(
+            task_id=request.task_id,
+            journey_id=request.journey_id,
+            agent_id=agent_id,
+            status="success",
+            result=result_content,
+            execution_time_ms=elapsed_ms,
+            cost_info=CostInfo(
+                llm_calls=1,
+                llm_tokens=0,  # Could track actual tokens
+                execution_time_ms=elapsed_ms,
+            ),
+        )
+    
+    except Exception as e:
+        elapsed_ms = (time.time() - start_time) * 1000
+        error_msg = str(e)
+        app_logger.error(
+            f"[A2A Task {request.task_id}] Query execution failed: {error_msg}"
+        )
+        
+        return A2ATaskResponse(
+            task_id=request.task_id,
+            journey_id=request.journey_id,
+            agent_id=agent_id,
+            status="error",
+            error_message=error_msg,
+            execution_time_ms=elapsed_ms,
+        )
+
+
 def generate_query_explanation(query: str, platform: str) -> str:
     """
     Generate a human-readable explanation of the query.

@@ -22,6 +22,7 @@ from src.models.a2a import (
 )
 from src.handlers.a2a_handlers import (
     handle_generate_query,
+    handle_execute_query,
     handle_validate_query,
     handle_explain_query,
 )
@@ -179,7 +180,8 @@ async def process_a2a_task(request: A2ATaskRequest) -> A2ATaskResponse:
     Process A2A protocol task request.
     
     The action parameter determines what to do:
-    - "generate_query": Create SQL from natural language
+    - "generate_query": Create SQL from natural language (no execution)
+    - "execute_query": Generate SQL and execute it, returning results
     - "validate_query": Validate generated query
     - "explain_query": Explain what a query does
     
@@ -202,6 +204,9 @@ async def process_a2a_task(request: A2ATaskRequest) -> A2ATaskResponse:
     try:
         if action == "generate_query":
             response = await handle_generate_query(request, config.agent_id)
+        
+        elif action == "execute_query":
+            response = await handle_execute_query(request, config.agent_id)
         
         elif action == "validate_query":
             response = await handle_validate_query(request, config.agent_id)
